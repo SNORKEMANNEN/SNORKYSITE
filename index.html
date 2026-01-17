@@ -21,7 +21,7 @@
             --bg: #030305;
             --surface: #0a0a0f;
             --surface-glass: rgba(15, 15, 20, 0.6);
-            --border: rgba(255, 255, 255, 0.06); /* Tynnere, mer subtil border */
+            --border: rgba(255, 255, 255, 0.06);
             --snorky-blue: #00C2FF;  
             --snorky-pink: #FF2E93;  
             --yt-red: #FF0000;
@@ -86,10 +86,34 @@
         @keyframes loadBar { 0% { left: -50%; } 100% { left: 100%; } }
         .preloader.hide { transform: translateY(-100%); }
 
-        /* --- BACKGROUNDS --- */
+        /* --- BACKGROUNDS & ANIMATED ELEMENTS --- */
         #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0.5; }
         .noise { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('https://grainy-gradients.vercel.app/noise.svg'); opacity: 0.03; pointer-events: none; z-index: 9990; mix-blend-mode: overlay; }
         
+        /* NYE BAKGRUNNSEFFEKTER */
+        .ambient-orb {
+            position: fixed; border-radius: 50%; filter: blur(100px); opacity: 0.3; z-index: -2;
+            animation: orbFloat 10s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
+        }
+        .orb-1 { top: -10%; left: -10%; width: 600px; height: 600px; background: var(--snorky-blue); animation-duration: 15s; }
+        .orb-2 { bottom: -10%; right: -10%; width: 500px; height: 500px; background: var(--snorky-pink); animation-duration: 12s; }
+        .orb-3 { top: 40%; left: 50%; width: 300px; height: 300px; background: #6366f1; transform: translate(-50%, -50%); animation-duration: 18s; opacity: 0.2; }
+        
+        @keyframes orbFloat { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30px, 30px) scale(1.1); } }
+
+        /* Cyberpunk Grid Background */
+        .cyber-grid {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+            transform: perspective(500px) rotateX(20deg);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
         /* --- TYPOGRAPHY --- */
         h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; }
         .section-header { 
@@ -154,49 +178,59 @@
 
         /* --- HERO --- */
         .hero { height: 100vh; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; text-align: center; }
+        
         .marquee-container {
             position: absolute; inset: 0; z-index: -1; display: flex; flex-direction: column; justify-content: center; gap: 30px;
-            transform: rotate(-5deg) scale(1.2) translate3d(0,0,0); opacity: 0.5;
-            /* Vignetten er flyttet til hero-overlay for bedre lagdeling */
+            transform: rotate(-5deg) scale(1.2) translate3d(0,0,0); 
+            opacity: 1; /* OPPDATERT: Full synlighet */
             pointer-events: none;
         }
         .marquee-row { display: flex; gap: 30px; width: max-content; }
         .scroll-left { animation: scroll 120s linear infinite; }
         .scroll-right { animation: scrollReverse 120s linear infinite; }
-        .marquee-item { width: 300px; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; transition: 0.5s; opacity: 0.7; box-shadow: 0 10px 30px rgba(0,0,0,0.5); filter: grayscale(30%); }
+        
+        /* OPPDATERT: Marquee mer fargerik */
+        .marquee-item { 
+            width: 300px; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; transition: 0.5s; 
+            opacity: 1; /* Ingen fading */
+            box-shadow: 0 0 25px rgba(0, 194, 255, 0.15); /* Glow effekt */
+            filter: none; /* Fjernet grayscale */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
         @keyframes scroll { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
         @keyframes scrollReverse { from { transform: translate3d(-50%,0,0); } to { transform: translate3d(0,0,0); } }
 
-        /* UPGRADED HERO OVERLAY */
+        /* HERO OVERLAY - OPPDATERT: FJERNET BLUR */
         .hero-overlay { 
             position: relative; z-index: 2; 
-            /* Dette skaper den profesjonelle kontrasten mot bakgrunnen */
-            background: radial-gradient(circle at center, rgba(3,3,5,0.85) 0%, rgba(3,3,5,0.5) 50%, transparent 100%);
+            /* Fjernet bakgrunn, blur, border og skygge */
+            background: transparent;
             padding: 80px; 
-            border-radius: 50%;
-            backdrop-filter: blur(3px);
+            backdrop-filter: none;
             display: flex; flex-direction: column; align-items: center;
-            box-shadow: 0 0 100px 50px rgba(3,3,5,0.5);
+            box-shadow: none;
         }
         
-        .hero-badge {
-            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1);
-            padding: 6px 16px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; 
-            margin-bottom: 25px; display: inline-flex; align-items: center; gap: 8px;
-            backdrop-filter: blur(10px); color: #fff; text-transform: uppercase; letter-spacing: 1px;
-        }
-        .hero-badge span { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; }
-        
+        /* Ny gradient tittel */
         .hero-title { 
             font-size: clamp(4rem, 10vw, 9rem); margin-bottom: 20px; line-height: 0.95; 
             font-weight: 800; letter-spacing: -0.05em; 
-            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.8)); 
+            /* Lagt til kraftig drop-shadow siden blur-boksen er borte */
+            filter: drop-shadow(0 0 30px rgba(0,0,0,0.9)); 
         }
         .hero-title-main { 
-            background: linear-gradient(180deg, #fff 0%, #e0e7ff 100%); 
+            background: linear-gradient(135deg, #00C2FF, #FF2E93, #00C2FF); 
+            background-size: 200% auto;
+            animation: gradient-text-anim 5s linear infinite;
             -webkit-background-clip: text; color: transparent; display: block;
-            text-shadow: 0 0 40px rgba(255,255,255,0.2);
+            text-shadow: 0 0 50px rgba(0, 194, 255, 0.3);
         }
+        @keyframes gradient-text-anim {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+        
         .hero-title-sub { 
             background: linear-gradient(to bottom, transparent 30%, rgba(255,255,255,0.1) 100%);
             -webkit-text-stroke: 1px rgba(255,255,255,0.5); 
@@ -204,13 +238,17 @@
             position: relative;
         }
         
-        .hero-sub { color: #b0b0b0; font-size: 1.15rem; max-width: 550px; line-height: 1.6; margin-bottom: 45px; font-weight: 400; }
+        .hero-sub { 
+            color: #dbeafe; font-size: 1.15rem; max-width: 550px; line-height: 1.6; margin-bottom: 45px; font-weight: 500;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8); /* Bedre lesbarhet uten boks */
+        }
         .hero-actions { display: flex; gap: 20px; margin-top: 10px; }
 
         /* KNAPPER */
         .btn-hero {
             position: relative; padding: 16px 42px; border-radius: 100px; font-size: 1rem; font-weight: 600; text-decoration: none;
             display: inline-flex; align-items: center; gap: 10px; cursor: pointer; transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1); overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Mer skygge */
         }
         .btn-hero-yt {
             background: #fff; color: #000; border: 1px solid #fff;
@@ -227,20 +265,22 @@
         .btn-hero-yt i { color: #FF0000; }
 
         .btn-hero-sec {
-            background: rgba(255, 255, 255, 0.05); color: #fff; backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1); 
+            background: rgba(0, 0, 0, 0.6); color: #fff; backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3); 
         }
         @media (hover: hover) {
             .btn-hero-sec:hover {
-                background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.3); transform: translateY(-3px);
+                background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.5); transform: translateY(-3px);
                 box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
             }
         }
 
         /* --- SEKSJONER --- */
-        .stats-section, .news-section, .work-section, .shorts-section, .second-channel-section, .merch-section, .about-section, .gear-section, .faq-section { 
+        .stats-section, .news-section, .work-section, .shorts-section, .second-channel-section, .about-section, .gear-section, .faq-section { 
             padding: 100px 0; border-top: 1px solid var(--border); 
         }
+        /* Merch-seksjonen er fjernet fra visning */
+        .merch-section { display: none; }
 
         .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
         .card { 
@@ -284,12 +324,23 @@
         @media (hover: hover) { .btn-ultra:hover { padding-right: 50px; background: #fff; color: #000; border-color: #fff; } .btn-ultra:hover i { transform: translateX(15px); color: #000; } }
         .btn-ultra i { transition: 0.5s; }
 
-        .work-container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 40px; position: relative; }
-        .work-header { display: flex; justify-content: space-between; align-items: end; margin-bottom: 40px; }
+        .work-container { 
+            width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 40px; position: relative; 
+            /* FIKS: Sørg for at overflow er visible så dropdown kan flyte over */
+            overflow: visible; 
+        }
+        .work-header { 
+            display: flex; justify-content: space-between; align-items: end; margin-bottom: 40px; 
+            position: relative; z-index: 50; /* Høy Z-index for headeren */
+        }
         .scroll-controls { display: flex; gap: 15px; }
-        .scroll-btn { width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--border); background: rgba(255,255,255,0.03); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; }
+        .scroll-btn { width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--border); background: rgba(255,255,255,0.03); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; z-index: 5; }
         .scroll-btn:hover { background: #fff; color: #000; }
-        .work-track { display: flex; gap: 30px; overflow-x: auto; scroll-behavior: smooth; padding-bottom: 60px; -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .work-track { 
+            display: flex; gap: 30px; overflow-x: auto; scroll-behavior: smooth; padding-bottom: 60px; -ms-overflow-style: none; scrollbar-width: none; 
+            position: relative; z-index: 10; /* Lavere Z-index enn headeren */
+        }
         .work-track::-webkit-scrollbar { display: none; }
         
         .video-card-premium { 
@@ -317,12 +368,19 @@
         .stat-box { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
         .stat-value { font-size: 0.85rem; font-weight: 500; color: #94a3b8; display: flex; align-items: center; gap: 6px; }
         
-        .shorts-container { overflow-x: auto; padding: 20px 0 50px 0; -ms-overflow-style: none; scrollbar-width: none; scroll-behavior: smooth; }
+        /* SHORTS FORBEDRINGER */
+        .shorts-container { overflow-x: auto; padding: 20px 0 50px 0; -ms-overflow-style: none; scrollbar-width: none; scroll-behavior: smooth; position: relative; }
         .shorts-container::-webkit-scrollbar { display: none; }
         .shorts-track { display: flex; gap: 25px; padding: 0 40px; }
         .shorts-title-anim { font-size: 2.5rem; font-weight: 800; background: linear-gradient(300deg, #ff0000, #ff0055, #ff9900, #ff0000); background-size: 300% 300%; -webkit-background-clip: text; color: transparent; animation: gradient-anim 4s ease infinite; }
         @keyframes gradient-anim { 0% {background-position: 0% 50%} 50% {background-position: 100% 50%} 100% {background-position: 0% 50%} }
-        .shorts-card { min-width: 170px; aspect-ratio: 9/16; background: #000; border-radius: 16px; border: 1px solid var(--border); position: relative; overflow: hidden; transition: 0.3s; cursor: pointer; }
+        
+        /* Større shorts kort */
+        .shorts-card { 
+            min-width: 260px; aspect-ratio: 9/16; 
+            background: #000; border-radius: 20px; border: 1px solid var(--border); 
+            position: relative; overflow: hidden; transition: 0.3s; cursor: pointer; 
+        }
         @media (hover: hover) {
             .shorts-card:hover { transform: translateY(-8px); border-color: #fff; box-shadow: 0 10px 40px rgba(255,0,0,0.15); }
             .shorts-card:hover .shorts-thumb { transform: scale(1.1); opacity: 0.6; }
@@ -332,21 +390,35 @@
         .shorts-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); transform: translateY(100%); transition: 0.3s; }
         .shorts-icon { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.5); padding: 8px; border-radius: 50%; width: 30px; height: 30px; display:flex; align-items:center; justify-content:center; backdrop-filter: blur(5px); }
 
-        .merch-showcase { background: linear-gradient(145deg, #101015, #050505); border: 1px solid rgba(255,255,255,0.06); border-radius: 30px; overflow: hidden; display: grid; grid-template-columns: 1.2fr 1fr; min-height: 500px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); position: relative; }
-        .merch-content { padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; position: relative; z-index: 2; }
-        .merch-content h2 { font-size: 3.5rem; line-height: 1; margin-bottom: 25px; color: #fff; }
-        .merch-content p { color: #94a3b8; font-size: 1.1rem; line-height: 1.6; margin-bottom: 40px; max-width: 500px; }
+        /* PROFESJONELL CUSTOM DROPDOWN (Sortering) */
+        .custom-select-wrapper { 
+            position: relative; user-select: none; margin-left: 20px; 
+            z-index: 100; /* Viktig for at den skal være over */
+        }
+        .custom-select { position: relative; display: flex; flex-direction: column; }
+        .custom-select-trigger {
+            position: relative; display: flex; align-items: center; justify-content: space-between; padding: 10px 20px;
+            font-size: 0.9rem; font-weight: 500; color: #fff; background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50px; cursor: pointer; transition: 0.3s; gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .custom-select-trigger:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.3); }
+        .custom-select-trigger i { color: var(--snorky-blue); }
         
-        .btn-store-premium { position: relative; padding: 16px 45px; font-size: 1rem; font-weight: 700; color: #fff; text-decoration: none; background: transparent; border-radius: 100px; overflow: hidden; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: inline-flex; align-items: center; gap: 12px; text-transform: uppercase; letter-spacing: 1px; z-index: 1; }
-        .btn-store-premium::before { content: ''; position: absolute; inset: 0; padding: 1px; border-radius: 100px; background: linear-gradient(90deg, #00C2FF, #FF2E93); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; z-index: -1; transition: 0.4s; }
-        .btn-store-premium::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #00C2FF, #FF2E93); z-index: -2; opacity: 0; transform: scaleX(0); transform-origin: left; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @media (hover: hover) { .btn-store-premium:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 194, 255, 0.3); text-shadow: 0 2px 4px rgba(0,0,0,0.2); } .btn-store-premium:hover::after { opacity: 1; transform: scaleX(1); } .btn-store-premium:hover i { transform: translateX(5px); } }
-        .btn-store-premium i { transition: 0.4s; }
-        
-        .merch-image-side { position: relative; height: 100%; overflow: hidden; }
-        .merch-image-side img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease; }
-        @media (hover: hover) { .merch-showcase:hover .merch-image-side img { transform: scale(1.05); } }
-        .merch-image-side::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, #101015 0%, transparent 40%); }
+        /* FIKS: Høy Z-index for selve alternativene */
+        .custom-options {
+            position: absolute; top: 120%; right: 0; min-width: 180px; background: #0f0f12; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); opacity: 0; visibility: hidden; pointer-events: none;
+            transform: translateY(-10px); transition: 0.3s cubic-bezier(0.2, 1, 0.3, 1); overflow: hidden;
+            z-index: 999; /* Sørger for at den ligger over alt annet */
+        }
+        .custom-select.open .custom-options { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
+        .custom-option {
+            padding: 12px 20px; font-size: 0.9rem; color: #bbb; cursor: pointer; transition: 0.2s; border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .custom-option:last-child { border-bottom: none; }
+        .custom-option:hover { background: rgba(255,255,255,0.05); color: #fff; padding-left: 25px; }
+        .custom-option.selected { color: var(--snorky-blue); font-weight: 600; background: rgba(0, 194, 255, 0.05); }
 
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
         .gear-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
@@ -486,19 +558,22 @@
             .ch-left { flex-direction: column; }
             .btn-ultra { width: 100%; justify-content: center; padding: 18px; }
             
-            /* Merch */
-            .merch-showcase { grid-template-columns: 1fr; min-height: auto; }
-            .merch-content { padding: 40px 25px; }
-            .merch-image-side { height: 300px; }
-            
             .about-grid, .footer-grid { grid-template-columns: 1fr; gap: 40px; }
             
             /* Sørg for at Shorts overlay alltid vises litt */
             .shorts-overlay { transform: translateY(0); background: linear-gradient(to top, rgba(0,0,0,1), transparent); }
+            
+            /* Juster shorts kort på mobil også */
+            .shorts-card { min-width: 200px; }
         }
     </style>
 </head>
 <body id="home">
+
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+    <div class="cyber-grid"></div>
 
     <div class="settings-modal" id="settingsModal">
         <div class="settings-panel">
@@ -535,8 +610,6 @@
         </div>
     </div>
 
-    <div id="perfToast"><div class="toast-icon"><i class="fas fa-bolt"></i></div><div><p style="margin:0; font-size:0.9rem; font-weight:600; color:#fff;">Visning tilpasset</p><p style="margin:0; font-size:0.8rem; color:#94a3b8;">Vi justerte ytelsen for din enhet.</p></div></div>
-    
     <div class="scroll-progress" id="scrollProgress"></div>
     <div class="preloader"><img src="logo.png" style="width:80px; animation:pulse 2s infinite;" alt="L" onerror="this.style.display='none'"><div class="preloader-bar"></div></div>
     <div class="noise"></div>
@@ -550,7 +623,6 @@
                 <li><a href="#news" class="text-link"><i class="fas fa-star"></i> Nytt</a></li>
                 <li><a href="#videos" class="text-link"><i class="fas fa-video"></i> Videoer</a></li>
                 <li><a href="#shorts" class="text-link"><i class="fas fa-bolt"></i> Shorts</a></li>
-                <li><a href="#merch" class="text-link"><i class="fas fa-tshirt"></i> Merch</a></li>
                 <li><a href="#gear" class="text-link"><i class="fas fa-keyboard"></i> Setup</a></li>
                 <li><a href="https://www.youtube.com/channel/UCvRVrLgB-Tk9R6dIzH2gE6w?sub_confirmation=1" target="_blank" class="nav-sub-btn"><i class="fab fa-youtube"></i> Abonner</a></li>
                 <li><div class="settings-btn" onclick="toggleSettings()"><i class="fas fa-cog"></i></div></li>
@@ -571,7 +643,6 @@
             <a href="#videos" class="mobile-link tap-effect" onclick="toggleMobileMenu()">VIDEOER</a>
             <a href="#shorts" class="mobile-link tap-effect" onclick="toggleMobileMenu()">SHORTS</a>
             <a href="#stats" class="mobile-link tap-effect" onclick="toggleMobileMenu()">STATS</a>
-            <a href="#merch" class="mobile-link tap-effect" onclick="toggleMobileMenu()">MERCH</a>
         </div>
         <div class="mobile-actions">
             <div class="mob-btn tap-effect" onclick="toggleSettings(); toggleMobileMenu();">
@@ -589,8 +660,6 @@
     <section class="hero">
         <div class="marquee-container" id="marqueeBg"></div>
         <div class="hero-overlay" data-scroll data-scroll-speed="0.3">
-            <div class="hero-badge reveal"><span></span> Official Content Hub</div>
-            <div class="hero-logo-wrapper"><img src="logo.png" alt="Snorky" onerror="this.style.display='none'" style="height: 60px; margin-bottom: 20px;"></div>
             <h1 class="hero-title"><span class="hero-title-main">SNORKY</span><span class="hero-title-sub">SITE.</span></h1>
             <p class="hero-sub reveal">Velkommen til mitt digitale hjørne av internett. Ingen fast plan, ingen regler, bare ren gaming og vibes.</p>
             <div class="hero-actions reveal">
@@ -631,19 +700,55 @@
     <section class="work-section" id="videos">
         <div class="work-container">
             <div class="work-header reveal">
-                <div><span class="subtitle">Bibliotek</span><h2 class="section-header" style="margin-bottom:0;">Siste Slipp</h2></div>
-                <div class="scroll-controls"><div class="scroll-btn prev" onclick="scrollVideos(-450)"><i class="fas fa-chevron-left"></i></div><div class="scroll-btn next" onclick="scrollVideos(450)"><i class="fas fa-chevron-right"></i></div></div>
+                <div>
+                    <span class="subtitle">Bibliotek</span>
+                    <div style="display: flex; align-items: center;">
+                        <h2 class="section-header" style="margin-bottom:0;" id="videoHeaderTitle">Siste Slipp</h2>
+                        <div class="custom-select-wrapper">
+                            <div class="custom-select" id="videoSort">
+                                <div class="custom-select-trigger"><span><i class="fas fa-filter"></i> Sorter</span></div>
+                                <div class="custom-options">
+                                    <div class="custom-option selected" data-value="date" onclick="sortVideos('date', 'long')">Nyeste (Standard)</div>
+                                    <div class="custom-option" data-value="views" onclick="sortVideos('views', 'long')">Mest Visninger</div>
+                                    <div class="custom-option" data-value="oldest" onclick="sortVideos('oldest', 'long')">Eldste</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-controls">
+                    <div class="scroll-btn prev" onclick="scrollVideos(-600)"><i class="fas fa-chevron-left"></i></div>
+                    <div class="scroll-btn next" onclick="scrollVideos(600)"><i class="fas fa-chevron-right"></i></div>
+                </div>
             </div>
             <div class="work-track" id="videoTrack"></div>
         </div>
     </section>
 
     <section class="shorts-section" id="shorts">
-        <div class="container" id="shortsContainer">
+        <div class="container">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;">
-                <div style="display:flex; align-items:center; gap:15px;"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Youtube_shorts_icon.svg" style="height:40px;"><h2 class="shorts-title-anim" style="margin-bottom:0;">Shorts</h2></div>
+                <div style="display:flex; align-items:center; gap:15px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Youtube_shorts_icon.svg" style="height:40px;">
+                    <h2 class="shorts-title-anim" style="margin-bottom:0;" id="shortsHeaderTitle">Shorts</h2>
+                    <div class="custom-select-wrapper">
+                        <div class="custom-select" id="shortsSort">
+                            <div class="custom-select-trigger"><span><i class="fas fa-filter"></i></span></div>
+                            <div class="custom-options">
+                                <div class="custom-option selected" data-value="date" onclick="sortVideos('date', 'shorts')">Nyeste</div>
+                                <div class="custom-option" data-value="views" onclick="sortVideos('views', 'shorts')">Mest Visninger</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-controls" style="display:flex;">
+                    <div class="scroll-btn prev" onclick="scrollShorts(-300)"><i class="fas fa-chevron-left"></i></div>
+                    <div class="scroll-btn next" onclick="scrollShorts(300)"><i class="fas fa-chevron-right"></i></div>
+                </div>
             </div>
-            <div class="shorts-track" id="shortsTrack"></div>
+            <div class="shorts-container" id="shortsContainer">
+                <div class="shorts-track" id="shortsTrack"></div>
+            </div>
         </div>
     </section>
     
@@ -657,20 +762,11 @@
         </div>
     </section>
 
-    <section class="merch-section" id="merch">
-        <div class="container">
-            <div class="merch-showcase reveal">
-                <div class="merch-content"><span class="subtitle">Official Store</span><h2 class="section-header" style="margin-bottom: 20px;">Snorky<br>Collection.</h2><p style="color:#94a3b8; font-size:1.1rem; margin-bottom: 40px; line-height: 1.6;">Eksklusiv merch designet for de ekte. Høy kvalitet, unik passform og limited edition drops. Bær merket med stolthet.</p><a href="https://DIN-TEESPRING-BUTIKK.com" target="_blank" class="btn-store-premium tap-effect" onclick="triggerHaptic()">Gå til Butikken <i class="fas fa-arrow-right"></i></a></div>
-                <div class="merch-image-side"><img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=2070&auto=format&fit=crop" alt="Snorky Merch Collection"></div>
-            </div>
-        </div>
-    </section>
-
     <section class="about-section" id="about">
         <div class="container">
             <div class="about-grid">
                 <div class="about-text reveal"><span class="subtitle">Profil</span><h2 class="section-header">Hei</h2><p style="margin-bottom: 25px; color:#ccc; font-size:1.1rem; line-height:1.6;">Dette er <span style="color:var(--snorky-pink); font-weight:700;">bare en hobby</span>. Jeg sitter på rommet mitt, spiller spill og redigerer videoer når jeg føler for det.</p><p style="color:#888;">Jeg startet med YouTube fordi jeg liker å skape ting. Ikke for å bli en "influencer".</p></div>
-                <div class="about-image-wrapper reveal"><img src="header-bg.jpg" class="parallax-img" loading="lazy" style="width:100%; border-radius:20px; box-shadow:0 20px 50px rgba(0,0,0,0.5); border:1px solid var(--border);" onerror="this.src='https://images.unsplash.com/photo-1598550476439-c92309798050?q=80&w=2070&auto=format&fit=crop'"></div>
+                <div class="about-image-wrapper reveal"><img src="header-bg.jpg" class="parallax-img" loading="lazy" style="width:100%; border-radius:20px; border: none; box-shadow: none;" onerror="this.src='https://images.unsplash.com/photo-1598550476439-c92309798050?q=80&w=2070&auto=format&fit=crop'"></div>
             </div>
         </div>
     </section>
@@ -719,6 +815,10 @@
         const isMobile = window.innerWidth <= 1024;
         let lenis;
         
+        // GLOBAL DATA
+        let globalLongVideos = []; 
+        let globalShortVideos = [];
+        
         const settings = { preset: 'high', marquee: true, particles: true, blur: true };
         function triggerHaptic() { if (navigator.vibrate) navigator.vibrate(15); }
 
@@ -741,7 +841,7 @@
                 if (now >= this.startTime + 2000) {
                     const fps = Math.round((this.frames * 1000) / (now - this.startTime));
                     console.log(`Detected FPS: ${fps}`);
-                    if(fps < 45 && !isMobile) { console.warn("Low FPS detected. Switching to Balanced Mode."); setGraphicsMode('balanced'); showToast(); }
+                    if(fps < 45 && !isMobile) { console.warn("Low FPS detected. Switching to Balanced Mode."); setGraphicsMode('balanced'); }
                     this.monitoring = false; 
                 }
                 requestAnimationFrame(() => this.tick());
@@ -770,7 +870,26 @@
         }
 
         function toggleSettings() { document.getElementById('settingsModal').classList.toggle('open'); }
-        function showToast() { const t = document.getElementById('perfToast'); t.classList.add('active'); setTimeout(() => { t.classList.remove('active'); }, 5000); }
+        
+        // --- CUSTOM DROPDOWN LOGIC ---
+        function setupCustomDropdowns() {
+            document.querySelectorAll('.custom-select').forEach(select => {
+                const trigger = select.querySelector('.custom-select-trigger');
+                trigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // Lukk alle andre
+                    document.querySelectorAll('.custom-select').forEach(other => {
+                         if(other !== select) other.classList.remove('open');
+                    });
+                    select.classList.toggle('open');
+                    triggerHaptic();
+                });
+            });
+            window.addEventListener('click', () => {
+                document.querySelectorAll('.custom-select').forEach(select => select.classList.remove('open'));
+            });
+        }
+        setupCustomDropdowns();
 
         window.addEventListener('load', () => {
             document.querySelector('.preloader').classList.add('hide');
@@ -791,7 +910,6 @@
                     });
                 });
             } else {
-                // Mobile Scroll Progress
                 window.addEventListener('scroll', () => {
                    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
                    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -816,8 +934,10 @@
             return h > 0 ? `${h}:${mStr}:${sStr}` : `${mStr}:${sStr}`;
         }
 
+        // SCROLL FUNCTIONS
         function scrollVideos(amount) { document.getElementById('videoTrack').scrollBy({ left: amount, behavior: 'smooth' }); }
         function scrollShorts(amount) { document.getElementById('shortsContainer').scrollBy({ left: amount, behavior: 'smooth' }); }
+
         function toggleFaq(el) {
             const answer = el.querySelector('.faq-answer'); const span = el.querySelector('span');
             if(answer.classList.contains('open')) { answer.classList.remove('open'); span.innerText = "+"; } 
@@ -838,53 +958,181 @@
         function animate() { if(settings.particles) { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update();p.draw();}); } requestAnimationFrame(animate); }
         animate();
 
+        // -----------------------
+        // SORTERINGSLOGIKK
+        // -----------------------
+        
+        function sortVideos(mode, category) {
+            triggerHaptic();
+            
+            // Oppdater UI for dropdown selection
+            const wrapperId = category === 'long' ? 'videoSort' : 'shortsSort';
+            const wrapper = document.getElementById(wrapperId);
+            wrapper.querySelectorAll('.custom-option').forEach(opt => {
+                if(opt.dataset.value === mode) opt.classList.add('selected');
+                else opt.classList.remove('selected');
+            });
+
+            // Sorter Data
+            let dataToSort = category === 'long' ? [...globalLongVideos] : [...globalShortVideos];
+            const titleElem = document.getElementById(category === 'long' ? 'videoHeaderTitle' : 'shortsHeaderTitle');
+            
+            if (mode === 'views') {
+                titleElem.innerText = "Mest Populære";
+                dataToSort.sort((a, b) => parseInt(b.statistics.viewCount) - parseInt(a.statistics.viewCount));
+            } else if (mode === 'oldest') {
+                titleElem.innerText = "Arkivet";
+                dataToSort.reverse();
+            } else {
+                titleElem.innerText = category === 'long' ? "Siste Slipp" : "Shorts";
+                dataToSort.sort((a, b) => new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt));
+            }
+
+            if(category === 'long') renderVideos(dataToSort, 'videoTrack');
+            else renderShorts(dataToSort, 'shortsTrack');
+        }
+
+        // RENDERING FUNKSJONER MED "LAZY LOAD" FEEL
+        function renderVideos(videos, trackId) {
+            const track = document.getElementById(trackId);
+            track.innerHTML = ''; 
+            
+            // Render de 4 første umiddelbart
+            videos.slice(0, 4).forEach(v => track.appendChild(createVideoCard(v)));
+            
+            // Last resten etter en kort pause for ytelse
+            setTimeout(() => {
+                videos.slice(4).forEach(v => track.appendChild(createVideoCard(v)));
+                // Re-trigger scroll observer for de nye elementene
+                const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1 });
+                document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            }, 1000);
+        }
+
+        function createVideoCard(v) {
+            const el = document.createElement('div'); 
+            el.className = 'video-card-premium reveal tap-effect active';
+            el.style.opacity = 1; el.style.transform = 'translateY(0)';
+            el.onclick = () => { triggerHaptic(); window.open(`https://www.youtube.com/watch?v=${v.id}`, '_blank'); };
+            el.innerHTML = `<div class="premium-thumb-wrapper"><img src="${v.snippet.thumbnails.high.url}" class="premium-thumb" loading="lazy"><div class="premium-play-btn"><i class="fas fa-play"></i></div><div class="duration-badge">${v.durationStr}</div></div><div class="premium-info"><h4 class="premium-title">${v.snippet.title}</h4><div class="premium-stats-grid"><div class="stat-box"><span class="stat-value"><i class="fas fa-eye" style="color:var(--snorky-blue);"></i> ${formatNumber(v.statistics.viewCount)}</span></div><div class="stat-box"><span class="stat-value"><i class="fas fa-thumbs-up" style="color:var(--snorky-pink);"></i> ${formatNumber(v.statistics.likeCount)}</span></div><div class="stat-box"><span class="stat-value"><i class="fas fa-comment"></i> ${v.statistics.commentCount?formatNumber(v.statistics.commentCount):'0'}</span></div></div></div>`;
+            return el;
+        }
+
+        function renderShorts(videos, trackId) {
+            const track = document.getElementById(trackId);
+            track.innerHTML = '';
+            
+            // Render de 5 første shorts umiddelbart
+            videos.slice(0, 5).forEach(v => track.appendChild(createShortsCard(v)));
+            
+            // Resten senere
+            setTimeout(() => {
+                videos.slice(5).forEach(v => track.appendChild(createShortsCard(v)));
+                const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1 });
+                document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            }, 1200);
+        }
+
+        function createShortsCard(v) {
+            const el = document.createElement('div'); 
+            el.className = 'shorts-card reveal tap-effect active'; 
+            el.style.opacity = 1; el.style.transform = 'translateY(0)';
+            el.onclick = () => { triggerHaptic(); window.open(`https://www.youtube.com/shorts/${v.id}`, '_blank'); };
+            el.innerHTML = `<div class="shorts-icon"><i class="fas fa-play" style="color:#fff; font-size:0.8rem;"></i></div><img src="${v.snippet.thumbnails.high.url}" class="shorts-thumb" loading="lazy"><div class="shorts-overlay"><h5 style="font-size:1rem; margin-bottom:5px; line-height:1.2; color:#fff;">${v.snippet.title.substring(0, 50)}...</h5><span style="font-size:0.8rem; color:#ddd;"><i class="fas fa-eye"></i> ${formatNumber(v.statistics.viewCount)}</span></div>`;
+            return el;
+        }
+
         // DATA API
         async function loadData() {
             try {
-                const chRes = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`); const chData = await chRes.json();
+                // Kanal Statistikk
+                const chRes = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`); 
+                const chData = await chRes.json();
                 if(chData.items) {
                     const s = chData.items[0].statistics;
-                    document.getElementById('subCount').innerText = formatNumber(s.subscriberCount); document.getElementById('viewCount').innerText = formatNumber(s.viewCount); document.getElementById('videoCount').innerText = s.videoCount;
-                    document.getElementById('goalProgress').style.width = `${Math.min((parseInt(s.subscriberCount)/1000)*100, 100)}%`; document.getElementById('progressText').innerText = `${parseInt(s.subscriberCount)} / 1000`;
+                    document.getElementById('subCount').innerText = formatNumber(s.subscriberCount); 
+                    document.getElementById('viewCount').innerText = formatNumber(s.viewCount); 
+                    document.getElementById('videoCount').innerText = s.videoCount;
+                    document.getElementById('goalProgress').style.width = `${Math.min((parseInt(s.subscriberCount)/1000)*100, 100)}%`; 
+                    document.getElementById('progressText').innerText = `${parseInt(s.subscriberCount)} / 1000`;
                 }
+                
+                // Snorky 2 Data
                 try {
-                    const ch2Res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics,snippet&forHandle=${CHANNEL_2_HANDLE}&key=${API_KEY}`); const ch2Data = await ch2Res.json();
+                    const ch2Res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics,snippet&forHandle=${CHANNEL_2_HANDLE}&key=${API_KEY}`); 
+                    const ch2Data = await ch2Res.json();
                     if(ch2Data.items && ch2Data.items.length > 0) {
                         const s2 = ch2Data.items[0].statistics; const sn2 = ch2Data.items[0].snippet;
-                        document.getElementById('ch2-img').src = sn2.thumbnails.high.url; document.getElementById('ch2-subs').innerText = formatNumber(s2.subscriberCount); document.getElementById('ch2-vids').innerText = formatNumber(s2.videoCount);
+                        document.getElementById('ch2-img').src = sn2.thumbnails.high.url; 
+                        document.getElementById('ch2-subs').innerText = formatNumber(s2.subscriberCount); 
+                        document.getElementById('ch2-vids').innerText = formatNumber(s2.videoCount);
                     }
                 } catch(e) {}
 
-                const searchRes = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=50&type=video`); const searchData = await searchRes.json();
-                if(searchData.items) {
-                    const videoIds = searchData.items.map(v => v.id.videoId).join(',');
-                    const statsRes = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=statistics,contentDetails,snippet&id=${videoIds}&key=${API_KEY}`); const statsData = await statsRes.json();
-                    if(statsData.items) {
-                        const longVideos = []; const shortsVideos = [];
-                        statsData.items.forEach(v => { const d = parseDuration(v.contentDetails.duration); v.durationStr = formatDurationString(d); if(d <= 65) shortsVideos.push(v); else longVideos.push(v); });
+                // FETCHING FLERE SIDER MED VIDEOER
+                let allVideoIds = [];
+                let nextPageToken = '';
+                let pagesFetched = 0;
+                const maxPages = 4; // Henter opptil 200 videoer
 
-                        if(longVideos.length > 0) {
-                            const l = longVideos[0];
-                            document.getElementById('spotlightCard').innerHTML = `<div class="news-image-wrapper"><img src="${l.snippet.thumbnails.maxres ? l.snippet.thumbnails.maxres.url : l.snippet.thumbnails.high.url}" class="news-img" loading="lazy"><div class="news-overlay"></div></div><div class="news-content"><div class="news-badge"><span></span> Nyeste Opplasting</div><h3 class="news-title">${l.snippet.title}</h3><p class="news-excerpt">${l.snippet.description.substring(0, 120)}...</p><a href="https://www.youtube.com/watch?v=${l.id}" target="_blank" class="btn-ultra tap-effect" onclick="triggerHaptic()">Se Videoen <i class="fas fa-play" style="font-size:0.8rem;"></i></a></div>`;
-                        }
-                        const bg = document.getElementById('marqueeBg');
-                        if(bg) { for(let i=0; i<(isMobile?2:3); i++) { const row = document.createElement('div'); row.className = `marquee-row ${i%2===0?'scroll-left':'scroll-right'}`; [...longVideos, ...longVideos].slice(0, 15).forEach(v => { row.innerHTML += `<div class="marquee-item"><img src="${v.snippet.thumbnails.high.url}" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>`; }); bg.appendChild(row); } }
-
-                        const track = document.getElementById('videoTrack');
-                        longVideos.slice(0, 10).forEach(v => {
-                            const el = document.createElement('div'); el.className = 'video-card-premium reveal tap-effect'; el.onclick = () => { triggerHaptic(); window.open(`https://www.youtube.com/watch?v=${v.id}`, '_blank'); };
-                            el.innerHTML = `<div class="premium-thumb-wrapper"><img src="${v.snippet.thumbnails.high.url}" class="premium-thumb" loading="lazy"><div class="premium-play-btn"><i class="fas fa-play"></i></div><div class="duration-badge">${v.durationStr}</div></div><div class="premium-info"><h4 class="premium-title">${v.snippet.title}</h4><div class="premium-stats-grid"><div class="stat-box"><span class="stat-value"><i class="fas fa-eye" style="color:var(--snorky-blue);"></i> ${formatNumber(v.statistics.viewCount)}</span></div><div class="stat-box"><span class="stat-value"><i class="fas fa-thumbs-up" style="color:var(--snorky-pink);"></i> ${formatNumber(v.statistics.likeCount)}</span></div><div class="stat-box"><span class="stat-value"><i class="fas fa-comment"></i> ${v.statistics.commentCount?formatNumber(v.statistics.commentCount):'0'}</span></div></div></div>`;
-                            track.appendChild(el);
-                        });
-                        const sTrack = document.getElementById('shortsTrack');
-                        shortsVideos.slice(0, 15).forEach(v => {
-                            const el = document.createElement('div'); el.className = 'shorts-card reveal tap-effect'; el.onclick = () => { triggerHaptic(); window.open(`https://www.youtube.com/shorts/${v.id}`, '_blank'); };
-                            el.innerHTML = `<div class="shorts-icon"><i class="fas fa-play" style="color:#fff; font-size:0.8rem;"></i></div><img src="${v.snippet.thumbnails.high.url}" class="shorts-thumb" loading="lazy"><div class="shorts-overlay"><h5 style="font-size:1rem; margin-bottom:5px; line-height:1.2; color:#fff;">${v.snippet.title.substring(0, 50)}...</h5><span style="font-size:0.8rem; color:#ddd;"><i class="fas fa-eye"></i> ${formatNumber(v.statistics.viewCount)}</span></div>`;
-                            sTrack.appendChild(el);
-                        });
-                        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1 });
-                        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+                while (pagesFetched < maxPages) {
+                    const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=id&order=date&maxResults=50&type=video&pageToken=${nextPageToken}`;
+                    const searchRes = await fetch(searchUrl);
+                    const searchData = await searchRes.json();
+                    
+                    if(searchData.items) {
+                        const ids = searchData.items.map(v => v.id.videoId);
+                        allVideoIds = [...allVideoIds, ...ids];
                     }
+
+                    if (searchData.nextPageToken) {
+                        nextPageToken = searchData.nextPageToken;
+                        pagesFetched++;
+                    } else {
+                        break; 
+                    }
+                }
+
+                if(allVideoIds.length > 0) {
+                    for (let i = 0; i < allVideoIds.length; i += 50) {
+                        const chunk = allVideoIds.slice(i, i + 50).join(',');
+                        const statsRes = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=statistics,contentDetails,snippet&id=${chunk}&key=${API_KEY}`); 
+                        const statsData = await statsRes.json();
+                        
+                        if(statsData.items) {
+                            statsData.items.forEach(v => { 
+                                const d = parseDuration(v.contentDetails.duration); 
+                                v.durationStr = formatDurationString(d); 
+                                if(d <= 65) {
+                                    globalShortVideos.push(v);
+                                } else {
+                                    globalLongVideos.push(v);
+                                }
+                            });
+                        }
+                    }
+
+                    // Rendrer Spotlight
+                    if(globalLongVideos.length > 0) {
+                        const l = globalLongVideos[0];
+                        document.getElementById('spotlightCard').innerHTML = `<div class="news-image-wrapper"><img src="${l.snippet.thumbnails.maxres ? l.snippet.thumbnails.maxres.url : l.snippet.thumbnails.high.url}" class="news-img" loading="lazy"><div class="news-overlay"></div></div><div class="news-content"><div class="news-badge"><span></span> Nyeste Opplasting</div><h3 class="news-title">${l.snippet.title}</h3><p class="news-excerpt">${l.snippet.description.substring(0, 120)}...</p><a href="https://www.youtube.com/watch?v=${l.id}" target="_blank" class="btn-ultra tap-effect" onclick="triggerHaptic()">Se Videoen <i class="fas fa-play" style="font-size:0.8rem;"></i></a></div>`;
+                        
+                        const bg = document.getElementById('marqueeBg');
+                        if(bg) { 
+                            for(let i=0; i<(isMobile?2:3); i++) { 
+                                const row = document.createElement('div'); 
+                                row.className = `marquee-row ${i%2===0?'scroll-left':'scroll-right'}`; 
+                                [...globalLongVideos, ...globalLongVideos].slice(0, 15).forEach(v => { 
+                                    row.innerHTML += `<div class="marquee-item"><img src="${v.snippet.thumbnails.high.url}" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>`; 
+                                }); 
+                                bg.appendChild(row); 
+                            } 
+                        }
+                    }
+
+                    // Initial Render med Lazy Load feel
+                    renderVideos(globalLongVideos, 'videoTrack');
+                    renderShorts(globalShortVideos, 'shortsTrack');
                 }
             } catch(e) { console.error("API Error", e); }
         }
