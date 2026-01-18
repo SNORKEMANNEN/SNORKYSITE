@@ -11,6 +11,10 @@
     <meta name="author" content="Snorky">
     <meta name="robots" content="index, follow">
     
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="shortcut icon" href="logo.png">
+
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://snorky.site/">
     <meta property="og:title" content="SNORKY SITE">
@@ -39,6 +43,16 @@
             --accent-gradient: linear-gradient(135deg, var(--snorky-blue), var(--snorky-pink));
             --radius: 24px;
         }
+        
+        /* Disable text selection globally for extra protection feel */
+        body {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+        
+        /* Allow selection on inputs and paragraphs if needed, but mostly locked */
+        input, textarea { user-select: text; }
         
         html { scroll-behavior: smooth !important; height: 100%; }
         html.lenis, html.lenis body { height: auto; }
@@ -717,7 +731,7 @@
             <div class="bento-grid">
                 <div class="card card-large reveal tap-effect" onclick="triggerHaptic()" tabindex="0">
                     <div style="display:flex; justify-content:space-between; align-items:start;"><div><span class="subtitle">Abonnenter</span><div class="stat-num" id="subCount">...</div></div><i class="fab fa-youtube" style="font-size:3rem; color:rgba(255,255,255,0.1);"></i></div>
-                    <div style="margin-top:auto;"><p style="color:#888;">Takk til alle som følger reisen.</p></div>
+                    <div style="margin-top:auto;"><p style="color:#888;">Takk til alle.</p></div>
                 </div>
                 <div class="card reveal tap-effect" onclick="triggerHaptic()" tabindex="0"><span class="subtitle">Visninger</span><div class="stat-num" id="viewCount">-</div></div>
                 <div class="card reveal tap-effect" onclick="triggerHaptic()" tabindex="0"><span class="subtitle">Opplastinger</span><div class="stat-num" id="videoCount">-</div></div>
@@ -799,7 +813,7 @@
     
     <section class="second-channel-section">
         <div class="container">
-            <div class="reveal" style="text-align:center; margin-bottom:40px;"><span class="subtitle" style="justify-content:center;">Ekstra</span><h2 class="section-header" style="font-size:3rem;">Snorky 2</h2><p style="color:#94a3b8; max-width:500px; margin:0 auto;">Sjekk ut andrekanalen for ufiltrert gaming og streams.</p></div>
+            <div class="reveal" style="text-align:center; margin-bottom:40px;"><span class="subtitle" style="justify-content:center;">Ekstra</span><h2 class="section-header" style="font-size:3rem;">Snorky 2</h2><p style="color:#94a3b8; max-width:500px; margin:0 auto;">Sjekk ut andrekanalen for ufiltrerte videoer.</p></div>
             <div class="channel-card-compact reveal" tabindex="0">
                 <div class="ch-left"><div class="ch-profile-wrapper"><img id="ch2-img" src="logo.png" alt="Snorky 2" class="ch2-img"></div><div class="ch-info"><h2>SNORKY 2</h2><div class="ch-meta"><span class="ch-handle">@snorky2361</span><span>•</span><div class="ch-stats"><span id="ch2-subs">...</span> <span>Subs</span><span style="margin:0 5px;">|</span><span id="ch2-vids">...</span> <span>Videoer</span></div></div></div></div>
                 <div class="ch-right"><a href="https://www.youtube.com/@snorky2361" target="_blank" class="btn-ultra tap-effect" onclick="triggerHaptic()">Gå til SNORKY 2 <i class="fas fa-arrow-right"></i></a></div>
@@ -854,6 +868,18 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <script>
+        // === SIKKERHETS SPERRE FOR HØYREKLIKK OG INSPEKSJON ===
+        document.addEventListener('contextmenu', event => event.preventDefault()); // Stopp høyreklikk
+
+        document.onkeydown = function(e) {
+            // Stopp F12
+            if(e.keyCode == 123) { return false; }
+            
+            // Stopp Ctrl+Shift+I (Inspect), Ctrl+Shift+J (Console), Ctrl+U (View Source)
+            if(e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) { return false; }
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
+        }
+
         const API_KEY = 'AIzaSyDZRrshuJJCqAgk-dShcdsXvBzrse_6VjA';
         const CHANNEL_ID = 'UCvRVrLgB-Tk9R6dIzH2gE6w';
         const CHANNEL_2_HANDLE = 'snorky2361'; 
