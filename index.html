@@ -21,7 +21,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://i.ytimg.com">
     <link rel="preconnect" href="https://www.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700;800&family=JetBrains+Mono:wght@400;700&family=Gloria+Hallelujah&family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -178,18 +178,33 @@
         .hero-tag .live-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 10px #22c55e; animation: live-pulse 2s infinite; }
         @keyframes live-pulse { 0%, 100% { opacity: 1; box-shadow: 0 0 10px #22c55e; } 50% { opacity: 0.5; box-shadow: 0 0 20px #22c55e; } }
 
-        .hero-title { font-size: clamp(3.5rem, 11vw, 9rem); margin-bottom: 20px; line-height: 0.95; font-weight: 800; letter-spacing: -0.05em; }
+        .hero-title { margin-bottom: 20px; line-height: 1; letter-spacing: -0.02em; }
         .hero-title-main {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: clamp(3.5rem, 11vw, 9rem);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            line-height: 1.05;
             background: linear-gradient(135deg, var(--accent-1), var(--accent-2), var(--accent-1));
             background-size: 200% auto; animation: gradient-text-anim 5s linear infinite;
             -webkit-background-clip: text; background-clip: text;
             color: transparent; display: block; opacity: 0; transform: translateY(40px);
+            padding-bottom: 0.05em;
         }
         @keyframes gradient-text-anim { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
         .hero-title-sub {
-            -webkit-text-stroke: 1.5px rgba(255,255,255,0.85);
-            color: transparent; display: block; position: relative;
+            font-family: 'Unbounded', 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 9.5vw, 7.5rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 0.92;
+            background: linear-gradient(180deg, #ffffff 0%, #ffffff 55%, rgba(255,255,255,0.55) 100%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+            display: block; position: relative;
             opacity: 0; transform: translateY(40px);
+            margin-top: -0.05em;
+            text-shadow: 0 2px 30px rgba(0,0,0,0.4);
         }
         .hero-actions { display: flex; gap: 20px; margin-top: 10px; flex-wrap: wrap; justify-content: center; opacity: 0; transform: translateY(20px); }
         .scroll-indicator { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 5px; color: rgba(255,255,255,0.5); font-size: 0.8rem; z-index: 10; animation: bounce 2s infinite ease-in-out; font-family: 'JetBrains Mono', monospace; letter-spacing: 2px; transition: opacity 0.5s ease; }
@@ -492,7 +507,9 @@
             .swipe-hint { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5); font-size: 1.5rem; animation: swipeAnim 2s infinite; pointer-events: none; z-index: 10; display: block !important; }
             @keyframes swipeAnim { 0% { transform: translate(0, -50%); opacity: 0; } 20% { opacity: 1; } 80% { transform: translate(-20px, -50%); opacity: 0; } 100% { opacity: 0; } }
             .container { padding: 0 20px; }
-            .hero-title { font-size: 14vw; margin-bottom: 15px; }
+            .hero-title { margin-bottom: 15px; }
+            .hero-title-main { font-size: 14vw; }
+            .hero-title-sub { font-size: 13vw; }
             .hero-actions { flex-direction: column; width: 100%; gap: 12px; }
             .btn-hero { width: 100%; justify-content: center; padding: 16px; }
             .hero-overlay { padding: 40px 15px; border-radius: 0; width: 100%; }
@@ -531,6 +548,236 @@
             .gear-icon { font-size: 1.2rem; top: 20px; right: 20px; }
         }
         @media(min-width: 1025px) { .swipe-hint { display: none; } }
+
+        /* === SECRETS / EASTER EGGS === */
+
+        /* Disco mode (logo clicks x7) */
+        body.disco-mode { animation: disco-bg 0.5s linear infinite; }
+        @keyframes disco-bg {
+            0%   { background-color: #ff006e; }
+            20%  { background-color: #fb5607; }
+            40%  { background-color: #ffbe0b; }
+            60%  { background-color: #8338ec; }
+            80%  { background-color: #3a86ff; }
+            100% { background-color: #06ffa5; }
+        }
+        body.disco-mode .video-card-premium,
+        body.disco-mode .card,
+        body.disco-mode .news-card,
+        body.disco-mode .gear-card,
+        body.disco-mode .channel-card-compact,
+        body.disco-mode nav { animation: disco-rotate 0.4s linear infinite; }
+        @keyframes disco-rotate {
+            0%, 100% { transform: rotate(-1deg); }
+            50%      { transform: rotate(1deg); }
+        }
+        .disco-ball {
+            position: fixed; top: 60px; left: 50%; transform: translateX(-50%);
+            width: 120px; height: 120px; border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #fff, #888 40%, #333 70%, #000);
+            box-shadow: 0 0 80px #fff, 0 0 30px #ff00ff, 0 0 60px #00ffff;
+            animation: disco-spin 1.5s linear infinite;
+            z-index: 999; pointer-events: none;
+        }
+        @keyframes disco-spin { to { transform: translateX(-50%) rotate(360deg); } }
+
+        /* Vibe mode (hold V) — apply to sections, not body, to avoid breaking scroll */
+        body.vibe-mode .hero,
+        body.vibe-mode section,
+        body.vibe-mode footer { animation: vibe-tilt 0.18s ease-in-out infinite alternate; }
+        @keyframes vibe-tilt {
+            from { transform: rotate(-1.2deg); }
+            to   { transform: rotate(1.2deg); }
+        }
+        body.vibe-mode .ambient-glow { opacity: 0.7; filter: blur(80px); }
+
+        /* Glitch hero title (triple-click) */
+        .glitch-hero { animation: glitch-shake 0.6s steps(2) 5; }
+        @keyframes glitch-shake {
+            0%   { transform: translate(0, 0); filter: hue-rotate(0); }
+            20%  { transform: translate(-4px, 2px); filter: hue-rotate(90deg); text-shadow: 3px 0 #ff00aa, -3px 0 #00ffff; }
+            40%  { transform: translate(3px, -1px); filter: hue-rotate(180deg); text-shadow: -3px 0 #ff00aa, 3px 0 #00ffff; }
+            60%  { transform: translate(-2px, 1px); filter: hue-rotate(270deg); text-shadow: 2px 2px #ffd23f; }
+            80%  { transform: translate(2px, -2px); filter: hue-rotate(45deg); }
+            100% { transform: translate(0, 0); filter: none; text-shadow: none; }
+        }
+
+        /* Matrix rain canvas */
+        .matrix-canvas {
+            position: fixed; inset: 0; z-index: 999998;
+            pointer-events: none;
+            opacity: 0; transition: opacity 0.6s ease;
+        }
+        .matrix-canvas.active { opacity: 1; pointer-events: auto; }
+        .matrix-exit-hint {
+            position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
+            z-index: 999999; color: #00ff41;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
+            background: rgba(0,0,0,0.85); padding: 10px 20px;
+            border-radius: 8px; border: 1px solid #00ff41;
+            box-shadow: 0 0 20px rgba(0,255,65,0.4);
+            opacity: 0; transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .matrix-exit-hint.show { opacity: 1; }
+
+        /* Confetti container */
+        .confetti-container {
+            position: fixed; inset: 0; z-index: 999997;
+            pointer-events: none; overflow: hidden;
+        }
+        .confetti-piece {
+            position: absolute; width: 10px; height: 14px;
+            top: -20px;
+            animation: confetti-fall linear forwards;
+            will-change: transform;
+        }
+        @keyframes confetti-fall {
+            0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0.7; }
+        }
+
+        /* Firework burst */
+        .firework {
+            position: fixed; width: 6px; height: 6px; border-radius: 50%;
+            z-index: 999996; pointer-events: none;
+            animation: firework-burst 1.2s ease-out forwards;
+            will-change: transform, opacity;
+        }
+        @keyframes firework-burst {
+            0%   { transform: translate(0,0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; }
+        }
+
+        /* 404 modal */
+        .secret-404 {
+            position: fixed; inset: 0; z-index: 999999;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.4s ease;
+            text-align: center; padding: 20px;
+        }
+        .secret-404.open { opacity: 1; pointer-events: auto; }
+        .secret-404-content { color: #fff; }
+        .secret-404-content h1 {
+            font-family: 'Unbounded', 'Space Grotesk', sans-serif;
+            font-size: clamp(6rem, 20vw, 14rem); font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent; line-height: 1; margin-bottom: 10px;
+            letter-spacing: -0.05em;
+        }
+        .secret-404-content p {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-2); font-size: 0.95rem;
+            letter-spacing: 2px; text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+        .secret-404-content .btn-ultra { cursor: pointer; }
+
+        /* Debug panel */
+        .debug-panel {
+            position: fixed; bottom: 100px; left: 20px; z-index: 99997;
+            background: rgba(5,5,8,0.95); backdrop-filter: blur(20px);
+            border: 1px solid var(--accent-1);
+            border-radius: 12px; padding: 16px 20px;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+            color: var(--accent-1); min-width: 220px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 30px rgba(0,194,255,0.2);
+            opacity: 0; transform: translateY(20px); pointer-events: none;
+            transition: 0.3s var(--ease-bounce);
+        }
+        .debug-panel.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .debug-panel h4 {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+            color: var(--accent-2); margin-bottom: 12px;
+            letter-spacing: 2px; text-transform: uppercase;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .debug-panel h4 .close-debug { cursor: pointer; color: var(--text-3); transition: 0.2s; }
+        .debug-panel h4 .close-debug:hover { color: #fff; }
+        .debug-row { display: flex; justify-content: space-between; padding: 3px 0; color: var(--text-2); }
+        .debug-row b { color: #fff; font-weight: 700; }
+
+        /* Secrets achievements modal */
+        .secrets-list {
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .secret-row {
+            display: flex; align-items: center; gap: 14px;
+            padding: 12px 16px; border-radius: 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
+        }
+        .secret-row.unlocked {
+            background: rgba(0,194,255,0.05);
+            border-color: rgba(0,194,255,0.2);
+        }
+        .secret-icon {
+            width: 38px; height: 38px; flex-shrink: 0;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; color: var(--text-3);
+        }
+        .secret-row.unlocked .secret-icon {
+            background: var(--accent-gradient);
+            color: #fff;
+            box-shadow: 0 0 15px var(--accent-glow-1);
+        }
+        .secret-info { flex: 1; min-width: 0; }
+        .secret-title { font-size: 0.9rem; font-weight: 600; color: var(--text-2); margin-bottom: 3px; }
+        .secret-row.unlocked .secret-title { color: #fff; }
+        .secret-hint {
+            font-size: 0.75rem; color: var(--text-4);
+            font-family: 'JetBrains Mono', monospace; line-height: 1.4;
+        }
+        .secret-row.unlocked .secret-hint { color: var(--text-2); }
+        .secrets-progress {
+            margin-bottom: 20px; padding: 14px 18px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .secrets-progress-bar {
+            height: 6px; background: rgba(255,255,255,0.05);
+            border-radius: 10px; overflow: hidden; margin-top: 8px;
+        }
+        .secrets-progress-fill {
+            height: 100%; background: var(--accent-gradient);
+            border-radius: 10px;
+            box-shadow: 0 0 10px var(--accent-glow-1);
+            transition: width 0.6s var(--ease-bounce);
+        }
+        .secrets-progress-text {
+            display: flex; justify-content: space-between;
+            color: var(--text-3); font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Achievement toast (special toast for unlocking secrets) */
+        .achievement-toast {
+            background: linear-gradient(135deg, rgba(0,194,255,0.15), rgba(255,46,147,0.15)) !important;
+            border: 1px solid var(--accent-1) !important;
+            box-shadow: 0 10px 40px rgba(0,194,255,0.3) !important;
+            padding: 16px 24px !important;
+        }
+        .achievement-toast i {
+            color: var(--accent-2) !important;
+            animation: achievement-pop 0.6s var(--ease-bounce);
+        }
+        @keyframes achievement-pop {
+            0%   { transform: scale(0) rotate(-180deg); }
+            60%  { transform: scale(1.4) rotate(20deg); }
+            100% { transform: scale(1) rotate(0); }
+        }
+        .achievement-toast .achievement-label {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: var(--accent-1); display: block; margin-bottom: 2px;
+        }
     </style>
 </head>
 <body id="home" class="intro-loading">
@@ -569,6 +816,7 @@
                 <div class="shortcut-row"><div class="shortcut-desc">Tilbake til toppen</div><div class="shortcut-keys"><span class="key-badge">T</span></div></div>
                 <div class="shortcut-row"><div class="shortcut-desc">Lukk modaler</div><div class="shortcut-keys"><span class="key-badge">Esc</span></div></div>
                 <div class="shortcut-row"><div class="shortcut-desc">Forrige/neste video (i lightbox)</div><div class="shortcut-keys"><span class="key-badge">←</span><span class="key-badge">→</span></div></div>
+                <div class="shortcut-row"><div class="shortcut-desc">Hemmeligheter</div><div class="shortcut-keys"><span class="key-badge">K</span></div></div>
                 <div class="shortcut-row"><div class="shortcut-desc">Vis hurtigtaster</div><div class="shortcut-keys"><span class="key-badge">?</span></div></div>
             </div>
         </div>
@@ -656,12 +904,65 @@
         </div>
     </div>
 
+    <!-- Secrets achievements modal -->
+    <div class="modal-overlay" id="secretsModal" onclick="if(event.target===this) toggleSecretsModal()">
+        <div class="modal-panel large">
+            <div class="modal-header">
+                <h3><i class="fas fa-key" style="color:var(--accent-2)"></i> Hemmeligheter <span id="secretsCounter" style="color:var(--text-3); font-size:0.85rem; font-weight:400; margin-left:8px;"></span></h3>
+                <i class="fas fa-times close-btn" onclick="toggleSecretsModal()"></i>
+            </div>
+            <div class="modal-body">
+                <div class="secrets-progress">
+                    <div class="secrets-progress-text">
+                        <span>Funnet</span>
+                        <span id="secretsProgressText">0 / 10</span>
+                    </div>
+                    <div class="secrets-progress-bar">
+                        <div class="secrets-progress-fill" id="secretsProgressFill" style="width:0%;"></div>
+                    </div>
+                </div>
+                <div class="secrets-list" id="secretsList"></div>
+                <p style="margin-top:20px;text-align:center;color:var(--text-4);font-size:0.78rem;font-family:'JetBrains Mono', monospace;">Tips: Trykk K for å åpne denne menyen</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Debug panel -->
+    <div class="debug-panel" id="debugPanel">
+        <h4>System Stats <span class="close-debug" onclick="toggleDebugPanel()"><i class="fas fa-times"></i></span></h4>
+        <div class="debug-row"><span>FPS</span><b id="dbgFps">—</b></div>
+        <div class="debug-row"><span>Tema</span><b id="dbgTheme">—</b></div>
+        <div class="debug-row"><span>Videoer</span><b id="dbgVideos">—</b></div>
+        <div class="debug-row"><span>Shorts</span><b id="dbgShorts">—</b></div>
+        <div class="debug-row"><span>Favoritter</span><b id="dbgFavs">—</b></div>
+        <div class="debug-row"><span>Sett</span><b id="dbgWatched">—</b></div>
+        <div class="debug-row"><span>Secrets</span><b id="dbgSecrets">—</b></div>
+        <div class="debug-row"><span>Viewport</span><b id="dbgViewport">—</b></div>
+        <div class="debug-row"><span>Uptime</span><b id="dbgUptime">—</b></div>
+    </div>
+
+    <!-- 404 secret -->
+    <div class="secret-404" id="secret404">
+        <div class="secret-404-content">
+            <h1>404</h1>
+            <p>Du fant det skjulte rommet</p>
+            <button class="btn-ultra tap-effect" onclick="close404()">Gå tilbake</button>
+        </div>
+    </div>
+
+    <!-- Matrix canvas + exit hint -->
+    <canvas class="matrix-canvas" id="matrixCanvas"></canvas>
+    <div class="matrix-exit-hint" id="matrixExitHint">Trykk ESC for å avslutte</div>
+
+    <!-- Confetti container -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
     <div class="scroll-progress" id="scrollProgress"></div>
     <div class="noise"></div>
     <canvas id="particle-canvas"></canvas>
     <nav id="mainNav">
         <div class="container nav-inner">
-            <a href="#home" class="nav-brand" onclick="if(!isMobile && lenis) lenis.scrollTo('#home');"><img src="logo2.png" alt="Snorky" onerror="this.style.display='none'"></a>
+            <a href="#home" class="nav-brand" id="navBrandLogo" onclick="handleLogoClick(event)"><img src="logo2.png" alt="Snorky" onerror="this.style.display='none'"></a>
             <ul class="nav-links">
                 <li><a href="#stats" class="text-link" data-section="stats"><i class="fas fa-chart-line"></i> Stats</a></li>
                 <li><a href="#news" class="text-link" data-section="news"><i class="fas fa-star"></i> Nytt</a></li>
@@ -677,7 +978,7 @@
     </nav>
 
     <div class="mobile-header">
-        <img src="logo2.png" class="mobile-logo tap-effect" alt="" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <img src="logo2.png" class="mobile-logo tap-effect" id="mobileLogoEl" alt="" onclick="handleLogoClick(event)">
         <div class="mobile-header-actions">
             <div class="header-icon-btn tap-effect" onclick="randomVideo()"><i class="fas fa-shuffle"></i></div>
             <div class="header-icon-btn tap-effect" id="mobileFavBtn" onclick="toggleFavorites()"><i class="fas fa-heart"></i></div>
@@ -700,7 +1001,7 @@
                 <span class="live-dot"></span>
                 <span id="liveTagText">SISTE OPPLASTING LASTER...</span>
             </div>
-            <h1 class="hero-title"><span class="hero-title-main">SNORKY</span><span class="hero-title-sub">SITE.</span></h1>
+            <h1 class="hero-title" id="heroTitle"><span class="hero-title-main">SNORKY</span><span class="hero-title-sub">SITE.</span></h1>
             <div class="hero-actions">
                 <a href="https://www.youtube.com/channel/UCvRVrLgB-Tk9R6dIzH2gE6w" target="_blank" class="btn-hero btn-hero-yt tap-effect" onclick="triggerHaptic()"><i class="fab fa-youtube"></i> Besøk Kanalen</a>
                 <a href="#videos" class="btn-hero btn-hero-sec tap-effect" onclick="triggerHaptic()">Utforsk Innhold</a>
@@ -915,6 +1216,10 @@
                     <div class="faq-answer">Fire stykker — Snorky (standard), Cyberpunk, Sunset og Mono. Du kan bytte i innstillingene, eller bruk Shift+T.</div>
                 </div>
                 <div class="faq-item reveal tap-effect" onclick="toggleFaq(this); triggerHaptic();" tabindex="0">
+                    <div class="faq-question">Er det skjulte ting på siden? <span>+</span></div>
+                    <div class="faq-answer">Ja — det er 10 hemmeligheter gjemt rundt om på siden. Trykk K for å se hvor mange du har funnet, og hint for de du mangler. Klikk, skriv, og prøv ulike taster for å finne dem.</div>
+                </div>
+                <div class="faq-item reveal tap-effect" onclick="toggleFaq(this); triggerHaptic();" tabindex="0">
                     <div class="faq-question">Hvordan lagrer jeg favoritt-videoer? <span>+</span></div>
                     <div class="faq-answer">Hold musen over en video og trykk hjerte-ikonet, eller åpne en video og trykk "Favoritt". Trykk F for å åpne favoritt-listen.</div>
                 </div>
@@ -943,6 +1248,7 @@
                     <a href="https://www.youtube.com/channel/UCvRVrLgB-Tk9R6dIzH2gE6w" target="_blank">YouTube</a>
                     <a href="https://www.youtube.com/@snorky2361" target="_blank">Snorky 2</a>
                     <a onclick="toggleFavorites()">Favoritter</a>
+                    <a onclick="toggleSecretsModal()">Hemmeligheter <i class="fas fa-key" style="font-size:0.7rem; opacity:0.6; margin-left:4px;"></i></a>
                     <a onclick="document.getElementById('shortcutsModal').classList.add('open')">Hurtigtaster</a>
                 </div>
             </div>
@@ -983,7 +1289,8 @@
             settings: 'snorky-settings',
             favorites: 'snorky-favorites',
             watched: 'snorky-watched',
-            theme: 'snorky-theme'
+            theme: 'snorky-theme',
+            secrets: 'snorky-secrets'
         };
 
         const defaultSettings = {
@@ -2072,6 +2379,394 @@
                 <div class="skeleton skeleton-short"></div><div class="skeleton skeleton-short"></div><div class="skeleton skeleton-short"></div>`;
             loadData();
         }
+
+        // ==========================================
+        // === SECRETS / EASTER EGG SYSTEM ===
+        // ==========================================
+        const SECRETS_STORAGE = 'snorky-secrets';
+        const SECRET_DEFINITIONS = [
+            { id: 'konami',   icon: 'fa-gamepad',     title: 'Konami-koden',         hint: '↑ ↑ ↓ ↓ ← → ← → B A' },
+            { id: 'logo',     icon: 'fa-trophy',      title: 'Klikk-master',         hint: 'Klikk logoen 7 ganger raskt' },
+            { id: 'snorky',   icon: 'fa-fire',        title: 'Navnet ditt',          hint: 'Skriv inn kallenavnet hans' },
+            { id: 'matrix',   icon: 'fa-terminal',    title: 'Inn i Matrix',         hint: 'Skriv et velkjent filmnavn' },
+            { id: 'gg',       icon: 'fa-medal',       title: 'GG WP',                hint: 'To bokstaver gamere kjenner' },
+            { id: 'four04',   icon: 'fa-link-slash',  title: 'Sidens skjulte rom',   hint: 'En tre-siffers feilkode' },
+            { id: 'glitch',   icon: 'fa-bolt',        title: 'Glitch i systemet',    hint: 'Trippelklikk på tittelen' },
+            { id: 'vibe',     icon: 'fa-music',       title: 'Vibe Mode',            hint: 'Hold inne en bestemt bokstav (V)' },
+            { id: 'debug',    icon: 'fa-code',        title: 'Debug-tilgang',        hint: 'Ctrl + Shift + S' },
+            { id: 'bottom',   icon: 'fa-arrow-down',  title: 'Helt på bunnen',       hint: 'Scroll til bunnen 3 ganger' },
+        ];
+
+        function getUnlockedSecrets() {
+            try { return JSON.parse(localStorage.getItem(SECRETS_STORAGE) || '[]'); } catch(e) { return []; }
+        }
+        function isSecretUnlocked(id) { return getUnlockedSecrets().includes(id); }
+        function unlockSecret(id) {
+            if (isSecretUnlocked(id)) return false;
+            const list = getUnlockedSecrets();
+            list.push(id);
+            try { localStorage.setItem(SECRETS_STORAGE, JSON.stringify(list)); } catch(e) {}
+            const def = SECRET_DEFINITIONS.find(s => s.id === id);
+            if (def) showAchievement(def);
+            updateSecretsModal();
+            updateDebugPanel();
+            return true;
+        }
+        function showAchievement(def) {
+            const total = SECRET_DEFINITIONS.length;
+            const found = getUnlockedSecrets().length;
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast achievement-toast';
+            toast.innerHTML = `<i class="fas ${def.icon}"></i><div><span class="achievement-label">Hemmelighet ${found}/${total}</span>${def.title}</div>`;
+            container.appendChild(toast);
+            triggerHaptic();
+            if (navigator.vibrate) navigator.vibrate([30, 40, 80]);
+            setTimeout(() => {
+                toast.classList.add('toast-out');
+                setTimeout(() => toast.remove(), 400);
+            }, 4000);
+        }
+        function toggleSecretsModal() {
+            triggerHaptic();
+            updateSecretsModal();
+            document.getElementById('secretsModal').classList.toggle('open');
+        }
+        function updateSecretsModal() {
+            const unlocked = getUnlockedSecrets();
+            const total = SECRET_DEFINITIONS.length;
+            const list = document.getElementById('secretsList');
+            if (!list) return;
+            list.innerHTML = SECRET_DEFINITIONS.map(s => {
+                const isUnlocked = unlocked.includes(s.id);
+                return `
+                    <div class="secret-row ${isUnlocked ? 'unlocked' : ''}">
+                        <div class="secret-icon"><i class="fas ${isUnlocked ? s.icon : 'fa-lock'}"></i></div>
+                        <div class="secret-info">
+                            <div class="secret-title">${isUnlocked ? s.title : '???'}</div>
+                            <div class="secret-hint">${s.hint}</div>
+                        </div>
+                    </div>`;
+            }).join('');
+            const counter = document.getElementById('secretsCounter');
+            if (counter) counter.innerText = `${unlocked.length}/${total}`;
+            const fill = document.getElementById('secretsProgressFill');
+            const text = document.getElementById('secretsProgressText');
+            if (fill) fill.style.width = `${(unlocked.length / total) * 100}%`;
+            if (text) text.innerText = `${unlocked.length} / ${total}`;
+        }
+
+        // --- Effects ---
+        function spawnConfetti(count = 80) {
+            const container = document.getElementById('confettiContainer');
+            const colors = ['#00C2FF', '#FF2E93', '#FFD23F', '#22c55e', '#a855f7', '#fb923c'];
+            for (let i = 0; i < count; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+                piece.style.animationDelay = Math.random() * 0.4 + 's';
+                piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+                container.appendChild(piece);
+                setTimeout(() => piece.remove(), 4500);
+            }
+        }
+        function spawnFireworks(burstCount = 5) {
+            const colors = ['#00C2FF', '#FF2E93', '#FFD23F', '#22c55e', '#a855f7'];
+            for (let b = 0; b < burstCount; b++) {
+                setTimeout(() => {
+                    const cx = window.innerWidth * (0.2 + Math.random() * 0.6);
+                    const cy = window.innerHeight * (0.2 + Math.random() * 0.5);
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    for (let i = 0; i < 24; i++) {
+                        const fw = document.createElement('div');
+                        fw.className = 'firework';
+                        fw.style.left = cx + 'px';
+                        fw.style.top = cy + 'px';
+                        fw.style.background = color;
+                        fw.style.boxShadow = `0 0 12px ${color}`;
+                        const angle = (Math.PI * 2 * i) / 24 + Math.random() * 0.3;
+                        const dist = 80 + Math.random() * 80;
+                        fw.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+                        fw.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+                        document.body.appendChild(fw);
+                        setTimeout(() => fw.remove(), 1300);
+                    }
+                }, b * 200);
+            }
+        }
+
+        // --- Secret: Logo click counter ---
+        let logoClicks = 0;
+        let logoClickTimer = null;
+        function handleLogoClick(e) {
+            triggerHaptic();
+            logoClicks++;
+            clearTimeout(logoClickTimer);
+            logoClickTimer = setTimeout(() => { logoClicks = 0; }, 1500);
+            if (logoClicks >= 7) {
+                logoClicks = 0;
+                if (e && e.preventDefault) e.preventDefault();
+                activateDiscoMode();
+                return;
+            }
+            if (logoClicks === 4) {
+                showToast(`Fortsett...`, 'fa-question', '', 1100);
+            }
+            if (!isMobile && typeof lenis !== 'undefined' && lenis) lenis.scrollTo('#home');
+            else window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        let discoTimeout = null;
+        function activateDiscoMode() {
+            unlockSecret('logo');
+            document.body.classList.add('disco-mode');
+            const ball = document.createElement('div');
+            ball.className = 'disco-ball';
+            ball.id = 'discoBall';
+            document.body.appendChild(ball);
+            spawnConfetti(120);
+            showToast('🪩 DISCO MODE 🪩', 'fa-record-vinyl', 'toast-success', 2500);
+            clearTimeout(discoTimeout);
+            discoTimeout = setTimeout(() => {
+                document.body.classList.remove('disco-mode');
+                const b = document.getElementById('discoBall');
+                if (b) b.remove();
+            }, 6000);
+        }
+
+        // --- Secret: Type-to-trigger words ---
+        let typedBuffer = '';
+        const TYPE_WORDS = {
+            'snorky': () => {
+                unlockSecret('snorky');
+                spawnFireworks(6);
+                showToast('Du fant navnet hans!', 'fa-fire', 'toast-success');
+            },
+            'matrix': () => {
+                unlockSecret('matrix');
+                startMatrixRain();
+            },
+            'gg': () => {
+                unlockSecret('gg');
+                spawnConfetti(150);
+                showToast('GG! 🎮', 'fa-medal', 'toast-success');
+            },
+            '404': () => {
+                unlockSecret('four04');
+                open404();
+            },
+        };
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
+            if (e.key.length === 1) {
+                typedBuffer += e.key.toLowerCase();
+                if (typedBuffer.length > 15) typedBuffer = typedBuffer.slice(-15);
+                for (const [word, action] of Object.entries(TYPE_WORDS)) {
+                    if (typedBuffer.endsWith(word)) {
+                        action();
+                        typedBuffer = '';
+                        break;
+                    }
+                }
+            }
+        });
+
+        // --- Secret: Matrix rain ---
+        let matrixActive = false;
+        let matrixAnimId = null;
+        function startMatrixRain() {
+            if (matrixActive) return;
+            matrixActive = true;
+            const canvas = document.getElementById('matrixCanvas');
+            canvas.classList.add('active');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const ctx2 = canvas.getContext('2d');
+            const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789SNORKY';
+            const fontSize = 16;
+            const cols = Math.floor(canvas.width / fontSize);
+            const drops = new Array(cols).fill(1);
+            function draw() {
+                ctx2.fillStyle = 'rgba(0, 0, 0, 0.06)';
+                ctx2.fillRect(0, 0, canvas.width, canvas.height);
+                ctx2.fillStyle = '#00ff41';
+                ctx2.font = fontSize + "px 'JetBrains Mono', monospace";
+                for (let i = 0; i < drops.length; i++) {
+                    const ch = chars[Math.floor(Math.random() * chars.length)];
+                    ctx2.fillText(ch, i * fontSize, drops[i] * fontSize);
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
+                }
+                matrixAnimId = requestAnimationFrame(draw);
+            }
+            draw();
+            const hint = document.getElementById('matrixExitHint');
+            hint.classList.add('show');
+            setTimeout(() => hint.classList.remove('show'), 4000);
+            showToast('Welcome to the Matrix', 'fa-terminal', 'toast-success', 2500);
+        }
+        function stopMatrixRain() {
+            if (!matrixActive) return;
+            matrixActive = false;
+            cancelAnimationFrame(matrixAnimId);
+            const canvas = document.getElementById('matrixCanvas');
+            canvas.classList.remove('active');
+            const ctx2 = canvas.getContext('2d');
+            ctx2.clearRect(0, 0, canvas.width, canvas.height);
+            document.getElementById('matrixExitHint').classList.remove('show');
+        }
+        window.addEventListener('resize', () => {
+            const canvas = document.getElementById('matrixCanvas');
+            if (canvas && matrixActive) { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        });
+        document.getElementById('matrixCanvas').addEventListener('click', stopMatrixRain);
+
+        // --- Secret: Hold V for vibe mode ---
+        let vibeKeyDown = false;
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if ((e.key === 'v' || e.key === 'V') && !vibeKeyDown && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                vibeKeyDown = true;
+                document.body.classList.add('vibe-mode');
+                unlockSecret('vibe');
+            }
+        });
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'v' || e.key === 'V') {
+                vibeKeyDown = false;
+                document.body.classList.remove('vibe-mode');
+            }
+        });
+
+        // --- Secret: Triple-click hero title ---
+        let titleClicks = 0;
+        let titleClickTimer = null;
+        const heroTitleEl = document.getElementById('heroTitle');
+        if (heroTitleEl) {
+            heroTitleEl.addEventListener('click', () => {
+                titleClicks++;
+                clearTimeout(titleClickTimer);
+                titleClickTimer = setTimeout(() => { titleClicks = 0; }, 600);
+                if (titleClicks >= 3) {
+                    titleClicks = 0;
+                    triggerGlitch();
+                }
+            });
+        }
+        function triggerGlitch() {
+            unlockSecret('glitch');
+            const heroTitle = document.getElementById('heroTitle');
+            if (!heroTitle) return;
+            heroTitle.classList.add('glitch-hero');
+            triggerHaptic();
+            if (navigator.vibrate) navigator.vibrate([50, 30, 50, 30, 100]);
+            setTimeout(() => heroTitle.classList.remove('glitch-hero'), 3500);
+            showToast('SYSTEM ERROR... bare tuller', 'fa-bolt', 'toast-warning', 2500);
+        }
+
+        // --- Secret: 404 modal ---
+        function open404() {
+            document.getElementById('secret404').classList.add('open');
+            document.body.style.overflow = 'hidden';
+            spawnFireworks(3);
+        }
+        function close404() {
+            document.getElementById('secret404').classList.remove('open');
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- Secret: Debug panel (Ctrl+Shift+S) ---
+        let debugPanelOpen = false;
+        let debugUpdateInterval = null;
+        let pageLoadTime = Date.now();
+        function toggleDebugPanel() {
+            debugPanelOpen = !debugPanelOpen;
+            const panel = document.getElementById('debugPanel');
+            panel.classList.toggle('open', debugPanelOpen);
+            if (debugPanelOpen) {
+                unlockSecret('debug');
+                updateDebugPanel();
+                debugUpdateInterval = setInterval(updateDebugPanel, 500);
+            } else {
+                clearInterval(debugUpdateInterval);
+            }
+        }
+        let lastFrameTime = performance.now();
+        let fpsRollingAvg = 60;
+        function fpsTick() {
+            const now = performance.now();
+            const delta = now - lastFrameTime;
+            lastFrameTime = now;
+            if (delta > 0 && delta < 200) {
+                const currentFps = 1000 / delta;
+                fpsRollingAvg = fpsRollingAvg * 0.95 + currentFps * 0.05;
+            }
+            requestAnimationFrame(fpsTick);
+        }
+        requestAnimationFrame(fpsTick);
+        function updateDebugPanel() {
+            if (!debugPanelOpen) return;
+            const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+            setVal('dbgFps', Math.round(fpsRollingAvg));
+            setVal('dbgTheme', document.body.getAttribute('data-theme') || 'snorky');
+            setVal('dbgVideos', globalLongVideos.length);
+            setVal('dbgShorts', globalShortVideos.length);
+            setVal('dbgFavs', getFavorites().length);
+            setVal('dbgWatched', getWatched().length);
+            setVal('dbgSecrets', `${getUnlockedSecrets().length}/${SECRET_DEFINITIONS.length}`);
+            setVal('dbgViewport', `${window.innerWidth}×${window.innerHeight}`);
+            const uptime = Math.floor((Date.now() - pageLoadTime) / 1000);
+            const m = Math.floor(uptime / 60);
+            const s = uptime % 60;
+            setVal('dbgUptime', m > 0 ? `${m}m ${s}s` : `${s}s`);
+        }
+
+        // --- Secret: Scroll to bottom 3 times ---
+        let bottomReachCount = 0;
+        let lastBottomReach = 0;
+        window.addEventListener('scroll', () => {
+            const scrolledToBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 60);
+            if (scrolledToBottom && Date.now() - lastBottomReach > 1500) {
+                bottomReachCount++;
+                lastBottomReach = Date.now();
+                if (bottomReachCount >= 3 && !isSecretUnlocked('bottom')) {
+                    unlockSecret('bottom');
+                    spawnConfetti(60);
+                }
+            }
+        }, { passive: true });
+
+        // --- Konami unlock: wrap existing easter egg into secrets system ---
+        const _origTriggerEasterEgg = triggerEasterEgg;
+        triggerEasterEgg = function() {
+            unlockSecret('konami');
+            _origTriggerEasterEgg();
+        };
+
+        // --- Master keydown handler for K and Ctrl+Shift+S ---
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.ctrlKey && e.shiftKey && (e.key === 'S' || e.key === 's')) {
+                e.preventDefault();
+                toggleDebugPanel();
+                return;
+            }
+            if ((e.key === 'k' || e.key === 'K') && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
+                toggleSecretsModal();
+            }
+            if (e.key === 'Escape') {
+                if (matrixActive) stopMatrixRain();
+                if (document.getElementById('secret404').classList.contains('open')) close404();
+                if (document.getElementById('secretsModal').classList.contains('open')) document.getElementById('secretsModal').classList.remove('open');
+                if (debugPanelOpen) toggleDebugPanel();
+            }
+        });
+
+        // Initialize secrets UI immediately
+        updateSecretsModal();
+
         loadData();
     </script>
 </body>
