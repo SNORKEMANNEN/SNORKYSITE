@@ -147,7 +147,21 @@
         .hero-tag .live-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 10px #22c55e; animation: live-pulse 2s infinite; flex-shrink: 0; }
         .hero-tag span:not(.live-dot) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         @keyframes live-pulse { 0%, 100% { opacity: 1; box-shadow: 0 0 10px #22c55e; } 50% { opacity: 0.5; box-shadow: 0 0 20px #22c55e; } }
-        .hero-title { margin-bottom: 20px; line-height: 1; letter-spacing: -0.02em; }
+        .hero-title { margin-bottom: 20px; line-height: 1; letter-spacing: -0.02em; position: relative; isolation: isolate; }
+        .hero-title::before {
+            content: '';
+            position: absolute;
+            inset: -8% -14%;
+            background: radial-gradient(ellipse at center, rgba(3, 3, 5, 0.55) 0%, rgba(3, 3, 5, 0.35) 45%, rgba(3, 3, 5, 0.08) 75%, transparent 100%);
+            backdrop-filter: blur(14px) brightness(0.95);
+            -webkit-backdrop-filter: blur(14px) brightness(0.95);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.95;
+            transform: scale(1.08);
+        }
+        @media (max-width: 1024px) { .hero-title::before { inset: -6% -8%; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); } }
         .hero-title-main { font-family: 'Gloria Hallelujah', cursive; font-size: clamp(3.5rem, 11vw, 9rem); font-weight: 400; letter-spacing: -0.01em; line-height: 1.05; background: linear-gradient(135deg, var(--accent-1), var(--accent-2), var(--accent-1)); background-size: 200% auto; animation: gradient-text-anim 5s linear infinite; -webkit-background-clip: text; background-clip: text; color: transparent; display: block; padding-bottom: 0.05em; will-change: opacity, transform, filter; }
         @keyframes gradient-text-anim { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
         .hero-title-sub { font-family: 'Unbounded', 'Space Grotesk', sans-serif; font-size: clamp(3rem, 9.5vw, 7.5rem); font-weight: 800; letter-spacing: -0.04em; line-height: 0.92; background: linear-gradient(180deg, #ffffff 0%, #ffffff 55%, rgba(255,255,255,0.55) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; display: block; position: relative; margin-top: -0.05em; text-shadow: 0 2px 30px rgba(0,0,0,0.4); will-change: opacity, transform, filter; }
@@ -333,6 +347,87 @@
         /* === Section base === */
         .stats-section, .news-section, .work-section, .shorts-section, .second-channel-section, .about-section, .gear-section, .faq-section { padding: 100px 0; border-top: 1px solid var(--border); position: relative; }
         .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+
+        /* === Stats Extra Section === */
+        .stats-extra-wrapper {
+            margin-top: 25px;
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.7s var(--ease-smooth), opacity 0.5s ease, margin-top 0.5s ease;
+            opacity: 0;
+        }
+        .stats-extra-wrapper.expanded { grid-template-rows: 1fr; opacity: 1; }
+        .stats-extra-inner { overflow: hidden; min-height: 0; }
+        .stats-extra-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            padding-top: 25px;
+        }
+        .stats-extra-grid .card-wide { grid-column: span 2; }
+
+        .stats-toggle-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 35px;
+        }
+        .stats-toggle-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 28px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            transition: transform 0.4s var(--ease-smooth), border-color 0.3s ease, background 0.3s ease, box-shadow 0.4s ease;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 18px -4px rgba(0,0,0,0.4);
+        }
+        .stats-toggle-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0,194,255,0.12), rgba(255,46,147,0.08));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .stats-toggle-btn .toggle-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            font-size: 0.7rem;
+            transition: transform 0.5s var(--ease-bounce);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(255,46,147,0.3);
+        }
+        .stats-toggle-btn.is-open .toggle-icon { transform: rotate(180deg); }
+        @media (hover: hover) {
+            .stats-toggle-btn:hover {
+                transform: translateY(-2px);
+                border-color: rgba(255,255,255,0.22);
+                box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 10px 28px -6px rgba(0,194,255,0.25);
+            }
+            .stats-toggle-btn:hover::before { opacity: 1; }
+        }
+        .stats-toggle-btn:active { transform: translateY(0); transition-duration: 0.1s; }
+        .stats-toggle-label-more { display: inline; }
+        .stats-toggle-label-less { display: none; }
+        .stats-toggle-btn.is-open .stats-toggle-label-more { display: none; }
+        .stats-toggle-btn.is-open .stats-toggle-label-less { display: inline; }
         .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 35px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; transition: 0.4s var(--ease-smooth); box-shadow: var(--shadow-card); }
         .card::before { content: ''; position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(0, 194, 255, 0.08), transparent 40%); transition: opacity 0.4s; pointer-events: none; }
         @media (hover: hover) { .card:hover { transform: translateY(-5px); border-color: var(--border-strong); box-shadow: var(--shadow-hover); } .card:hover::before { opacity: 1; } }
@@ -545,6 +640,10 @@
         .work-track::-webkit-scrollbar { display: none; }
         .video-card-premium { width: 400px; min-width: 400px; background: rgba(18, 18, 22, 0.8); border-radius: 20px; border: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; overflow: hidden; position: relative; transition: all 0.4s var(--ease-smooth); box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5); }
         @media (hover: hover) { .video-card-premium:hover { transform: translateY(-8px); border-color: rgba(255,255,255,0.18); box-shadow: 0 30px 60px -10px rgba(0,0,0,0.7); } .video-card-premium:hover .premium-thumb { transform: scale(1.06); filter: brightness(0.7); } .video-card-premium:hover .premium-play-btn { transform: translate(-50%, -50%) scale(1.1); opacity: 1; } .video-card-premium:hover .card-actions { opacity: 1; transform: translateY(0); } }
+        .video-card-premium.watched.is-new::before { content: 'SETT' !important; background: rgba(0, 194, 255, 0.9) !important; }
+        .video-card-premium.is-new::before { content: 'NY' !important; background: linear-gradient(135deg, #22c55e, #16a34a) !important; box-shadow: 0 2px 10px rgba(34,197,94,0.4) !important; }
+        .video-card-premium.is-new.watched::before { background: rgba(0, 194, 255, 0.9) !important; box-shadow: none !important; }
+
         .video-card-premium.watched { border-color: rgba(0, 194, 255, 0.2); }
         .video-card-premium.watched::before { content: 'SETT'; position: absolute; top: 12px; left: 12px; z-index: 3; background: rgba(0, 194, 255, 0.9); color: var(--bg); padding: 3px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; }
         .premium-thumb-wrapper { width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden; }
@@ -627,6 +726,195 @@
         .qr-url { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-3); word-break: break-all; text-align: center; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid var(--border); }
         /* === MOBILE === */
         @media (max-width: 1024px) {
+            /* === Mobile bottom nav: auto-hide on scroll down === */
+            .mobile-bottom-nav { transition: transform 0.4s var(--ease-smooth), opacity 0.4s ease; }
+            .mobile-bottom-nav.is-hidden { transform: translateX(-50%) translateY(calc(100% + 30px)); opacity: 0; }
+            .mobile-fab { transition: transform 0.4s var(--ease-bounce), opacity 0.4s ease, visibility 0.4s; }
+            .mobile-fab.nav-hidden { transform: scale(1) translateY(-72px); }
+
+            /* === Mobile sticky search bar === */
+            .mobile-sticky-bar {
+                position: fixed;
+                top: calc(var(--safe-top) + 64px);
+                left: 0; right: 0;
+                background: rgba(5, 5, 8, 0.85);
+                backdrop-filter: blur(20px) saturate(180%);
+                -webkit-backdrop-filter: blur(20px) saturate(180%);
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+                padding: 10px 16px;
+                z-index: 998;
+                transform: translateY(-100%);
+                opacity: 0;
+                pointer-events: none;
+                transition: transform 0.4s var(--ease-smooth), opacity 0.3s ease;
+                display: flex;
+                gap: 8px;
+                align-items: center;
+            }
+            .mobile-sticky-bar.visible { transform: translateY(0); opacity: 1; pointer-events: auto; }
+            .mobile-sticky-bar .mini-search-input {
+                flex: 1;
+                background: rgba(255,255,255,0.06);
+                border: 1px solid rgba(255,255,255,0.08);
+                color: #fff;
+                padding: 9px 14px 9px 36px;
+                border-radius: 50px;
+                font-size: 14px;
+                outline: none;
+                font-family: 'Inter', sans-serif;
+                min-width: 0;
+                position: relative;
+            }
+            .mobile-sticky-bar-inner { position: relative; flex: 1; }
+            .mobile-sticky-bar-inner i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 0.78rem; color: var(--text-3); pointer-events: none; }
+            .mobile-sticky-bar .mini-search-input::placeholder { color: var(--text-3); }
+            .mobile-sticky-bar .mini-search-input:focus { border-color: var(--accent-1); background: rgba(255,255,255,0.09); }
+            .mobile-sticky-bar-tag {
+                background: linear-gradient(135deg, var(--accent-1), #0098cc);
+                color: var(--bg);
+                font-weight: 700;
+                font-size: 0.72rem;
+                padding: 7px 12px;
+                border-radius: 50px;
+                white-space: nowrap;
+                display: inline-flex; align-items: center; gap: 6px;
+                box-shadow: 0 3px 10px var(--accent-glow-1);
+                animation: slide-fade 0.3s ease;
+            }
+            @keyframes slide-fade { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+            .mobile-sticky-bar-tag .x { cursor: pointer; opacity: 0.7; padding: 0 2px; }
+            .mobile-sticky-bar-tag .x:hover { opacity: 1; }
+
+            /* === Pull-to-refresh === */
+            .ptr-indicator {
+                position: fixed;
+                top: calc(var(--safe-top) + 10px);
+                left: 50%;
+                transform: translateX(-50%) translateY(-100%);
+                background: rgba(15,15,20,0.92);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: 100px;
+                padding: 10px 18px;
+                color: #fff;
+                font-size: 0.78rem;
+                font-weight: 600;
+                font-family: 'Inter', sans-serif;
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+                z-index: 9991;
+                pointer-events: none;
+                opacity: 0;
+                transition: transform 0.25s var(--ease-bounce), opacity 0.2s ease;
+            }
+            .ptr-indicator.visible { opacity: 1; }
+            .ptr-indicator i { font-size: 0.85rem; color: var(--accent-1); transition: transform 0.3s ease; }
+            .ptr-indicator.ready i { transform: rotate(180deg); color: var(--accent-2); }
+            .ptr-indicator.loading i { animation: ptr-spin 0.8s linear infinite; color: var(--accent-1); }
+            @keyframes ptr-spin { to { transform: rotate(360deg); } }
+
+            /* === Mobile-friendly tag chip (bigger taps) === */
+            .tag-chip { padding: 9px 16px; font-size: 0.82rem; }
+
+            /* === Mobile ripple on cards === */
+            .video-card-premium, .shorts-card, .card { -webkit-tap-highlight-color: transparent; }
+            .mobile-ripple {
+                position: absolute; border-radius: 50%; pointer-events: none;
+                background: radial-gradient(circle, rgba(0,194,255,0.35) 0%, transparent 70%);
+                transform: translate(-50%, -50%) scale(0);
+                animation: m-ripple 0.6s ease-out forwards;
+                z-index: 5;
+            }
+            @keyframes m-ripple { to { transform: translate(-50%, -50%) scale(8); opacity: 0; } }
+
+            /* === Mobile long-press action sheet === */
+            .action-sheet-overlay {
+                position: fixed; inset: 0; z-index: 99995;
+                background: rgba(0,0,0,0.55); backdrop-filter: blur(8px);
+                opacity: 0; pointer-events: none;
+                transition: opacity 0.3s ease;
+                display: flex; align-items: flex-end;
+            }
+            .action-sheet-overlay.open { opacity: 1; pointer-events: auto; }
+            .action-sheet {
+                width: 100%;
+                background: var(--surface-2);
+                border-radius: 22px 22px 0 0;
+                padding: 12px 14px calc(20px + var(--safe-bottom));
+                transform: translateY(100%);
+                transition: transform 0.4s var(--ease-bounce);
+                box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+            }
+            .action-sheet-overlay.open .action-sheet { transform: translateY(0); }
+            .action-sheet::before {
+                content: ''; display: block; width: 40px; height: 4px;
+                background: rgba(255,255,255,0.2); border-radius: 2px;
+                margin: 0 auto 14px; flex-shrink: 0;
+            }
+            .action-sheet-preview {
+                display: flex; gap: 12px; padding: 0 4px 14px;
+                margin-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.06);
+            }
+            .action-sheet-preview img {
+                width: 90px; aspect-ratio: 16/9;
+                border-radius: 8px; object-fit: cover; flex-shrink: 0;
+            }
+            .action-sheet-preview-title {
+                font-size: 0.88rem; font-weight: 600; color: #fff;
+                line-height: 1.3; display: -webkit-box;
+                -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+            }
+            .action-sheet-btn {
+                display: flex; align-items: center; gap: 14px;
+                width: 100%; padding: 14px 12px;
+                background: transparent; border: none;
+                color: #fff; text-align: left; font-size: 0.95rem;
+                font-weight: 500; cursor: pointer;
+                border-radius: 12px; font-family: 'Inter', sans-serif;
+                transition: background 0.2s ease;
+            }
+            .action-sheet-btn:active { background: rgba(255,255,255,0.05); }
+            .action-sheet-btn i { width: 24px; text-align: center; color: var(--accent-1); font-size: 1rem; }
+            .action-sheet-btn.danger i { color: #ef4444; }
+            .action-sheet-btn.danger { color: #ef4444; }
+
+            /* === Card visual feedback === */
+            .video-card-premium.long-press-feedback { transform: scale(0.97); transition: transform 0.15s ease; }
+
+            /* === Bigger touch targets in nav === */
+            .nav-item { min-height: 60px; }
+
+            /* === Better skeleton on mobile === */
+            .skeleton { background-size: 100% 100%; background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.09), rgba(255,255,255,0.04)); background-size: 200% 100%; animation: skeleton-shimmer 1.2s ease-in-out infinite; }
+
+            /* === Section snap on mobile === */
+            section { scroll-margin-top: calc(72px + var(--safe-top)); }
+
+            /* === Larger scroll indicator dots === */
+            .section-dot { width: 12px; height: 12px; }
+
+            /* === New badge === */
+            .new-since-badge {
+                position: absolute; top: 10px; left: 10px;
+                background: linear-gradient(135deg, #22c55e, #16a34a);
+                color: #fff; font-size: 0.6rem; font-weight: 800;
+                padding: 3px 8px; border-radius: 50px;
+                font-family: 'JetBrains Mono', monospace; letter-spacing: 1px;
+                z-index: 4;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.45);
+                animation: new-badge-pop 0.4s var(--ease-bounce);
+            }
+            .video-card-premium.watched .new-since-badge { display: none; }
+            .video-card-premium.is-new::before { content: 'NY!' !important; background: linear-gradient(135deg, #22c55e, #16a34a) !important; }
+            @keyframes new-badge-pop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
+            .new-since-badge::before {
+                content: ''; position: absolute; inset: 0;
+                background: inherit; border-radius: inherit; filter: blur(6px);
+                opacity: 0.5; z-index: -1;
+            }
+
             .btn-hero:hover, .card:hover, .news-card:hover, .shorts-card:hover { transform: none !important; box-shadow: none !important; border-color: var(--border) !important; }
             nav { display: none !important; }
             .scroll-controls { display: none !important; }
@@ -673,6 +961,10 @@
             .section-header { font-size: clamp(2rem, 8vw, 2.6rem); margin-bottom: 18px; }
             .subtitle { font-size: 0.65rem; letter-spacing: 2.5px; }
             .bento-grid { grid-template-columns: 1fr; gap: 14px; }
+            .stats-extra-grid { grid-template-columns: 1fr; gap: 14px; padding-top: 14px; }
+            .stats-extra-grid .card-wide { grid-column: span 1; }
+            .stats-toggle-wrapper { margin-top: 22px; }
+            .stats-toggle-btn { padding: 13px 22px; font-size: 0.82rem; }
             .card { padding: 26px 22px; border-radius: 20px; }
             .card-large, .card-wide { grid-column: span 1; grid-row: span 1; }
             .stat-num { font-size: 2.6rem; }
@@ -888,6 +1180,33 @@
         </div>
     </div>
 
+    <!-- Pull-to-refresh indicator (mobile only) -->
+    <div class="ptr-indicator" id="ptrIndicator">
+        <i class="fas fa-arrow-down"></i>
+        <span id="ptrText">Trekk for å oppdatere</span>
+    </div>
+
+    <!-- Sticky search/filter (mobile only) -->
+    <div class="mobile-sticky-bar" id="mobileStickyBar">
+        <div class="mobile-sticky-bar-inner">
+            <i class="fas fa-search"></i>
+            <input class="mini-search-input" id="miniSearchInput" type="search" placeholder="Søk videoer..." autocomplete="off">
+        </div>
+        <div class="mobile-sticky-bar-tag" id="mobileStickyTag" style="display:none;"></div>
+    </div>
+
+    <!-- Long-press action sheet (mobile only) -->
+    <div class="action-sheet-overlay" id="actionSheet" onclick="if(event.target===this) closeActionSheet()">
+        <div class="action-sheet">
+            <div class="action-sheet-preview" id="actionSheetPreview"></div>
+            <button class="action-sheet-btn" id="actionPlayBtn"><i class="fas fa-play"></i> Spill av</button>
+            <button class="action-sheet-btn" id="actionFavBtn"><i class="far fa-heart"></i> <span>Legg til i favoritter</span></button>
+            <button class="action-sheet-btn" id="actionShareBtn"><i class="fas fa-share-alt"></i> Del</button>
+            <button class="action-sheet-btn" id="actionYTBtn"><i class="fab fa-youtube" style="color:#FF0000"></i> Åpne på YouTube</button>
+            <button class="action-sheet-btn" onclick="closeActionSheet()"><i class="fas fa-times"></i> Avbryt</button>
+        </div>
+    </div>
+
     <div class="mobile-bottom-nav" id="mobileNav">
         <a href="#home" class="nav-item active" data-section="home" onclick="mobileNavClick(this)"><i class="fas fa-home"></i><span>Hjem</span></a>
         <a href="#videos" class="nav-item" data-section="videos" onclick="mobileNavClick(this)"><i class="fas fa-play-circle"></i><span>Videoer</span></a>
@@ -963,70 +1282,85 @@
                     </div>
                     <p style="text-align:right; font-size:0.85rem; margin-top:10px; opacity:0.8; font-family:'JetBrains Mono', monospace;" id="progressText">Laster data...</p>
                 </div>
+            </div>
 
-                <div class="card reveal tap-effect" tabindex="0">
-                    <i class="fas fa-thumbs-up stat-icon-bg" style="color:rgba(255, 46, 147, 0.08);"></i>
-                    <span class="subtitle">Totale Likes</span>
-                    <div class="stat-num-md" id="totalLikes"><span class="skeleton" style="display:inline-block;width:100px;height:32px;"></span></div>
-                    <div style="color:var(--text-3); font-size:0.78rem; margin-top:auto; font-family: 'JetBrains Mono', monospace;" id="avgLikes">—</div>
-                </div>
-
-                <div class="card reveal tap-effect" tabindex="0">
-                    <i class="fas fa-comments stat-icon-bg"></i>
-                    <span class="subtitle">Kommentarer</span>
-                    <div class="stat-num-md" id="totalComments"><span class="skeleton" style="display:inline-block;width:100px;height:32px;"></span></div>
-                    <div style="color:var(--text-3); font-size:0.78rem; margin-top:auto; font-family: 'JetBrains Mono', monospace;" id="avgComments">—</div>
-                </div>
-
-                <div class="card reveal tap-effect" tabindex="0">
-                    <i class="fas fa-heart stat-icon-bg" style="color:rgba(255, 46, 147, 0.08);"></i>
-                    <span class="subtitle">Engasjement</span>
-                    <div class="stat-num-md" id="engagementRate"><span class="skeleton" style="display:inline-block;width:80px;height:32px;"></span></div>
-                    <div class="engagement-bar"><div class="engagement-fill" id="engagementFill"></div></div>
-                    <div style="color:var(--text-3); font-size:0.7rem; margin-top:8px; font-family: 'JetBrains Mono', monospace;">Likes per visning</div>
-                </div>
-
-                <div class="card reveal tap-effect" tabindex="0">
-                    <i class="fas fa-stopwatch stat-icon-bg"></i>
-                    <span class="subtitle">Snitt-Varighet</span>
-                    <div class="stat-num-md" id="avgDuration"><span class="skeleton" style="display:inline-block;width:80px;height:32px;"></span></div>
-                    <div style="color:var(--text-3); font-size:0.78rem; margin-top:auto; font-family: 'JetBrains Mono', monospace;" id="longestVid">—</div>
-                </div>
-
-                <div class="card card-wide reveal tap-effect" tabindex="0" id="topVideoCard">
-                    <span class="subtitle"><i class="fas fa-fire" style="color:#f59e0b; margin-left:6px;"></i> Mest Populære</span>
-                    <div id="topVideoContent">
-                        <div class="skeleton" style="height:90px; margin-top:16px;"></div>
-                    </div>
-                </div>
-
-                <div class="card card-wide reveal tap-effect" tabindex="0">
-                    <span class="subtitle">Visnings-trend</span>
-                    <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:8px;">
-                        <div>
-                            <div class="stat-num-md" id="trendCurrent">—</div>
-                            <div class="stat-trend accent" id="trendDelta" style="display:none;"><i class="fas fa-chart-line"></i> <span>Siste video</span></div>
+            <div class="stats-extra-wrapper" id="statsExtraWrapper">
+                <div class="stats-extra-inner">
+                    <div class="stats-extra-grid">
+                        <div class="card reveal tap-effect" tabindex="0">
+                            <i class="fas fa-thumbs-up stat-icon-bg" style="color:rgba(255, 46, 147, 0.08);"></i>
+                            <span class="subtitle">Totale Likes</span>
+                            <div class="stat-num-md" id="totalLikes"><span class="skeleton" style="display:inline-block;width:100px;height:32px;"></span></div>
+                            <div style="color:var(--text-3); font-size:0.78rem; margin-top:auto; font-family: 'JetBrains Mono', monospace;" id="avgLikes">—</div>
                         </div>
-                        <div style="font-family:'JetBrains Mono', monospace; font-size:0.7rem; color:var(--text-3); text-transform: uppercase; letter-spacing: 2px;">Siste 12 videoer</div>
-                    </div>
-                    <div class="sparkline-wrapper" id="sparklineWrapper">
-                        <svg viewBox="0 0 300 90" preserveAspectRatio="none">
-                            <defs>
-                                <linearGradient id="sparkGrad" x1="0" y1="0" x2="1" y2="0">
-                                    <stop offset="0%" stop-color="#00C2FF"></stop>
-                                    <stop offset="100%" stop-color="#FF2E93"></stop>
-                                </linearGradient>
-                                <linearGradient id="sparkAreaGrad" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stop-color="#00C2FF" stop-opacity="0.35"></stop>
-                                    <stop offset="100%" stop-color="#00C2FF" stop-opacity="0"></stop>
-                                </linearGradient>
-                            </defs>
-                            <path class="sparkline-area" id="sparkArea" d="" fill="url(#sparkAreaGrad)"></path>
-                            <path class="sparkline-line" id="sparkLine" d=""></path>
-                            <g id="sparkDots"></g>
-                        </svg>
+
+                        <div class="card reveal tap-effect" tabindex="0">
+                            <i class="fas fa-comments stat-icon-bg"></i>
+                            <span class="subtitle">Kommentarer</span>
+                            <div class="stat-num-md" id="totalComments"><span class="skeleton" style="display:inline-block;width:100px;height:32px;"></span></div>
+                            <div style="color:var(--text-3); font-size:0.78rem; margin-top:auto; font-family: 'JetBrains Mono', monospace;" id="avgComments">—</div>
+                        </div>
+
+                        <div class="card reveal tap-effect" tabindex="0">
+                            <i class="fas fa-heart stat-icon-bg" style="color:rgba(255, 46, 147, 0.08);"></i>
+                            <span class="subtitle">Engasjement</span>
+                            <div class="stat-num-md" id="engagementRate"><span class="skeleton" style="display:inline-block;width:80px;height:32px;"></span></div>
+                            <div class="engagement-bar"><div class="engagement-fill" id="engagementFill"></div></div>
+                            <div style="color:var(--text-3); font-size:0.7rem; margin-top:8px; font-family: 'JetBrains Mono', monospace;">Likes per visning</div>
+                        </div>
+
+                        <div class="card reveal tap-effect" tabindex="0">
+                            <i class="fas fa-stopwatch stat-icon-bg"></i>
+                            <span class="subtitle">Snitt-Varighet</span>
+                            <div class="stat-num-md" id="avgDuration"><span class="skeleton" style="display:inline-block;width:80px;height:32px;"></span></div>
+                            <div style="color:var(--text-3); font-size:0.78rem; margin-top:auto; font-family: 'JetBrains Mono', monospace;" id="longestVid">—</div>
+                        </div>
+
+                        <div class="card card-wide reveal tap-effect" tabindex="0" id="topVideoCard">
+                            <span class="subtitle"><i class="fas fa-fire" style="color:#f59e0b; margin-left:6px;"></i> Mest Populære</span>
+                            <div id="topVideoContent">
+                                <div class="skeleton" style="height:90px; margin-top:16px;"></div>
+                            </div>
+                        </div>
+
+                        <div class="card card-wide reveal tap-effect" tabindex="0">
+                            <span class="subtitle">Visnings-trend</span>
+                            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:8px;">
+                                <div>
+                                    <div class="stat-num-md" id="trendCurrent">—</div>
+                                    <div class="stat-trend accent" id="trendDelta" style="display:none;"><i class="fas fa-chart-line"></i> <span>Siste video</span></div>
+                                </div>
+                                <div style="font-family:'JetBrains Mono', monospace; font-size:0.7rem; color:var(--text-3); text-transform: uppercase; letter-spacing: 2px;">Siste 12 videoer</div>
+                            </div>
+                            <div class="sparkline-wrapper" id="sparklineWrapper">
+                                <svg viewBox="0 0 300 90" preserveAspectRatio="none">
+                                    <defs>
+                                        <linearGradient id="sparkGrad" x1="0" y1="0" x2="1" y2="0">
+                                            <stop offset="0%" stop-color="#00C2FF"></stop>
+                                            <stop offset="100%" stop-color="#FF2E93"></stop>
+                                        </linearGradient>
+                                        <linearGradient id="sparkAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#00C2FF" stop-opacity="0.35"></stop>
+                                            <stop offset="100%" stop-color="#00C2FF" stop-opacity="0"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                    <path class="sparkline-area" id="sparkArea" d="" fill="url(#sparkAreaGrad)"></path>
+                                    <path class="sparkline-line" id="sparkLine" d=""></path>
+                                    <g id="sparkDots"></g>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="stats-toggle-wrapper reveal">
+                <button class="stats-toggle-btn tap-effect" id="statsToggleBtn" onclick="toggleStatsExtra()" aria-expanded="false">
+                    <i class="fas fa-chart-pie" style="color: var(--accent-1); font-size: 0.85rem;"></i>
+                    <span class="stats-toggle-label-more">Vis mer detaljer</span>
+                    <span class="stats-toggle-label-less">Skjul detaljer</span>
+                    <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+                </button>
             </div>
         </div>
     </section>
@@ -1368,8 +1702,15 @@
         function toggleFavorites() {
             triggerHaptic();
             const modal = document.getElementById('favoritesModal');
-            renderFavorites();
-            modal.classList.toggle('open');
+            const willOpen = !modal.classList.contains('open');
+            if (willOpen) {
+                renderFavorites();
+                modal.classList.add('open');
+                lockBodyScroll();
+            } else {
+                modal.classList.remove('open');
+                unlockBodyScroll();
+            }
         }
         function renderFavorites() {
             const favs = getFavorites();
@@ -1417,7 +1758,43 @@
             }
         }
 
-        function triggerHaptic() { if (navigator.vibrate) navigator.vibrate(15); }
+        function triggerHaptic(pattern) {
+            if (!navigator.vibrate) return;
+            if (pattern === 'success') navigator.vibrate([10, 40, 20]);
+            else if (pattern === 'error') navigator.vibrate([40, 60, 40]);
+            else if (pattern === 'heavy') navigator.vibrate(35);
+            else if (pattern === 'light') navigator.vibrate(8);
+            else if (pattern === 'double') navigator.vibrate([12, 50, 12]);
+            else navigator.vibrate(15);
+        }
+
+        // === SCROLL LOCK (fixes iOS scroll-jump on modal open) ===
+        let _savedScrollY = 0;
+        let _scrollLocked = false;
+        function lockBodyScroll() {
+            if (_scrollLocked) return;
+            _scrollLocked = true;
+            _savedScrollY = window.scrollY || window.pageYOffset || 0;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${_savedScrollY}px`;
+            document.body.style.left = '0';
+            document.body.style.right = '0';
+            document.body.style.width = '100%';
+            document.body.style.overflow = 'hidden';
+            if (typeof lenis !== 'undefined' && lenis && lenis.stop) lenis.stop();
+        }
+        function unlockBodyScroll() {
+            if (!_scrollLocked) return;
+            _scrollLocked = false;
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.left = '';
+            document.body.style.right = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+            window.scrollTo(0, _savedScrollY);
+            if (typeof lenis !== 'undefined' && lenis && lenis.start) lenis.start();
+        }
 
         function showToast(message, icon = 'fa-info-circle', type = '', duration = 3000) {
             const container = document.getElementById('toastContainer');
@@ -1520,7 +1897,7 @@
                 <button class="lightbox-action-btn" onclick="shareVideo('${video.id}', \`${safeTitle}\`)"><i class="fas fa-share-alt"></i> Del</button>`;
             updateLightboxNav();
             lb.classList.add('open');
-            document.body.style.overflow = 'hidden';
+            lockBodyScroll();
             markWatched(video.id);
             setTimeout(() => updateWatchedUI(), 100);
         }
@@ -1550,7 +1927,7 @@
                 const lb = document.getElementById('lightbox');
                 lb.classList.remove('open');
                 document.getElementById('lightboxPlayer').innerHTML = '';
-                document.body.style.overflow = 'auto';
+                unlockBodyScroll();
             }
         }
 
@@ -1603,8 +1980,12 @@
             document.getElementById('qrImage').src = qrUrl;
             document.getElementById('qrUrl').innerText = url;
             document.getElementById('shareModal').classList.add('open');
+            lockBodyScroll();
         }
-        function closeShareModal() { document.getElementById('shareModal').classList.remove('open'); }
+        function closeShareModal() {
+            document.getElementById('shareModal').classList.remove('open');
+            unlockBodyScroll();
+        }
         function copyShareLink() {
             navigator.clipboard.writeText(currentShareUrl).then(() => {
                 showToast('Link kopiert!', 'fa-check', 'toast-success');
@@ -1690,6 +2071,7 @@
             activeTagFilter = tag;
             buildTagFilter();
             applyFilters();
+            if (typeof updateMobileStickyTag === 'function') updateMobileStickyTag();
         }
 
         function mobileNavClick(el) {
@@ -1818,6 +2200,7 @@
             const ago = timeAgo(v.snippet.publishedAt);
             const isFav = isFavorite(v.id);
             if (isWatched(v.id)) el.classList.add('watched');
+            else if (isVideoNew(v)) el.classList.add('is-new');
             el.onclick = (e) => {
                 if (e.target.closest('.card-action-btn')) return;
                 triggerHaptic();
@@ -2304,8 +2687,8 @@
                 if (e.key === 'Escape') { closeLightbox(null, true); return; }
             }
             if (e.key === 'Escape') {
-                document.getElementById('favoritesModal').classList.remove('open');
-                document.getElementById('shareModal').classList.remove('open');
+                if (document.getElementById('favoritesModal').classList.contains('open')) toggleFavorites();
+                if (document.getElementById('shareModal').classList.contains('open')) closeShareModal();
             }
         });
 
@@ -2468,11 +2851,357 @@
             setupCustomDropdowns();
             setupCardMouseTracking();
             setupSectionIndicator();
+            setupStatsToggle();
+            if (isMobile) {
+                setupMobileBottomNavHide();
+                setupMobileStickyBar();
+                setupMobileLongPress();
+                setupPullToRefresh();
+                setupMobileDoubleTapHome();
+                setupMobileTapRipple();
+                setupMobileSwipeLightbox();
+            }
         });
+
+        // === STATS EXTRA TOGGLE ===
+        function toggleStatsExtra() {
+            triggerHaptic();
+            const wrap = document.getElementById('statsExtraWrapper');
+            const btn = document.getElementById('statsToggleBtn');
+            const isOpen = wrap.classList.toggle('expanded');
+            btn.classList.toggle('is-open', isOpen);
+            btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                wrap.querySelectorAll('.reveal').forEach((el, i) => {
+                    setTimeout(() => el.classList.add('active'), 60 + i * 50);
+                });
+                setTimeout(() => {
+                    if (!isMobile) setupTiltCards();
+                    if (isMobile) {
+                        const rect = btn.getBoundingClientRect();
+                        if (rect.top < 100) window.scrollBy({ top: -80, behavior: 'smooth' });
+                    }
+                }, 250);
+            }
+        }
+        function setupStatsToggle() {
+            // Placeholder for future expansion
+        }
+
+        // === Mobile bottom nav auto-hide ===
+        function setupMobileBottomNavHide() {
+            const nav = document.getElementById('mobileNav');
+            const fab = document.getElementById('mobileFab');
+            if (!nav) return;
+            let lastY = window.scrollY;
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        const y = window.scrollY;
+                        const dy = y - lastY;
+                        if (y < 80) {
+                            nav.classList.remove('is-hidden');
+                            fab?.classList.remove('nav-hidden');
+                        } else if (dy > 8) {
+                            // scrolling down → hide nav
+                            nav.classList.add('is-hidden');
+                            fab?.classList.add('nav-hidden');
+                        } else if (dy < -8) {
+                            // scrolling up → show nav
+                            nav.classList.remove('is-hidden');
+                            fab?.classList.remove('nav-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+        }
+
+        // === Mobile sticky search/filter bar (visible inside #videos section) ===
+        function setupMobileStickyBar() {
+            const videosSection = document.getElementById('videos');
+            const bar = document.getElementById('mobileStickyBar');
+            if (!videosSection || !bar) return;
+            const miniInput = document.getElementById('miniSearchInput');
+            const mainInput = document.getElementById('videoSearch');
+            // sync mini → main
+            miniInput.addEventListener('input', (e) => {
+                mainInput.value = e.target.value;
+                handleVideoSearch(e.target.value);
+            });
+            // sync main → mini
+            mainInput.addEventListener('input', (e) => { miniInput.value = e.target.value; });
+            // visibility toggle
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const showBar = entry.isIntersecting && entry.intersectionRatio > 0.05;
+                    bar.classList.toggle('visible', showBar);
+                });
+            }, { threshold: [0, 0.05, 0.5] });
+            observer.observe(videosSection);
+        }
+        function updateMobileStickyTag() {
+            const tagEl = document.getElementById('mobileStickyTag');
+            if (!tagEl) return;
+            if (activeTagFilter && GAME_TAGS[activeTagFilter]) {
+                tagEl.style.display = 'inline-flex';
+                tagEl.innerHTML = `${GAME_TAGS[activeTagFilter].label} <span class="x" onclick="setTagFilter(null);updateMobileStickyTag();"><i class="fas fa-times"></i></span>`;
+            } else {
+                tagEl.style.display = 'none';
+            }
+        }
+
+        // === Mobile long-press for action sheet ===
+        let longPressTimer = null;
+        let longPressActive = false;
+        let longPressBlockClick = false;
+        function setupMobileLongPress() {
+            document.addEventListener('touchstart', (e) => {
+                const card = e.target.closest('.video-card-premium, .shorts-card');
+                if (!card || !card.dataset.videoId) return;
+                if (e.target.closest('.card-action-btn')) return;
+                longPressActive = false;
+                longPressBlockClick = false;
+                card.classList.add('long-press-feedback');
+                longPressTimer = setTimeout(() => {
+                    longPressActive = true;
+                    longPressBlockClick = true;
+                    triggerHaptic('heavy');
+                    openActionSheet(card.dataset.videoId);
+                }, 480);
+            }, { passive: true });
+            const cancel = () => {
+                clearTimeout(longPressTimer);
+                document.querySelectorAll('.long-press-feedback').forEach(c => c.classList.remove('long-press-feedback'));
+            };
+            document.addEventListener('touchend', () => {
+                cancel();
+                if (longPressBlockClick) {
+                    setTimeout(() => { longPressBlockClick = false; }, 300);
+                }
+            });
+            document.addEventListener('touchcancel', cancel);
+            document.addEventListener('touchmove', cancel, { passive: true });
+            // Block click when long-press just fired
+            document.addEventListener('click', (e) => {
+                if (longPressBlockClick) { e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); }
+            }, true);
+        }
+        let actionSheetVideoId = null;
+        function openActionSheet(videoId) {
+            const all = [...globalLongVideos, ...globalShortVideos];
+            const v = all.find(x => x.id === videoId);
+            if (!v) return;
+            actionSheetVideoId = videoId;
+            const sheet = document.getElementById('actionSheet');
+            const preview = document.getElementById('actionSheetPreview');
+            preview.innerHTML = `
+                <img src="${v.snippet.thumbnails.medium ? v.snippet.thumbnails.medium.url : v.snippet.thumbnails.high.url}" alt="">
+                <div style="min-width:0;flex:1;display:flex;flex-direction:column;justify-content:center;">
+                    <div class="action-sheet-preview-title">${escapeHtml(v.snippet.title)}</div>
+                    <div style="font-size:0.72rem;color:var(--text-3);font-family:'JetBrains Mono', monospace;margin-top:4px;">
+                        <i class="fas fa-eye" style="color:var(--accent-1)"></i> ${formatNumber(v.statistics.viewCount)} · ${v.durationStr}
+                    </div>
+                </div>`;
+            const favBtn = document.getElementById('actionFavBtn');
+            const isFav = isFavorite(videoId);
+            favBtn.querySelector('i').className = isFav ? 'fas fa-heart' : 'far fa-heart';
+            favBtn.querySelector('span').innerText = isFav ? 'Fjern fra favoritter' : 'Legg til i favoritter';
+            document.getElementById('actionPlayBtn').onclick = () => { closeActionSheet(); setTimeout(() => openLightbox(v), 250); };
+            document.getElementById('actionShareBtn').onclick = () => { closeActionSheet(); setTimeout(() => shareVideo(v.id, v.snippet.title), 250); };
+            document.getElementById('actionYTBtn').onclick = () => { closeActionSheet(); window.open(`https://www.youtube.com/watch?v=${v.id}`, '_blank'); };
+            favBtn.onclick = () => { toggleFavorite(v); closeActionSheet(); };
+            sheet.classList.add('open');
+            lockBodyScroll();
+        }
+        function closeActionSheet() {
+            document.getElementById('actionSheet').classList.remove('open');
+            unlockBodyScroll();
+            actionSheetVideoId = null;
+        }
+
+        // === Pull-to-refresh ===
+        function setupPullToRefresh() {
+            const indicator = document.getElementById('ptrIndicator');
+            if (!indicator) return;
+            let startY = 0;
+            let pulling = false;
+            let pullDist = 0;
+            const THRESHOLD = 80;
+            document.addEventListener('touchstart', (e) => {
+                if (window.scrollY > 5) return;
+                if (e.target.closest('.lightbox, .modal-overlay, .action-sheet-overlay, .work-track, .shorts-container, .shorts-track')) return;
+                startY = e.touches[0].clientY;
+                pulling = true;
+            }, { passive: true });
+            document.addEventListener('touchmove', (e) => {
+                if (!pulling || window.scrollY > 5) return;
+                const dy = e.touches[0].clientY - startY;
+                if (dy <= 0) { indicator.style.opacity = '0'; return; }
+                pullDist = Math.min(dy, 160);
+                const progress = pullDist / THRESHOLD;
+                indicator.style.transform = `translateX(-50%) translateY(${Math.min(pullDist - 30, 30)}px)`;
+                indicator.style.opacity = Math.min(progress, 1);
+                indicator.classList.add('visible');
+                if (pullDist > THRESHOLD) {
+                    indicator.classList.add('ready');
+                    document.getElementById('ptrText').innerText = 'Slipp for å oppdatere';
+                } else {
+                    indicator.classList.remove('ready');
+                    document.getElementById('ptrText').innerText = 'Trekk for å oppdatere';
+                }
+            }, { passive: true });
+            document.addEventListener('touchend', () => {
+                if (!pulling) return;
+                pulling = false;
+                if (pullDist > THRESHOLD) {
+                    indicator.classList.remove('ready');
+                    indicator.classList.add('loading');
+                    document.getElementById('ptrText').innerText = 'Oppdaterer...';
+                    triggerHaptic('success');
+                    refreshData().finally(() => {
+                        indicator.classList.remove('loading');
+                        indicator.style.transform = 'translateX(-50%) translateY(-100%)';
+                        indicator.style.opacity = '0';
+                        setTimeout(() => indicator.classList.remove('visible'), 300);
+                    });
+                } else {
+                    indicator.style.transform = 'translateX(-50%) translateY(-100%)';
+                    indicator.style.opacity = '0';
+                    setTimeout(() => indicator.classList.remove('visible'), 300);
+                }
+                pullDist = 0;
+            });
+        }
+        async function refreshData() {
+            const previousIds = new Set(globalLongVideos.map(v => v.id));
+            globalLongVideos = [];
+            globalShortVideos = [];
+            try {
+                await loadData();
+                const newOnes = globalLongVideos.filter(v => !previousIds.has(v.id));
+                if (newOnes.length > 0) {
+                    showToast(`${newOnes.length} ny${newOnes.length > 1 ? 'e' : ''} video${newOnes.length > 1 ? 'er' : ''}!`, 'fa-bell', 'toast-success');
+                    saveLastVisit();
+                } else {
+                    showToast('Alt er oppdatert', 'fa-check', 'toast-success');
+                }
+            } catch(e) {
+                showToast('Kunne ikke oppdatere', 'fa-exclamation-triangle', 'toast-error');
+            }
+        }
+
+        // === Last-visit tracking for "NY" badge ===
+        const LAST_VISIT_KEY = 'snorky-last-visit';
+        function getLastVisit() {
+            try { return parseInt(localStorage.getItem(LAST_VISIT_KEY) || '0') || 0; }
+            catch(e) { return 0; }
+        }
+        function saveLastVisit() {
+            try { localStorage.setItem(LAST_VISIT_KEY, Date.now().toString()); } catch(e) {}
+        }
+        function isVideoNew(video) {
+            const lastVisit = getLastVisit();
+            if (!lastVisit) return false;
+            const published = new Date(video.snippet.publishedAt).getTime();
+            return published > lastVisit;
+        }
+
+        // === Double-tap Home in bottom nav → scroll to top ===
+        function setupMobileDoubleTapHome() {
+            let lastTap = 0;
+            const homeItem = document.querySelector('.mobile-bottom-nav .nav-item[data-section="home"]');
+            if (!homeItem) return;
+            homeItem.addEventListener('click', (e) => {
+                const now = Date.now();
+                if (now - lastTap < 350) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    triggerHaptic('double');
+                }
+                lastTap = now;
+            });
+        }
+
+        // === Mobile tap ripple feedback ===
+        function setupMobileTapRipple() {
+            document.addEventListener('touchstart', (e) => {
+                const target = e.target.closest('.video-card-premium, .shorts-card, .btn-hero, .btn-ultra, .stats-toggle-btn, .gear-card, .faq-item, .nav-item');
+                if (!target) return;
+                if (e.target.closest('.card-action-btn, input, button[onclick]')) return;
+                const rect = target.getBoundingClientRect();
+                const x = e.touches[0].clientX - rect.left;
+                const y = e.touches[0].clientY - rect.top;
+                const ripple = document.createElement('span');
+                ripple.className = 'mobile-ripple';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.width = '8px';
+                ripple.style.height = '8px';
+                if (getComputedStyle(target).position === 'static') target.style.position = 'relative';
+                if (!target.style.overflow) target.style.overflow = 'hidden';
+                target.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            }, { passive: true });
+        }
+
+        // === Swipe horizontally inside lightbox to change video (mobile) ===
+        function setupMobileSwipeLightbox() {
+            const lb = document.getElementById('lightbox');
+            if (!lb) return;
+            let sx = 0, sy = 0, dragging = false, locked = null;
+            const player = document.getElementById('lightboxPlayer');
+            lb.addEventListener('touchstart', (e) => {
+                if (!lb.classList.contains('open')) return;
+                if (e.target.closest('iframe, button, a, .lightbox-action-btn, .lightbox-close, .lightbox-info')) return;
+                sx = e.touches[0].clientX;
+                sy = e.touches[0].clientY;
+                dragging = true;
+                locked = null;
+            }, { passive: true });
+            lb.addEventListener('touchmove', (e) => {
+                if (!dragging) return;
+                const dx = e.touches[0].clientX - sx;
+                const dy = e.touches[0].clientY - sy;
+                if (locked === null) {
+                    if (Math.abs(dx) > 12 || Math.abs(dy) > 12) {
+                        locked = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+                    }
+                }
+                if (locked === 'x') {
+                    const limited = Math.max(Math.min(dx, 140), -140);
+                    player.style.transform = `translateX(${limited}px)`;
+                }
+            }, { passive: true });
+            lb.addEventListener('touchend', (e) => {
+                if (!dragging) return;
+                dragging = false;
+                if (locked === 'x') {
+                    const dx = (e.changedTouches[0].clientX) - sx;
+                    player.style.transition = 'transform 0.3s var(--ease-smooth)';
+                    if (dx < -60 && currentLightboxIndex < currentVideoList.length - 1) {
+                        player.style.transform = 'translateX(-100vw)';
+                        triggerHaptic('light');
+                        setTimeout(() => { player.style.transition = ''; player.style.transform = ''; lightboxNav(1); }, 250);
+                    } else if (dx > 60 && currentLightboxIndex > 0) {
+                        player.style.transform = 'translateX(100vw)';
+                        triggerHaptic('light');
+                        setTimeout(() => { player.style.transition = ''; player.style.transform = ''; lightboxNav(-1); }, 250);
+                    } else {
+                        player.style.transform = '';
+                        setTimeout(() => { player.style.transition = ''; }, 300);
+                    }
+                }
+                locked = null;
+            });
+        }
 
         setTimeout(() => { if (!introPlayed && typeof gsap !== 'undefined') playIntroAnimation(); }, 1500);
 
-        loadData();
+        loadData().then(() => { saveLastVisit(); });
     </script>
 </body>
 </html>
