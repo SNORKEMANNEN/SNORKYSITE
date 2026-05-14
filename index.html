@@ -97,65 +97,6 @@
         .ambient-glow.g2 { width: 500px; height: 500px; bottom: -100px; left: -200px; background: var(--accent-2); animation: drift2 25s ease-in-out infinite alternate; }
         @keyframes drift1 { from { transform: translate(0,0); } to { transform: translate(-100px, 100px); } }
         @keyframes drift2 { from { transform: translate(0,0); } to { transform: translate(100px, -100px); } }
-
-        /* === Floating decorative shapes === */
-        .deco-orb {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            filter: blur(80px);
-            opacity: 0.18;
-            z-index: 0;
-        }
-        .deco-orb.orb-cyan { background: var(--accent-1); }
-        .deco-orb.orb-pink { background: var(--accent-2); }
-        .deco-orb.orb-amber { background: #f59e0b; }
-        .deco-orb.orb-violet { background: #a855f7; }
-        @keyframes orb-drift-1 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(50px, -30px) scale(1.08); }
-            66% { transform: translate(-30px, 40px) scale(0.95); }
-        }
-        @keyframes orb-drift-2 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-60px, 30px) scale(1.1); }
-        }
-        @keyframes orb-drift-3 {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(40px, -50px); }
-        }
-
-        /* === Decorative SVG corner ornament === */
-        .corner-ornament {
-            position: absolute;
-            width: 120px; height: 120px;
-            opacity: 0.4;
-            pointer-events: none;
-        }
-        .corner-ornament svg { width: 100%; height: 100%; }
-        .corner-ornament path { stroke: var(--accent-1); stroke-width: 1; fill: none; opacity: 0.6; }
-        @media (max-width: 1024px) { .corner-ornament { display: none; } }
-
-        /* === Number badge for section heading (premium feel) === */
-        .section-num-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
-            color: var(--accent-1);
-            margin-bottom: 10px;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-        .section-num-badge .num {
-            background: rgba(0, 194, 255, 0.1);
-            border: 1px solid rgba(0, 194, 255, 0.25);
-            padding: 3px 10px;
-            border-radius: 50px;
-            color: var(--accent-1);
-            font-weight: 700;
-        }
         /* === Section side rail (subtle vertical decoration) === */
         .stats-section, .work-section, .gear-section, .faq-section {
             position: relative;
@@ -280,8 +221,7 @@
             pointer-events: none;
         }
         .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 30%; z-index: 1; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
-        .marquee-container { position: absolute; inset: 0; z-index: 0; display: flex; flex-direction: column; justify-content: center; gap: 20px; transform: rotate(-5deg) scale(1.6); pointer-events: none; will-change: opacity; opacity: 0; transition: opacity 0.45s ease-out; }
-        .marquee-container.is-ready { opacity: 1; }
+        .marquee-container { position: absolute; inset: 0; z-index: 0; display: flex; flex-direction: column; justify-content: center; gap: 20px; transform: rotate(-5deg) scale(1.6); pointer-events: none; will-change: transform, opacity, filter; opacity: 1; }
         .marquee-row { display: flex; gap: 20px; width: max-content; will-change: transform; }
         .scroll-left { animation: scroll 90s linear infinite; }
         .scroll-right { animation: scrollReverse 90s linear infinite; }
@@ -289,6 +229,8 @@
         @keyframes scroll { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
         @keyframes scrollReverse { from { transform: translate3d(-50%,0,0); } to { transform: translate3d(0,0,0); } }
         .hero-overlay { position: relative; z-index: 2; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+            100% { background-position: 200% 50%; }
+        }
         .hero-title { margin-bottom: 20px; line-height: 1; letter-spacing: -0.02em; }
         .hero-title-main { font-family: 'Gloria Hallelujah', cursive; font-size: clamp(3.5rem, 11vw, 9rem); font-weight: 400; letter-spacing: -0.01em; line-height: 1.05; background: linear-gradient(135deg, var(--accent-1), var(--accent-2), var(--accent-1)); background-size: 200% auto; animation: gradient-text-anim 5s linear infinite; -webkit-background-clip: text; background-clip: text; color: transparent; display: block; padding-bottom: 0.05em; will-change: opacity, transform, filter; }
         @keyframes gradient-text-anim { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
@@ -443,171 +385,162 @@
             .btn-hero-sec:hover::before { opacity: 1; }
             .btn-hero-sec:hover i { transform: translateX(4px); }
         }
-
-        /* Accent — random/shuffle */
-        .btn-hero-random {
-            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
-            color: #fff;
-            box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.35),
-                inset 0 -1.5px 0 rgba(0,0,0,0.18),
-                inset 0 0 0 1px rgba(255,255,255,0.08),
-                0 1px 2px rgba(0,0,0,0.2),
-                0 8px 26px -6px rgba(255, 46, 147, 0.45),
-                0 4px 14px -4px rgba(0, 194, 255, 0.4);
-        }
-        .btn-hero-random::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -130%;
-            width: 60%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
-            transform: skewX(-22deg);
-            pointer-events: none;
-            transition: left 0s;
-            z-index: 2;
-        }
-        .btn-hero-random::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 55%);
-            opacity: 0.6;
-            pointer-events: none;
-            z-index: 1;
-            transition: opacity 0.4s ease;
-        }
         @media (hover: hover) {
-            .btn-hero-random:hover {
-                transform: translateY(-3px);
-                box-shadow:
-                    inset 0 1px 0 rgba(255,255,255,0.4),
-                    inset 0 -1.5px 0 rgba(0,0,0,0.18),
-                    inset 0 0 0 1px rgba(255,255,255,0.12),
-                    0 2px 4px rgba(0,0,0,0.22),
-                    0 20px 52px -10px rgba(255, 46, 147, 0.6),
-                    0 8px 24px -6px rgba(0, 194, 255, 0.55);
-            }
-            .btn-hero-random:hover::before { left: 230%; transition: left 0.9s ease; }
-            .btn-hero-random:hover::after { opacity: 1; }
-            .btn-hero-random:hover i { transform: rotate(180deg); }
         }
         /* === Section base === */
         .stats-section, .news-section, .work-section, .shorts-section, .second-channel-section, .about-section, .gear-section, .faq-section { padding: 100px 0; border-top: 1px solid var(--border); position: relative; }
         .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
 
-        /* === Stats meta pills (live + last updated) === */
-        .stats-meta-pills {
-            display: inline-flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-        .meta-pill {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 7px 14px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.015) 100%);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 50px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-2);
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            letter-spacing: 0.5px;
-        }
-        .meta-pill i { font-size: 0.6rem; color: var(--accent-1); }
-        .meta-pill .pulsing-dot {
-            color: #22c55e;
-            animation: meta-live 1.8s ease-in-out infinite;
-            filter: drop-shadow(0 0 4px #22c55e);
-        }
-        @keyframes meta-live {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.35; }
-        }
-
-        /* === Stats Extra Section === */
-        .stats-extra-wrapper {
-            margin-top: 25px;
-            display: grid;
-            grid-template-rows: 0fr;
-            transition: grid-template-rows 0.7s var(--ease-smooth), opacity 0.5s ease, margin-top 0.5s ease;
-            opacity: 0;
-        }
-        .stats-extra-wrapper.expanded { grid-template-rows: 1fr; opacity: 1; }
-        .stats-extra-inner { overflow: hidden; min-height: 0; }
-        .stats-extra-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-            padding-top: 25px;
-        }
-        .stats-extra-grid .card-wide { grid-column: span 2; }
-
-        .stats-toggle-wrapper {
-            display: flex;
-            justify-content: center;
-            margin-top: 35px;
-        }
-        .stats-toggle-btn {
+        /* === Subscriber Growth Chart === */
+        .growth-chart-card {
+            margin-top: 30px;
+            background: linear-gradient(160deg, var(--surface-2), var(--surface));
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px 36px;
             position: relative;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 28px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 50px;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            cursor: pointer;
-            transition: transform 0.4s var(--ease-smooth), border-color 0.3s ease, background 0.3s ease, box-shadow 0.4s ease;
             overflow: hidden;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 18px -4px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 50px -10px rgba(0,0,0,0.4);
         }
-        .stats-toggle-btn::before {
+        .growth-chart-card::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(0,194,255,0.12), rgba(255,46,147,0.08));
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, var(--accent-1) 25%, var(--accent-2) 75%, transparent 100%);
+            opacity: 0.7;
+        }
+        .growth-chart-card::after {
+            content: '';
+            position: absolute;
+            top: -50%; right: -10%;
+            width: 50%; height: 200%;
+            background: radial-gradient(ellipse at center, rgba(0, 194, 255, 0.08), transparent 60%);
             pointer-events: none;
+            filter: blur(40px);
         }
-        .stats-toggle-btn .toggle-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-            font-size: 0.7rem;
-            transition: transform 0.5s var(--ease-bounce);
+        .growth-chart-header {
+            display: flex; justify-content: space-between; align-items: start;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .growth-chart-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent-1);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .growth-chart-title {
+            font-size: 1.5rem;
+            font-weight: 700;
             color: #fff;
-            box-shadow: 0 2px 8px rgba(255,46,147,0.3);
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.1;
         }
-        .stats-toggle-btn.is-open .toggle-icon { transform: rotate(180deg); }
-        @media (hover: hover) {
-            .stats-toggle-btn:hover {
-                transform: translateY(-2px);
-                border-color: rgba(255,255,255,0.22);
-                box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 10px 28px -6px rgba(0,194,255,0.25);
-            }
-            .stats-toggle-btn:hover::before { opacity: 1; }
+        .growth-chart-meta {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
         }
-        .stats-toggle-btn:active { transform: translateY(0); transition-duration: 0.1s; }
-        .stats-toggle-label-more { display: inline; }
-        .stats-toggle-label-less { display: none; }
-        .stats-toggle-btn.is-open .stats-toggle-label-more { display: none; }
-        .stats-toggle-btn.is-open .stats-toggle-label-less { display: inline; }
+        .growth-meta-item {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+        }
+        .growth-meta-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-3);
+            margin-bottom: 4px;
+        }
+        .growth-meta-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+        .growth-chart-wrapper {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            margin-bottom: 10px;
+        }
+        #growthChart {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        #growthGrid line { stroke: rgba(255,255,255,0.06); stroke-dasharray: 4 6; }
+        .growth-grid-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            fill: var(--text-3);
+        }
+        .growth-year-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            fill: var(--text-3);
+            text-anchor: middle;
+        }
+        .growth-dot {
+            transition: r 0.2s ease;
+        }
+        .growth-dot:hover {
+            r: 6;
+        }
+        .growth-tooltip {
+            position: absolute;
+            top: 0; left: 0;
+            background: rgba(10, 10, 15, 0.95);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 10px 14px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, -120%);
+            transition: opacity 0.15s ease;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: #fff;
+            white-space: nowrap;
+            z-index: 10;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .growth-tooltip.visible { opacity: 1; }
+        .growth-tooltip .tip-date {
+            color: var(--text-3);
+            font-size: 0.7rem;
+            margin-bottom: 4px;
+        }
+        .growth-tooltip .tip-value {
+            color: var(--accent-1);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .growth-chart-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-3);
+        }
+        .growth-chart-footer i { color: var(--accent-1); margin-right: 6px; }
+
         .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 35px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; transition: 0.4s var(--ease-smooth); box-shadow: var(--shadow-card); }
         .card::before { content: ''; position: absolute; inset: 0; opacity: 0; background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(0, 194, 255, 0.08), transparent 40%); transition: opacity 0.4s; pointer-events: none; }
         /* Top accent strip on cards (animated on hover) */
@@ -657,13 +590,6 @@
         .chart-bar:hover::after { opacity: 1; }
         @keyframes chart-grow { to { transform: scaleY(1); } }
 
-        /* === Sparkline === */
-        .sparkline-wrapper { position: relative; width: 100%; height: 90px; margin-top: 18px; }
-        .sparkline-wrapper svg { width: 100%; height: 100%; overflow: visible; }
-        .sparkline-line { fill: none; stroke: url(#sparkGrad); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 2px 6px rgba(0,194,255,0.4)); }
-        .sparkline-area { opacity: 0.6; }
-        .sparkline-dot { fill: var(--accent-1); stroke: var(--bg); stroke-width: 2; opacity: 0; transition: opacity 0.2s; }
-
         /* === Donut === */
         .donut-wrapper { display: flex; align-items: center; gap: 18px; margin-top: 16px; }
         .donut-chart { width: 70px; height: 70px; flex-shrink: 0; transform: rotate(-90deg); }
@@ -672,21 +598,6 @@
         .donut-legend { display: flex; flex-direction: column; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; }
         .donut-legend-item { display: flex; align-items: center; gap: 8px; color: var(--text-2); }
         .donut-dot { width: 8px; height: 8px; border-radius: 2px; }
-
-        /* === Top video mini === */
-        .top-video-mini { display: flex; gap: 14px; align-items: center; margin-top: 14px; padding: 12px; background: rgba(0,0,0,0.25); border-radius: 12px; border: 1px solid rgba(255,255,255,0.04); cursor: pointer; transition: 0.3s; }
-        .top-video-mini:hover { background: rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.1); transform: translateX(4px); }
-        .top-video-mini-thumb { width: 90px; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; flex-shrink: 0; position: relative; background: #111; }
-        .top-video-mini-thumb img { width: 100%; height: 100%; object-fit: cover; }
-        .top-video-mini-thumb::after { content: '\f04b'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1rem; opacity: 0; background: rgba(0,0,0,0.4); transition: opacity 0.3s; }
-        .top-video-mini:hover .top-video-mini-thumb::after { opacity: 1; }
-        .top-video-mini-info { min-width: 0; flex: 1; }
-        .top-video-mini-title { font-size: 0.88rem; font-weight: 600; color: #fff; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.3; margin-bottom: 4px; }
-        .top-video-mini-stat { font-size: 0.72rem; color: var(--text-3); font-family: 'JetBrains Mono', monospace; }
-
-        /* === Engagement bar === */
-        .engagement-bar { width: 100%; height: 6px; background: rgba(255,255,255,0.06); border-radius: 10px; overflow: hidden; margin-top: 12px; }
-        .engagement-fill { height: 100%; background: linear-gradient(90deg, var(--accent-1), var(--accent-2)); border-radius: 10px; width: 0%; transition: width 1.8s var(--ease-smooth); box-shadow: 0 0 12px var(--accent-glow-1); }
 
         .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%); background-size: 200% 100%; animation: skeleton-shimmer 1.5s ease-in-out infinite; border-radius: 8px; }
         @keyframes skeleton-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
@@ -719,332 +630,6 @@
         .search-clear:hover { color: #fff; }
         .search-results-info { color: var(--text-3); font-size: 0.85rem; margin-top: 10px; display: none; }
 
-        /* === Tag filter — many games === */
-        .tag-filter-wrapper { position: relative; margin-top: 18px; }
-        .tag-filter { display: flex; gap: 8px; flex-wrap: wrap; max-height: 86px; overflow: hidden; transition: max-height 0.5s var(--ease-smooth); }
-        .tag-filter.expanded { max-height: 600px; }
-        .tag-chip { padding: 7px 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 50px; font-size: 0.78rem; cursor: pointer; transition: 0.25s; color: var(--text-2); font-weight: 500; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
-        .tag-chip:hover { background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.15); transform: translateY(-1px); }
-        .tag-chip.active { background: linear-gradient(135deg, var(--accent-1), #0098cc); border-color: var(--accent-1); color: var(--bg); box-shadow: 0 4px 14px var(--accent-glow-1); font-weight: 700; }
-        .tag-chip .tag-count { font-size: 0.68rem; opacity: 0.55; font-family: 'JetBrains Mono', monospace; font-weight: 700; }
-        .tag-chip.active .tag-count { opacity: 0.85; }
-        .tag-toggle-btn { padding: 7px 14px; background: transparent; border: 1px dashed rgba(255,255,255,0.15); color: var(--text-3); border-radius: 50px; font-size: 0.75rem; cursor: pointer; transition: 0.25s; display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; }
-        .tag-toggle-btn:hover { color: #fff; border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.03); }
-
-        /* === Length filter pills === */
-        .length-filter-row {
-            display: flex;
-            gap: 8px;
-            margin-top: 14px;
-            flex-wrap: wrap;
-        }
-        .length-pill {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 7px 14px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 8px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.74rem;
-            font-weight: 700;
-            color: var(--text-2);
-            cursor: pointer;
-            transition: 0.25s var(--ease-smooth);
-            letter-spacing: 0.5px;
-        }
-        .length-pill:hover { color: #fff; border-color: rgba(255,255,255,0.18); transform: translateY(-1px); }
-        .length-pill.active {
-            background: linear-gradient(180deg, rgba(0,194,255,0.18), rgba(0,194,255,0.06));
-            border-color: rgba(0,194,255,0.4);
-            color: var(--accent-1);
-            box-shadow: 0 4px 14px rgba(0, 194, 255, 0.18);
-        }
-        .length-pill .pill-icon {
-            width: 16px; height: 10px;
-            border-radius: 2px;
-            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-            opacity: 0.6;
-        }
-        .length-pill.active .pill-icon { opacity: 1; }
-        .length-pill[data-len="short"] .pill-icon { width: 8px; }
-        .length-pill[data-len="medium"] .pill-icon { width: 14px; }
-        .length-pill[data-len="long"] .pill-icon { width: 22px; }
-        .length-pill .count {
-            font-size: 0.66rem;
-            opacity: 0.55;
-            font-weight: 700;
-        }
-        .length-pill.active .count { opacity: 0.85; }
-
-        /* === Auto video badges (hot, top liked, etc) === */
-        .video-meta-badge {
-            position: absolute;
-            top: 12px; left: 12px;
-            z-index: 4;
-            display: inline-flex; align-items: center; gap: 4px;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.62rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: #fff;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            text-transform: uppercase;
-        }
-        .video-meta-badge.hot {
-            background: linear-gradient(135deg, #f97316, #f59e0b);
-            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.45);
-        }
-        .video-meta-badge.top-like {
-            background: linear-gradient(135deg, #ef4444, var(--accent-2));
-            box-shadow: 0 4px 14px rgba(255, 46, 147, 0.45);
-        }
-        .video-meta-badge.new-publish {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
-            box-shadow: 0 4px 14px rgba(34, 197, 94, 0.45);
-        }
-        .video-card-premium.watched .video-meta-badge { display: none; }
-        /* When watched class adds SETT badge, hide auto-badge */
-
-        /* === Daglig pick card === */
-        .daily-pick-wrapper { margin-top: 30px; }
-        .daily-pick-card {
-            background: linear-gradient(135deg, rgba(0,194,255,0.08), rgba(255,46,147,0.05), var(--surface));
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: var(--radius);
-            padding: 28px 32px;
-            display: flex; align-items: center; gap: 26px;
-            position: relative; overflow: hidden;
-            box-shadow: 0 15px 40px -10px rgba(0,0,0,0.4);
-            transition: 0.4s var(--ease-smooth);
-        }
-        .daily-pick-card::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent-1), var(--accent-2), transparent);
-            opacity: 0.7;
-        }
-        .daily-pick-card::after {
-            content: ''; position: absolute; inset: 0;
-            background:
-                radial-gradient(ellipse 60% 100% at 0% 50%, rgba(0,194,255,0.06), transparent 70%),
-                radial-gradient(ellipse 60% 100% at 100% 50%, rgba(255,46,147,0.05), transparent 70%);
-            pointer-events: none;
-        }
-        @media (hover: hover) {
-            .daily-pick-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.15); box-shadow: 0 25px 55px -10px rgba(0,194,255,0.2); cursor: pointer; }
-            .daily-pick-card:hover .daily-pick-thumb img { transform: scale(1.07); }
-        }
-        .daily-pick-thumb {
-            width: 280px; flex-shrink: 0;
-            aspect-ratio: 16/9; border-radius: 14px;
-            overflow: hidden; position: relative;
-            background: #111;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        }
-        .daily-pick-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease-smooth); }
-        .daily-pick-thumb::after {
-            content: '\f04b'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
-            position: absolute; inset: 0;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.4rem; color: #fff;
-            background: rgba(0,0,0,0.35);
-            opacity: 0; transition: opacity 0.3s;
-        }
-        .daily-pick-card:hover .daily-pick-thumb::after { opacity: 1; }
-        .daily-pick-info { flex: 1; min-width: 0; position: relative; z-index: 1; }
-        .daily-pick-label {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 5px 12px;
-            background: rgba(245, 158, 11, 0.12);
-            color: #f59e0b;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            border-radius: 50px;
-            font-size: 0.7rem; font-weight: 700;
-            font-family: 'JetBrains Mono', monospace;
-            letter-spacing: 1.5px;
-            margin-bottom: 14px;
-            text-transform: uppercase;
-        }
-        .daily-pick-label .star {
-            animation: star-spin 4s linear infinite;
-            display: inline-block;
-        }
-        @keyframes star-spin { to { transform: rotate(360deg); } }
-        .daily-pick-title {
-            font-size: 1.5rem; font-weight: 700; color: #fff;
-            line-height: 1.2; margin-bottom: 12px;
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-        }
-        .daily-pick-stats {
-            display: flex; gap: 16px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem; color: var(--text-3);
-            flex-wrap: wrap;
-        }
-        .daily-pick-stats span { display: inline-flex; align-items: center; gap: 5px; }
-        .daily-pick-stats i { color: var(--accent-1); }
-
-        /* === Channel Milestones === */
-        .milestones-section { margin-top: 30px; }
-        .milestones-header {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 22px;
-        }
-        .milestones-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.3rem; font-weight: 700;
-            color: #fff;
-            display: inline-flex; align-items: center; gap: 12px;
-        }
-        .milestones-title i { color: #f59e0b; font-size: 1rem; }
-        .milestones-counter {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem; color: var(--text-3);
-            display: inline-flex; align-items: center; gap: 6px;
-        }
-        .milestones-counter b { color: var(--accent-1); font-weight: 700; }
-        .milestones-track {
-            position: relative;
-            display: flex;
-            gap: 14px;
-            overflow-x: auto;
-            padding: 10px 4px 18px;
-            scroll-behavior: smooth;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        .milestones-track::-webkit-scrollbar { display: none; }
-        .milestone-card {
-            flex: 0 0 220px;
-            background: linear-gradient(180deg, var(--surface), var(--surface-2));
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 16px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-            transition: 0.3s var(--ease-smooth);
-        }
-        .milestone-card.achieved {
-            border-color: rgba(34, 197, 94, 0.25);
-            background: linear-gradient(180deg, rgba(34,197,94,0.06), var(--surface-2));
-        }
-        .milestone-card.current {
-            border-color: rgba(0, 194, 255, 0.3);
-            background: linear-gradient(180deg, rgba(0,194,255,0.08), var(--surface-2));
-            box-shadow: 0 8px 24px -6px rgba(0,194,255,0.25);
-        }
-        .milestone-card.current::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-            animation: milestone-shimmer 2s linear infinite;
-        }
-        @keyframes milestone-shimmer {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        .milestone-icon {
-            width: 38px; height: 38px;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.04);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--text-3);
-            font-size: 0.95rem;
-            margin-bottom: 14px;
-        }
-        .milestone-card.achieved .milestone-icon {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
-            color: #fff;
-            box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
-        }
-        .milestone-card.current .milestone-icon {
-            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-            color: #fff;
-            box-shadow: 0 4px 14px rgba(0, 194, 255, 0.4);
-        }
-        .milestone-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem;
-            color: var(--text-3);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-        .milestone-value {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.4rem; font-weight: 800;
-            color: #fff;
-            line-height: 1;
-            margin-bottom: 8px;
-        }
-        .milestone-status {
-            font-size: 0.74rem;
-            color: var(--text-3);
-            display: inline-flex; align-items: center; gap: 4px;
-            font-family: 'JetBrains Mono', monospace;
-        }
-        .milestone-card.achieved .milestone-status { color: #22c55e; }
-        .milestone-card.current .milestone-status { color: var(--accent-1); }
-        .milestone-progress {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            height: 3px;
-            background: rgba(255,255,255,0.05);
-        }
-        .milestone-progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-            transition: width 1.5s var(--ease-smooth);
-            box-shadow: 0 0 8px var(--accent-glow-1);
-        }
-        .milestone-card.achieved .milestone-progress-fill { background: linear-gradient(90deg, #22c55e, #16a34a); box-shadow: 0 0 8px rgba(34,197,94,0.4); }
-
-        /* === Watch Progress Card (mini stat) === */
-        .watch-progress-card {
-            grid-column: span 2;
-            background: linear-gradient(135deg, var(--surface-2), var(--surface));
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 28px 32px;
-            position: relative;
-            overflow: hidden;
-        }
-        .watch-progress-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 100% 0%, rgba(0,194,255,0.08), transparent 60%);
-            pointer-events: none;
-        }
-        .wp-header {
-            display: flex; justify-content: space-between; align-items: start;
-            margin-bottom: 18px; gap: 16px;
-        }
-        .wp-circle {
-            position: relative;
-            width: 80px; height: 80px;
-            flex-shrink: 0;
-        }
-        .wp-circle svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-        .wp-circle-track { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 5; }
-        .wp-circle-fill { fill: none; stroke: url(#wpGrad); stroke-width: 5; stroke-linecap: round; transition: stroke-dasharray 1.5s var(--ease-smooth); }
-        .wp-circle-text {
-            position: absolute; inset: 0;
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.05rem; font-weight: 800; color: #fff;
-        }
-        .wp-info-text { flex: 1; }
-        .wp-info-text .label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-3); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
-        .wp-info-text h3 { font-size: 1.15rem; color: #fff; line-height: 1.2; margin-bottom: 8px; }
-        .wp-info-text p { font-size: 0.85rem; color: var(--text-2); line-height: 1.4; }
-
-        /* === Section number badge on stats === */
-        .section-num-badge .total { color: var(--text-3); font-weight: 500; }
-
         /* === Lightbox === */
         .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92); backdrop-filter: blur(25px); z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
         .lightbox.open { opacity: 1; pointer-events: all; }
@@ -1067,10 +652,7 @@
         .lightbox-action-btn { padding: 11px 20px; border-radius: 12px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: transform 0.3s var(--ease-smooth), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: #fff; background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%); border: 1px solid rgba(255,255,255,0.1); font-family: 'Inter', sans-serif; min-height: 42px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 14px -4px rgba(0,0,0,0.45); }
         .lightbox-action-btn:hover { background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%); border-color: rgba(255,255,255,0.25); transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 10px 26px -6px rgba(0,0,0,0.55); }
         .lightbox-action-btn.yt-btn { background: linear-gradient(180deg, rgba(255,0,0,0.18), rgba(180,0,0,0.12)); border-color: rgba(255,0,0,0.3); }
-        .lightbox-action-btn.yt-btn:hover { background: linear-gradient(180deg, rgba(255,0,0,0.32), rgba(180,0,0,0.22)); border-color: rgba(255,0,0,0.5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 12px 30px -6px rgba(255,0,0,0.4); }
-        .lightbox-action-btn.fav-btn.active { background: linear-gradient(180deg, rgba(255,46,147,0.22), rgba(255,46,147,0.12)); border-color: var(--accent-2); color: var(--accent-2); }
-        .lightbox-action-btn.fav-btn.active i { animation: heart-beat 0.5s var(--ease-bounce); }
-        @keyframes heart-beat { 0%, 100% { transform: scale(1); } 30% { transform: scale(1.4); } 60% { transform: scale(0.95); } }
+        .lightbox-action-btn.yt-btn:hover { background: linear-gradient(180deg, rgba(255,0,0,0.32), rgba(180,0,0,0.22)); border-color: rgba(255,0,0,0.5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 12px 30px -6px rgba(255,0,0,0.4); } 30% { transform: scale(1.4); } 60% { transform: scale(0.95); } }
         /* === Modals === */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); z-index: 10002; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s; padding: 20px; }
         .modal-overlay.open { opacity: 1; pointer-events: all; }
@@ -1082,15 +664,7 @@
         .close-btn:hover { color: #fff; transform: rotate(90deg); background: rgba(255,255,255,0.08); }
         .modal-body { padding: 30px; overflow-y: auto; flex: 1; -webkit-overflow-scrolling: touch; }
         .modal-panel.large { max-width: 900px; }
-        .favorites-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-        .fav-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; cursor: pointer; transition: 0.3s; position: relative; }
-        .fav-item:hover { border-color: var(--border-strong); transform: translateY(-3px); }
-        .fav-item img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
-        .fav-item-info { padding: 12px; }
-        .fav-item-title { font-size: 0.85rem; line-height: 1.3; color: #fff; font-weight: 500; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .fav-remove-btn { position: absolute; top: 8px; right: 8px; width: 32px; height: 32px; border-radius: 50%; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; color: #fff; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); opacity: 0; transition: 0.3s; font-size: 0.75rem; }
-        .fav-item:hover .fav-remove-btn { opacity: 1; }
-        .fav-remove-btn:hover { background: var(--accent-2); }
+        .fav-item:hover
         .empty-state { text-align: center; padding: 60px 20px; color: var(--text-3); }
         .empty-state i { font-size: 3rem; opacity: 0.2; margin-bottom: 20px; display: block; }
         .empty-state h4 { color: var(--text-2); margin-bottom: 10px; }
@@ -1203,12 +777,48 @@
         .card-actions { position: absolute; top: 10px; right: 10px; display: flex; gap: 6px; z-index: 5; opacity: 0; transform: translateY(-5px); transition: 0.3s; }
         .card-action-btn { width: 38px; height: 38px; background: rgba(0,0,0,0.75); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.85rem; cursor: pointer; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); }
         .card-action-btn:hover { background: var(--accent-1); transform: scale(1.1); }
-        .card-action-btn.fav-active { background: var(--accent-2); border-color: var(--accent-2); }
-        .card-action-btn.fav-active i { animation: heart-beat 0.5s var(--ease-bounce); }
         .premium-info { padding: 22px; display: flex; flex-direction: column; flex-grow: 1; position: relative; }
         .premium-title { font-size: 1.05rem; font-weight: 600; line-height: 1.4; color: #fff; margin-bottom: 18px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .premium-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 14px; margin-top: auto; }
-        .stat-box { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+        .stat-box { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+        .stat-box .stat-value { font-size: 0.85rem; font-weight: 700; color: #fff; font-family: 'JetBrains Mono', monospace; display: inline-flex; align-items: center; gap: 5px; }
+        .stat-box .stat-label { font-size: 0.6rem; color: var(--text-3); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px; text-transform: lowercase; margin-left: 18px; }
+
+        /* === Video card engagement bar === */
+        .premium-engagement-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+        .engagement-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #f59e0b;
+            font-family: 'JetBrains Mono', monospace;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .engagement-track {
+            flex: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .engagement-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f59e0b, var(--accent-2));
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+            transition: width 1s var(--ease-smooth);
+        }
+        .time-ago-badge i { color: var(--accent-1); }
         .stat-value { font-size: 0.82rem; font-weight: 500; color: var(--text-2); display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; }
 
         /* Shorts */
@@ -1217,10 +827,81 @@
         .shorts-track { display: flex; gap: 20px; padding: 0 40px; }
         .shorts-title-anim { font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, var(--accent-1), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .shorts-card { min-width: 240px; aspect-ratio: 9/16; background: #000; border-radius: 20px; border: 1px solid var(--border); position: relative; overflow: hidden; transition: 0.3s; cursor: pointer; }
-        @media (hover: hover) { .shorts-card:hover { transform: translateY(-8px); border-color: #fff; box-shadow: 0 15px 40px rgba(255,0,0,0.2); } .shorts-card:hover .shorts-thumb { transform: scale(1.1); opacity: 0.6; } .shorts-card:hover .shorts-overlay { transform: translateY(0); } }
+        @media (hover: hover) { .shorts-card:hover { transform: translateY(-8px); border-color: #fff; box-shadow: 0 15px 40px rgba(255,0,0,0.2); } .shorts-card:hover .shorts-thumb { transform: scale(1.08); opacity: 0.7; } }
         .shorts-thumb { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .shorts-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 18px; background: linear-gradient(to top, rgba(0,0,0,0.95), transparent); transform: translateY(100%); transition: 0.3s; }
-        .shorts-icon { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); padding: 8px; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .shorts-overlay {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%;
+            padding: 16px 14px;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 60%, transparent 100%);
+            z-index: 2;
+        }
+        .shorts-title {
+            font-size: 0.92rem;
+            margin-bottom: 8px;
+            line-height: 1.25;
+            color: #fff;
+            font-weight: 600;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .shorts-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+            font-size: 0.7rem;
+            color: #e5e5e5;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .shorts-stats-grid span {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .shorts-icon { position: absolute; top: 12px; right: 12px; background: linear-gradient(135deg, #FF0000, #CC0000); padding: 8px; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); z-index: 3; box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4); }
+        .shorts-badge-row {
+            position: absolute;
+            top: 12px; left: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 3;
+        }
+        .shorts-time-badge, .shorts-dur-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: #fff;
+            font-weight: 700;
+            width: fit-content;
+        }
+        .shorts-time-badge i { color: var(--accent-1); font-size: 0.6rem; }
+        .shorts-card.watched .shorts-icon { background: rgba(0, 194, 255, 0.8); }
+        .shorts-card.is-new::after {
+            content: 'NY';
+            position: absolute;
+            bottom: 12px; right: 12px;
+            z-index: 4;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #fff;
+            font-size: 0.62rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.45);
+        }
 
         /* Custom select */
         .custom-select-wrapper { position: relative; user-select: none; margin-left: 20px; z-index: 100; }
@@ -1321,6 +1002,91 @@
         .qr-url { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-3); word-break: break-all; text-align: center; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid var(--border); }
         /* === MOBILE === */
         @media (max-width: 1024px) {
+            /* === KILL ALL BUTTON HOVER ANIMATIONS ON MOBILE === */
+            .btn-hero, .btn-ultra, .btn-hero-yt, .btn-hero-sec, .lightbox-action-btn,
+            .nav-icon-btn, .header-icon-btn, .card-action-btn, .scroll-btn, .nav-sub-btn,
+            .gear-card, .news-card, .card, .video-card-premium, .shorts-card, .faq-item,
+            .channel-card-compact, .footer-link, .mobile-fab, .ptr-indicator {
+                transition: opacity 0.2s ease, background 0.2s ease, transform 0.2s ease !important;
+            }
+            .btn-hero:hover, .btn-hero:hover::before, .btn-hero:hover::after,
+            .btn-ultra:hover, .btn-ultra:hover::before, .btn-ultra:hover::after,
+            .btn-hero-yt:hover, .btn-hero-sec:hover,
+            .lightbox-action-btn:hover,
+            .nav-icon-btn:hover, .header-icon-btn:hover,
+            .card-action-btn:hover, .scroll-btn:hover, .nav-sub-btn:hover,
+            .gear-card:hover, .news-card:hover, .card:hover,
+            .video-card-premium:hover, .video-card-premium:hover .premium-thumb,
+            .video-card-premium:hover .premium-play-btn, .video-card-premium:hover .card-actions,
+            .video-card-premium:hover::after,
+            .shorts-card:hover, .faq-item:hover,
+            .channel-card-compact:hover, .channel-card-compact:hover::after,
+            .gear-card:hover::before, .gear-card:hover::after, .gear-card:hover .gear-icon, .gear-card:hover h4,
+            .footer-link:hover {
+                transform: none !important;
+                box-shadow: inherit !important;
+                filter: none !important;
+                background: inherit !important;
+                border-color: inherit !important;
+                opacity: inherit !important;
+            }
+            /* Use active state for tap feedback instead */
+            .btn-hero:active, .btn-ultra:active, .card-action-btn:active,
+            .nav-icon-btn:active, .header-icon-btn:active, .card:active,
+            .video-card-premium:active, .shorts-card:active, .gear-card:active {
+                transform: scale(0.97) !important;
+                transition: transform 0.12s ease !important;
+            }
+
+            /* === MOBILE QoL: better touch + readability === */
+            html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+            body { -webkit-tap-highlight-color: transparent; touch-action: pan-x pan-y; overscroll-behavior-y: none; }
+            input, textarea, select { font-size: 16px !important; }  /* prevent iOS zoom on focus */
+            button, a, .tap-effect, [role="button"] { min-height: 44px; }  /* iOS recommended */
+            ::selection { background: rgba(0, 194, 255, 0.35); color: #fff; }
+
+            /* === Scroll-snap section feel === */
+            section { scroll-margin-top: calc(72px + var(--safe-top)); }
+
+            /* === Bigger touch areas on FAQ === */
+            .faq-question { padding: 18px 16px; min-height: 56px; font-size: 0.95rem; }
+
+            /* === Bigger video card scroll-snap === */
+            .work-track, .shorts-track {
+                scroll-snap-type: x mandatory;
+                scroll-padding-left: 18px;
+                -webkit-overflow-scrolling: touch;
+            }
+            .video-card-premium, .shorts-card { scroll-snap-align: start; }
+
+            /* === Better drop shadows that aren't too dark on dark === */
+            .card { box-shadow: 0 8px 24px -10px rgba(0,0,0,0.4); }
+
+            /* === Mobile-friendly chips & inputs === */
+            .search-input { border-radius: 14px; }
+            .custom-select-trigger { padding: 12px 16px; font-size: 0.9rem; border-radius: 14px; }
+            .custom-options { border-radius: 14px; }
+            .custom-option { padding: 14px 16px; font-size: 0.9rem; }
+
+            /* === Mobile FAB liquid glass === */
+            .mobile-fab {
+                background: linear-gradient(180deg, rgba(0, 194, 255, 0.95), rgba(0, 152, 204, 0.95)) !important;
+                backdrop-filter: blur(20px) saturate(180%);
+                -webkit-backdrop-filter: blur(20px) saturate(180%);
+                box-shadow:
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                    0 12px 30px -8px rgba(0, 194, 255, 0.5),
+                    0 4px 12px rgba(0, 0, 0, 0.3) !important;
+            }
+
+            /* === Reduce motion preference === */
+            @media (prefers-reduced-motion: reduce) {
+                *, *::before, *::after {
+                    animation-duration: 0.01ms !important;
+                    transition-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                }
+            }
             /* Re-enable mobile-only widgets that were hidden by default */
             .ptr-indicator { display: inline-flex !important; }
             .mobile-sticky-bar { display: flex !important; }
@@ -1337,10 +1103,15 @@
                 position: fixed;
                 top: calc(var(--safe-top) + 64px);
                 left: 0; right: 0;
-                background: rgba(5, 5, 8, 0.85);
-                backdrop-filter: blur(20px) saturate(180%);
-                -webkit-backdrop-filter: blur(20px) saturate(180%);
-                border-bottom: 1px solid rgba(255,255,255,0.05);
+                background:
+                    linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)),
+                    rgba(5, 5, 8, 0.6);
+                backdrop-filter: blur(32px) saturate(220%) brightness(1.05);
+                -webkit-backdrop-filter: blur(32px) saturate(220%) brightness(1.05);
+                border-bottom: 1px solid rgba(255,255,255,0.08);
+                box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,0.1),
+                    0 10px 30px -10px rgba(0,0,0,0.5);
                 padding: 10px 16px;
                 z-index: 998;
                 transform: translateY(-100%);
@@ -1368,22 +1139,7 @@
             .mobile-sticky-bar-inner { position: relative; flex: 1; }
             .mobile-sticky-bar-inner i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 0.78rem; color: var(--text-3); pointer-events: none; }
             .mobile-sticky-bar .mini-search-input::placeholder { color: var(--text-3); }
-            .mobile-sticky-bar .mini-search-input:focus { border-color: var(--accent-1); background: rgba(255,255,255,0.09); }
-            .mobile-sticky-bar-tag {
-                background: linear-gradient(135deg, var(--accent-1), #0098cc);
-                color: var(--bg);
-                font-weight: 700;
-                font-size: 0.72rem;
-                padding: 7px 12px;
-                border-radius: 50px;
-                white-space: nowrap;
-                display: inline-flex; align-items: center; gap: 6px;
-                box-shadow: 0 3px 10px var(--accent-glow-1);
-                animation: slide-fade 0.3s ease;
-            }
-            @keyframes slide-fade { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
-            .mobile-sticky-bar-tag .x { cursor: pointer; opacity: 0.7; padding: 0 2px; }
-            .mobile-sticky-bar-tag .x:hover { opacity: 1; }
+            .mobile-sticky-bar .mini-search-input:focus { border-color: var(--accent-1); background: rgba(255,255,255,0.09); } to { opacity: 1; transform: translateX(0); } }
 
             /* === Pull-to-refresh === */
             .ptr-indicator {
@@ -1416,7 +1172,6 @@
             @keyframes ptr-spin { to { transform: rotate(360deg); } }
 
             /* === Mobile-friendly tag chip (bigger taps) === */
-            .tag-chip { padding: 9px 16px; font-size: 0.82rem; }
 
             /* === Mobile ripple on cards === */
             .video-card-premium, .shorts-card, .card { -webkit-tap-highlight-color: transparent; }
@@ -1520,8 +1275,74 @@
             .scroll-controls { display: none !important; }
             .back-to-top { display: none !important; }
             .lightbox-nav { display: none; }
-            .mobile-bottom-nav { display: flex; justify-content: space-around; align-items: center; position: fixed; bottom: calc(16px + var(--safe-bottom)); left: 50%; transform: translateX(-50%); width: calc(100% - 24px); max-width: 480px; height: 68px; background: rgba(10, 10, 14, 0.85); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255,255,255,0.08); border-radius: 22px; z-index: 9990; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08); padding: 0 4px; }
-            .mobile-bottom-nav::before { content: ''; position: absolute; top: 8px; left: var(--nav-indicator-x, 4px); width: var(--nav-indicator-w, 60px); height: 52px; background: linear-gradient(180deg, rgba(0,194,255,0.15), rgba(0,194,255,0.05)); border: 1px solid rgba(0,194,255,0.2); border-radius: 16px; transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1), width 0.5s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none; box-shadow: 0 0 20px rgba(0,194,255,0.15); }
+            .mobile-bottom-nav {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                position: fixed;
+                bottom: calc(14px + var(--safe-bottom));
+                left: 50%;
+                transform: translateX(-50%);
+                width: calc(100% - 22px);
+                max-width: 480px;
+                height: 72px;
+                background:
+                    linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%),
+                    rgba(14, 14, 22, 0.55);
+                backdrop-filter: blur(40px) saturate(220%) brightness(1.1);
+                -webkit-backdrop-filter: blur(40px) saturate(220%) brightness(1.1);
+                border: 1px solid rgba(255,255,255,0.14);
+                border-radius: 28px;
+                z-index: 9990;
+                box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,0.18),
+                    inset 0 -1px 0 rgba(0,0,0,0.3),
+                    inset 0 0 0 1px rgba(255,255,255,0.04),
+                    0 30px 60px -10px rgba(0,0,0,0.7),
+                    0 8px 24px -8px rgba(0,194,255,0.18);
+                padding: 0 6px;
+                isolation: isolate;
+            }
+            /* Inner specular highlight (liquid glass top sheen) */
+            .mobile-bottom-nav::before {
+                content: '';
+                position: absolute;
+                top: 1px; left: 1px; right: 1px;
+                height: 50%;
+                border-radius: 27px 27px 100% 100% / 27px 27px 30% 30%;
+                background: linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.03) 60%, transparent 100%);
+                pointer-events: none;
+                z-index: -1;
+                mix-blend-mode: overlay;
+                opacity: 0.7;
+            }
+            /* Bottom chromatic rim (subtle) */
+            .mobile-bottom-nav::after {
+                content: '';
+                position: absolute;
+                bottom: -1px;
+                left: 20%; right: 20%;
+                height: 1px;
+                background: linear-gradient(90deg, transparent, rgba(0,194,255,0.4), rgba(255,46,147,0.4), transparent);
+                opacity: 0.6;
+                filter: blur(1px);
+                pointer-events: none;
+            }
+            /* Active item indicator — separate floating background */
+            .mobile-bottom-nav .nav-indicator {
+                position: absolute;
+                top: 8px;
+                left: var(--nav-indicator-x, 4px);
+                width: var(--nav-indicator-w, 60px);
+                height: 52px;
+                background: linear-gradient(180deg, rgba(0,194,255,0.15), rgba(0,194,255,0.05));
+                border: 1px solid rgba(0,194,255,0.2);
+                border-radius: 16px;
+                transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1), width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+                pointer-events: none;
+                box-shadow: 0 0 20px rgba(0,194,255,0.15);
+                z-index: 1;
+            }
             .nav-item { color: var(--text-3); font-size: 1.1rem; padding: 10px 6px; transition: color 0.3s ease, transform 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-decoration: none; position: relative; flex: 1; min-width: 60px; height: 100%; border-radius: 16px; z-index: 2; -webkit-tap-highlight-color: transparent; }
             .nav-item span { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.02em; opacity: 0.85; }
             .nav-item.active { color: #fff; }
@@ -1529,14 +1350,38 @@
             .nav-item:active { transform: scale(0.92); }
             .nav-item.has-badge::after { content: attr(data-count); position: absolute; top: 6px; right: calc(50% - 18px); background: var(--accent-2); color: #fff; font-size: 0.55rem; font-weight: 700; border-radius: 8px; min-width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; padding: 0 3px; box-shadow: 0 0 8px var(--accent-glow-2); }
             .mobile-header { display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: calc(64px + var(--safe-top)); padding: var(--safe-top) 16px 0 16px; z-index: 9999; pointer-events: none; transition: background 0.3s ease, backdrop-filter 0.3s ease; }
-            .mobile-header.scrolled { background: rgba(5, 5, 8, 0.7); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(255,255,255,0.05); }
+            .mobile-header.scrolled {
+                background:
+                    linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%),
+                    rgba(5, 5, 8, 0.55);
+                backdrop-filter: blur(32px) saturate(220%) brightness(1.05);
+                -webkit-backdrop-filter: blur(32px) saturate(220%) brightness(1.05);
+                border-bottom: 1px solid rgba(255,255,255,0.08);
+                box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,0.1),
+                    0 10px 30px -10px rgba(0,0,0,0.5);
+            }
             .mobile-header::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent); pointer-events: none; opacity: 1; transition: opacity 0.3s ease; }
             .mobile-header.scrolled::before { opacity: 0; }
             .mobile-header * { pointer-events: auto; position: relative; z-index: 2; }
             .mobile-logo { height: 26px; width: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8)); transition: transform 0.3s var(--ease-bounce); }
             .mobile-logo:active { transform: scale(0.92); }
             .mobile-header-actions { display: flex; align-items: center; gap: 10px; }
-            .header-icon-btn { font-size: 1rem; color: #fff; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.06); border-radius: 50%; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.06); position: relative; transition: all 0.25s var(--ease-bounce); }
+            .header-icon-btn {
+                font-size: 1rem; color: #fff; cursor: pointer;
+                width: 42px; height: 42px;
+                display: flex; align-items: center; justify-content: center;
+                background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+                border-radius: 50%;
+                backdrop-filter: blur(20px) saturate(180%);
+                -webkit-backdrop-filter: blur(20px) saturate(180%);
+                border: 1px solid rgba(255,255,255,0.12);
+                position: relative;
+                transition: all 0.25s var(--ease-bounce);
+                box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,0.15),
+                    0 4px 12px -2px rgba(0,0,0,0.4);
+            }
             .header-icon-btn:active { transform: scale(0.88); background: rgba(255,255,255,0.12); }
             .header-icon-btn.has-badge::after { content: attr(data-count); position: absolute; top: -2px; right: -2px; background: var(--accent-2); color: #fff; font-size: 0.6rem; font-weight: 700; border-radius: 10px; min-width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; padding: 0 4px; box-shadow: 0 0 8px var(--accent-glow-2); animation: badge-pop 0.4s var(--ease-bounce); }
             .mobile-fab { display: flex; position: fixed; bottom: calc(100px + var(--safe-bottom)); right: 16px; width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-1), var(--accent-2)); color: #fff; align-items: center; justify-content: center; font-size: 1rem; z-index: 9988; opacity: 0; visibility: hidden; transform: scale(0.8) translateY(20px); transition: all 0.4s var(--ease-bounce); cursor: pointer; border: none; box-shadow: 0 10px 25px -5px var(--accent-glow-2), 0 0 0 1px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.2); }
@@ -1560,10 +1405,13 @@
             .section-header { font-size: clamp(2rem, 8vw, 2.6rem); margin-bottom: 18px; }
             .subtitle { font-size: 0.65rem; letter-spacing: 2.5px; }
             .bento-grid { grid-template-columns: 1fr; gap: 14px; }
-            .stats-extra-grid { grid-template-columns: 1fr; gap: 14px; padding-top: 14px; }
-            .stats-extra-grid .card-wide { grid-column: span 1; }
-            .stats-toggle-wrapper { margin-top: 22px; }
-            .stats-toggle-btn { padding: 13px 22px; font-size: 0.82rem; }
+            .growth-chart-card { padding: 22px 18px; margin-top: 20px; }
+            .growth-chart-header { flex-direction: column; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+            .growth-chart-meta { gap: 14px; flex-wrap: wrap; }
+            .growth-meta-item { text-align: left; }
+            .growth-chart-title { font-size: 1.2rem; }
+            .growth-meta-value { font-size: 0.95rem; }
+            .growth-chart-wrapper { height: 200px; }
             .card { padding: 26px 22px; border-radius: 20px; }
             .card-large, .card-wide { grid-column: span 1; grid-row: span 1; }
             .stat-num { font-size: 2.6rem; }
@@ -1586,9 +1434,12 @@
             .about-image-wrapper { order: 1; }
             .about-image-wrapper img { aspect-ratio: 16/10; object-fit: cover; }
             .about-text p { font-size: 1rem !important; }
-            .shorts-overlay { transform: translateY(0); background: linear-gradient(to top, rgba(0,0,0,1), transparent); padding: 14px; }
+            .shorts-overlay { padding: 12px 10px; }
             .shorts-card { min-width: 158px; border-radius: 16px; }
-            .shorts-overlay h5 { font-size: 0.85rem; }
+            .shorts-title { font-size: 0.78rem; }
+            .shorts-stats-grid { font-size: 0.62rem; gap: 4px; }
+            .shorts-badge-row { top: 8px; left: 8px; }
+            .shorts-time-badge, .shorts-dur-badge { padding: 3px 6px; font-size: 0.58rem; }
             .search-wrapper { max-width: 100%; }
             .search-input { padding: 14px 44px 14px 46px; font-size: 16px; }
             .search-clear { right: 8px; padding: 10px; }
@@ -1619,22 +1470,11 @@
             .faq-question { font-size: 1rem; }
             .faq-question span { width: 30px; height: 30px; font-size: 1.05rem; }
             .toast { font-size: 0.85rem; padding: 12px 18px; max-width: calc(100vw - 24px); }
-            /* New components mobile */
-            .daily-pick-card { flex-direction: column; padding: 20px; gap: 16px; }
-            .daily-pick-thumb { width: 100%; }
-            .daily-pick-title { font-size: 1.15rem; }
-            .milestones-track { padding-left: 18px; padding-right: 18px; margin-left: -18px; margin-right: -18px; scroll-snap-type: x mandatory; }
-            .milestone-card { flex: 0 0 180px; padding: 16px; scroll-snap-align: center; }
-            .milestone-value { font-size: 1.15rem; }
-            .watch-progress-card { grid-column: span 1; padding: 22px; }
-            .wp-circle { width: 64px; height: 64px; }
-            .length-pill { padding: 8px 14px; font-size: 0.7rem; }
-            .length-filter-row { gap: 6px; }
             .marquee-container { transform: rotate(-5deg) scale(1.4); gap: 14px; }
             .marquee-item { width: 220px; border-radius: 12px; }
             .marquee-row { gap: 14px; }
             .scroll-indicator { font-size: 0.7rem; bottom: 22px; }
-            .top-video-mini-thumb { width: 70px; }
+
         }
         @media(min-width: 1025px) { .swipe-hint { display: none; } .mobile-fab { display: none !important; } }
         .mobile-fab { display: none; }
@@ -1709,17 +1549,6 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="favoritesModal" onclick="if(event.target===this) toggleFavorites()">
-        <div class="modal-panel large">
-            <div class="modal-header">
-                <h3><i class="fas fa-heart" style="color:var(--accent-2)"></i> Favoritter <span id="favCount" style="color:var(--text-3); font-size:0.85rem; font-weight:400; margin-left:8px;"></span></h3>
-                <i class="fas fa-times close-btn" onclick="toggleFavorites()"></i>
-            </div>
-            <div class="modal-body" id="favoritesContent">
-                <div class="empty-state"><i class="far fa-heart"></i><h4>Ingen favoritter enda</h4><p>Trykk på hjertet på en video for å legge den til her.</p></div>
-            </div>
-        </div>
-    </div>
 
     <div class="modal-overlay" id="shareModal" onclick="if(event.target===this) closeShareModal()">
         <div class="modal-panel" style="max-width: 360px;">
@@ -1776,8 +1605,6 @@
                 <li><a href="#shorts" class="text-link" data-section="shorts"><i class="fas fa-bolt"></i> Shorts</a></li>
                 <li><a href="#gear" class="text-link" data-section="gear"><i class="fas fa-keyboard"></i> Setup</a></li>
                 <li><a href="https://www.youtube.com/channel/UCvRVrLgB-Tk9R6dIzH2gE6w?sub_confirmation=1" target="_blank" class="nav-sub-btn"><i class="fab fa-youtube"></i> Abonner</a></li>
-                <li><div class="nav-icon-btn" id="navFavBtn" onclick="toggleFavorites()" title="Favoritter"><i class="fas fa-heart"></i></div></li>
-                <li><div class="nav-icon-btn" onclick="randomVideo()" title="Tilfeldig video"><i class="fas fa-shuffle"></i></div></li>
             </ul>
         </div>
     </nav>
@@ -1785,8 +1612,6 @@
     <div class="mobile-header" id="mobileHeader">
         <img src="logo2.png" class="mobile-logo tap-effect" id="mobileLogoEl" alt="" onclick="handleLogoClick(event)">
         <div class="mobile-header-actions">
-            <div class="header-icon-btn tap-effect" onclick="randomVideo()" aria-label="Tilfeldig"><i class="fas fa-shuffle"></i></div>
-            <div class="header-icon-btn tap-effect" id="mobileFavBtn" onclick="toggleFavorites()" aria-label="Favoritter"><i class="fas fa-heart"></i></div>
         </div>
     </div>
 
@@ -1802,7 +1627,6 @@
             <i class="fas fa-search"></i>
             <input class="mini-search-input" id="miniSearchInput" type="search" placeholder="Søk videoer..." autocomplete="off">
         </div>
-        <div class="mobile-sticky-bar-tag" id="mobileStickyTag" style="display:none;"></div>
     </div>
 
     <!-- Long-press action sheet (mobile only) -->
@@ -1810,7 +1634,6 @@
         <div class="action-sheet">
             <div class="action-sheet-preview" id="actionSheetPreview"></div>
             <button class="action-sheet-btn" id="actionPlayBtn"><i class="fas fa-play"></i> Spill av</button>
-            <button class="action-sheet-btn" id="actionFavBtn"><i class="far fa-heart"></i> <span>Legg til i favoritter</span></button>
             <button class="action-sheet-btn" id="actionShareBtn"><i class="fas fa-share-alt"></i> Del</button>
             <button class="action-sheet-btn" id="actionYTBtn"><i class="fab fa-youtube" style="color:#FF0000"></i> Åpne på YouTube</button>
             <button class="action-sheet-btn" onclick="closeActionSheet()"><i class="fas fa-times"></i> Avbryt</button>
@@ -1818,10 +1641,10 @@
     </div>
 
     <div class="mobile-bottom-nav" id="mobileNav">
+        <div class="nav-indicator"></div>
         <a href="#home" class="nav-item active" data-section="home" onclick="mobileNavClick(this)"><i class="fas fa-home"></i><span>Hjem</span></a>
         <a href="#videos" class="nav-item" data-section="videos" onclick="mobileNavClick(this)"><i class="fas fa-play-circle"></i><span>Videoer</span></a>
         <a href="#shorts" class="nav-item" data-section="shorts" onclick="mobileNavClick(this)"><i class="fas fa-bolt"></i><span>Shorts</span></a>
-        <a href="javascript:void(0)" class="nav-item" id="mobileNavFav" onclick="toggleFavorites();triggerHaptic();"><i class="fas fa-heart"></i><span>Favoritter</span></a>
         <a href="#stats" class="nav-item" data-section="stats" onclick="mobileNavClick(this)"><i class="fas fa-chart-bar"></i><span>Stats</span></a>
     </div>
 
@@ -1832,24 +1655,15 @@
             <div class="hero-actions">
                 <a href="https://www.youtube.com/channel/UCvRVrLgB-Tk9R6dIzH2gE6w" target="_blank" class="btn-hero btn-hero-yt tap-effect" onclick="triggerHaptic()"><i class="fab fa-youtube"></i> Besøk Kanalen</a>
                 <a href="#videos" class="btn-hero btn-hero-sec tap-effect" onclick="triggerHaptic()">Utforsk Innhold <i class="fas fa-arrow-right"></i></a>
-                <button class="btn-hero btn-hero-random tap-effect" onclick="randomVideo();triggerHaptic();"><i class="fas fa-shuffle"></i> Surprise Me</button>
             </div>
             <div class="scroll-indicator" id="scrollIndicator"><span>SCROLL</span><div class="scroll-indicator-mouse"></div></div>
         </div>
     </section>
     <section class="stats-section" id="stats">
         <div class="section-rail"></div>
-        <div class="deco-orb orb-cyan" style="width: 280px; height: 280px; top: 100px; right: -100px; animation: orb-drift-1 18s ease-in-out infinite;"></div>
-        <div class="deco-orb orb-pink" style="width: 220px; height: 220px; bottom: 50px; left: -80px; animation: orb-drift-2 22s ease-in-out infinite; opacity: 0.12;"></div>
         <div class="container">
             <span class="subtitle reveal">Live Dashboard</span>
-            <div style="display:flex; justify-content:space-between; align-items:end; flex-wrap:wrap; gap: 20px; margin-bottom: 35px;">
-                <h2 class="section-header reveal" style="margin-bottom: 0;">Kanal Oversikt</h2>
-                <div class="stats-meta-pills reveal" id="statsMetaPills">
-                    <div class="meta-pill"><i class="fas fa-circle pulsing-dot"></i> <span>Sanntid</span></div>
-                    <div class="meta-pill" id="lastUpdatedPill"><i class="fas fa-clock"></i> <span>Oppdatert nå</span></div>
-                </div>
-            </div>
+            <h2 class="section-header reveal">Kanal Oversikt</h2>
             <div class="bento-grid">
                 <div class="card card-large reveal tap-effect" tabindex="0">
                     <div style="display:flex; justify-content:space-between; align-items:start;">
@@ -1899,116 +1713,59 @@
                 </div>
             </div>
 
-            <div class="stats-extra-wrapper" id="statsExtraWrapper">
-                <div class="stats-extra-inner">
-                    <div class="stats-extra-grid">
-                        <div class="card reveal tap-effect" tabindex="0">
-                            <i class="fas fa-thumbs-up stat-icon-bg" style="color:rgba(255, 46, 147, 0.08);"></i>
-                            <span class="subtitle">Totale Likes</span>
-                            <div class="stat-num-md" id="totalLikes"><span class="skeleton" style="display:inline-block;width:100px;height:32px;"></span></div>
-                            <div style="color:var(--text-3); font-size:0.78rem; margin-top:auto; font-family: 'JetBrains Mono', monospace;" id="avgLikes">—</div>
+            <!-- Subscriber Growth Chart -->
+            <div class="growth-chart-card reveal" id="growthChartCard">
+                <div class="growth-chart-header">
+                    <div>
+                        <span class="growth-chart-label">Estimert vekst</span>
+                        <h3 class="growth-chart-title">Abonnenter over tid</h3>
+                    </div>
+                    <div class="growth-chart-meta">
+                        <div class="growth-meta-item">
+                            <span class="growth-meta-label">Total visninger</span>
+                            <span class="growth-meta-value" id="growthTotalViews">—</span>
                         </div>
-
-                        <div class="card reveal tap-effect" tabindex="0">
-                            <i class="fas fa-comments stat-icon-bg"></i>
-                            <span class="subtitle">Kommentarer</span>
-                            <div class="stat-num-md" id="totalComments"><span class="skeleton" style="display:inline-block;width:100px;height:32px;"></span></div>
-                            <div style="color:var(--text-3); font-size:0.78rem; margin-top:auto; font-family: 'JetBrains Mono', monospace;" id="avgComments">—</div>
+                        <div class="growth-meta-item">
+                            <span class="growth-meta-label">Videoer</span>
+                            <span class="growth-meta-value" id="growthTotalVideos">—</span>
                         </div>
-
-                        <div class="card reveal tap-effect" tabindex="0">
-                            <i class="fas fa-heart stat-icon-bg" style="color:rgba(255, 46, 147, 0.08);"></i>
-                            <span class="subtitle">Engasjement</span>
-                            <div class="stat-num-md" id="engagementRate"><span class="skeleton" style="display:inline-block;width:80px;height:32px;"></span></div>
-                            <div class="engagement-bar"><div class="engagement-fill" id="engagementFill"></div></div>
-                            <div style="color:var(--text-3); font-size:0.7rem; margin-top:8px; font-family: 'JetBrains Mono', monospace;">Likes per visning</div>
-                        </div>
-
-                        <div class="card reveal tap-effect" tabindex="0">
-                            <i class="fas fa-stopwatch stat-icon-bg"></i>
-                            <span class="subtitle">Snitt-Varighet</span>
-                            <div class="stat-num-md" id="avgDuration"><span class="skeleton" style="display:inline-block;width:80px;height:32px;"></span></div>
-                            <div style="color:var(--text-3); font-size:0.78rem; margin-top:auto; font-family: 'JetBrains Mono', monospace;" id="longestVid">—</div>
-                        </div>
-
-                        <div class="card card-wide reveal tap-effect" tabindex="0" id="topVideoCard">
-                            <span class="subtitle"><i class="fas fa-fire" style="color:#f59e0b; margin-left:6px;"></i> Mest Populære</span>
-                            <div id="topVideoContent">
-                                <div class="skeleton" style="height:90px; margin-top:16px;"></div>
-                            </div>
-                        </div>
-
-                        <div class="card card-wide reveal tap-effect" tabindex="0">
-                            <span class="subtitle">Visnings-trend</span>
-                            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:8px;">
-                                <div>
-                                    <div class="stat-num-md" id="trendCurrent">—</div>
-                                    <div class="stat-trend accent" id="trendDelta" style="display:none;"><i class="fas fa-chart-line"></i> <span>Siste video</span></div>
-                                </div>
-                                <div style="font-family:'JetBrains Mono', monospace; font-size:0.7rem; color:var(--text-3); text-transform: uppercase; letter-spacing: 2px;">Siste 12 videoer</div>
-                            </div>
-                            <div class="sparkline-wrapper" id="sparklineWrapper">
-                                <svg viewBox="0 0 300 90" preserveAspectRatio="none">
-                                    <defs>
-                                        <linearGradient id="sparkGrad" x1="0" y1="0" x2="1" y2="0">
-                                            <stop offset="0%" stop-color="#00C2FF"></stop>
-                                            <stop offset="100%" stop-color="#FF2E93"></stop>
-                                        </linearGradient>
-                                        <linearGradient id="sparkAreaGrad" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="0%" stop-color="#00C2FF" stop-opacity="0.35"></stop>
-                                            <stop offset="100%" stop-color="#00C2FF" stop-opacity="0"></stop>
-                                        </linearGradient>
-                                    </defs>
-                                    <path class="sparkline-area" id="sparkArea" d="" fill="url(#sparkAreaGrad)"></path>
-                                    <path class="sparkline-line" id="sparkLine" d=""></path>
-                                    <g id="sparkDots"></g>
-                                </svg>
-                            </div>
-                        </div>
-
-                        <!-- Watch Progress Card -->
-                        <div class="watch-progress-card card-wide reveal tap-effect" tabindex="0" id="watchProgressCard">
-                            <div class="wp-header">
-                                <div class="wp-info-text">
-                                    <div class="label">Din utforskning</div>
-                                    <h3 id="wpHeadline">Sett 0 videoer</h3>
-                                    <p id="wpSubtext">Du har ikke begynt å utforske kanalen enda.</p>
-                                </div>
-                                <div class="wp-circle">
-                                    <svg viewBox="0 0 36 36">
-                                        <defs>
-                                            <linearGradient id="wpGrad" x1="0" y1="0" x2="1" y2="1">
-                                                <stop offset="0%" stop-color="#00C2FF"/>
-                                                <stop offset="100%" stop-color="#FF2E93"/>
-                                            </linearGradient>
-                                        </defs>
-                                        <circle class="wp-circle-track" cx="18" cy="18" r="15"></circle>
-                                        <circle class="wp-circle-fill" cx="18" cy="18" r="15" stroke-dasharray="0 100" pathLength="100"></circle>
-                                    </svg>
-                                    <div class="wp-circle-text" id="wpCircleText">0%</div>
-                                </div>
-                            </div>
+                        <div class="growth-meta-item">
+                            <span class="growth-meta-label">Aktiv siden</span>
+                            <span class="growth-meta-value" id="growthSinceYear">—</span>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="stats-toggle-wrapper reveal">
-                <button class="stats-toggle-btn tap-effect" id="statsToggleBtn" onclick="toggleStatsExtra()" aria-expanded="false">
-                    <i class="fas fa-chart-pie" style="color: var(--accent-1); font-size: 0.85rem;"></i>
-                    <span class="stats-toggle-label-more">Vis mer detaljer</span>
-                    <span class="stats-toggle-label-less">Skjul detaljer</span>
-                    <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
-                </button>
-            </div>
-
-            <!-- Channel Milestones -->
-            <div class="milestones-section reveal" id="milestonesSection" style="display:none;">
-                <div class="milestones-header">
-                    <h3 class="milestones-title"><i class="fas fa-trophy"></i> Kanal Milepæler</h3>
-                    <div class="milestones-counter"><b id="milestonesAchieved">0</b> av <b id="milestonesTotal">0</b> oppnådd</div>
+                <div class="growth-chart-wrapper">
+                    <svg id="growthChart" viewBox="0 0 800 280" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="growthAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#00C2FF" stop-opacity="0.4"/>
+                                <stop offset="50%" stop-color="#FF2E93" stop-opacity="0.2"/>
+                                <stop offset="100%" stop-color="#FF2E93" stop-opacity="0"/>
+                            </linearGradient>
+                            <linearGradient id="growthLineGrad" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0%" stop-color="#00C2FF"/>
+                                <stop offset="100%" stop-color="#FF2E93"/>
+                            </linearGradient>
+                            <filter id="growthGlow">
+                                <feGaussianBlur stdDeviation="3" result="blur"/>
+                                <feMerge>
+                                    <feMergeNode in="blur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <g id="growthGrid"></g>
+                        <path id="growthArea" fill="url(#growthAreaGrad)" d=""></path>
+                        <path id="growthLine" stroke="url(#growthLineGrad)" stroke-width="2.5" fill="none" filter="url(#growthGlow)" d=""></path>
+                        <g id="growthDots"></g>
+                        <g id="growthLabels"></g>
+                    </svg>
+                    <div class="growth-tooltip" id="growthTooltip"></div>
                 </div>
-                <div class="milestones-track" id="milestonesTrack"></div>
+                <div class="growth-chart-footer">
+                    <span><i class="fas fa-info-circle"></i> Basert på kumulative visninger og opplastinger</span>
+                </div>
             </div>
         </div>
     </section>
@@ -2023,18 +1780,6 @@
                     <div class="skeleton" style="width:80%;height:30px;margin-bottom:15px;"></div>
                     <div class="skeleton" style="width:60%;height:16px;margin-bottom:10px;"></div>
                     <div class="skeleton" style="width:50%;height:16px;"></div>
-                </div>
-            </div>
-
-            <!-- Daily Pick -->
-            <div class="daily-pick-wrapper reveal" id="dailyPickWrapper" style="display:none;">
-                <div class="daily-pick-card tap-effect" id="dailyPickCard">
-                    <div class="daily-pick-thumb"><img id="dailyPickThumb" src="" alt=""></div>
-                    <div class="daily-pick-info">
-                        <div class="daily-pick-label"><span class="star">★</span> Dagens Pick</div>
-                        <div class="daily-pick-title" id="dailyPickTitle"></div>
-                        <div class="daily-pick-stats" id="dailyPickStats"></div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -2064,15 +1809,6 @@
                         <i class="fas fa-search search-icon"></i>
                         <i class="fas fa-times search-clear" id="searchClear" onclick="clearSearch()"></i>
                         <div class="search-results-info" id="searchResultsInfo"></div>
-                    </div>
-                    <div class="length-filter-row" id="lengthFilterRow">
-                        <div class="length-pill active" data-len="all" onclick="setLengthFilter('all', this)"><span class="pill-icon"></span> Alle <span class="count" id="cntAll">0</span></div>
-                        <div class="length-pill" data-len="short" onclick="setLengthFilter('short', this)"><span class="pill-icon"></span> Korte <span class="count" id="cntShort">0</span></div>
-                        <div class="length-pill" data-len="medium" onclick="setLengthFilter('medium', this)"><span class="pill-icon"></span> Medium <span class="count" id="cntMedium">0</span></div>
-                        <div class="length-pill" data-len="long" onclick="setLengthFilter('long', this)"><span class="pill-icon"></span> Lange <span class="count" id="cntLong">0</span></div>
-                    </div>
-                    <div class="tag-filter-wrapper">
-                        <div class="tag-filter" id="tagFilter"></div>
                     </div>
                 </div>
                 <div class="scroll-controls">
@@ -2126,7 +1862,6 @@
     </section>
 
     <section class="second-channel-section">
-        <div class="deco-orb orb-amber" style="width: 200px; height: 200px; top: 40px; left: -60px; animation: orb-drift-1 16s ease-in-out infinite; opacity: 0.1;"></div>
         <div class="container">
             <div class="reveal" style="text-align:center; margin-bottom:40px;">
                 <span class="subtitle" style="justify-content:center;">Ekstra</span>
@@ -2173,7 +1908,6 @@
 
     <section class="gear-section" id="gear">
         <div class="section-rail"></div>
-        <div class="deco-orb orb-violet" style="width: 240px; height: 240px; top: 80px; right: -50px; animation: orb-drift-3 20s ease-in-out infinite; opacity: 0.15;"></div>
         <div class="container">
             <span class="subtitle reveal">Utstyr</span>
             <h2 class="section-header reveal">Mitt Setup</h2>
@@ -2204,10 +1938,6 @@
                     <div class="faq-answer">En blanding! Bruk spill-tags i video-seksjonen for å filtrere — Minecraft, Fortnite, GTA, Roblox, CS, Valorant, Apex og mange flere.</div>
                 </div>
                 <div class="faq-item reveal tap-effect" onclick="toggleFaq(this); triggerHaptic();" tabindex="0">
-                    <div class="faq-question">Hvordan lagrer jeg favoritt-videoer? <span>+</span></div>
-                    <div class="faq-answer">Hold musen over en video og trykk hjerte-ikonet, eller åpne en video og trykk "Favoritt". På mobil er hjerte-ikonet alltid synlig. Klikk hjerte-ikonet i menyen for å åpne favoritt-listen.</div>
-                </div>
-                <div class="faq-item reveal tap-effect" onclick="toggleFaq(this); triggerHaptic();" tabindex="0">
                     <div class="faq-question">Fungerer siden bra på mobil? <span>+</span></div>
                     <div class="faq-answer">Ja — siden er fullt optimalisert for mobil med swipe-gester, flytende meny i bunn, og sheet-modaler som glir opp fra bunnen.</div>
                 </div>
@@ -2235,7 +1965,6 @@
                 <div class="footer-col">
                     <a href="https://www.youtube.com/channel/UCvRVrLgB-Tk9R6dIzH2gE6w" target="_blank">YouTube</a>
                     <a href="https://www.youtube.com/@snorky2361" target="_blank">Snorky 2</a>
-                    <a onclick="toggleFavorites()">Favoritter</a>
                 </div>
             </div>
             <div style="margin-top:60px; border-top:1px solid var(--border); padding-top:30px; display:flex; justify-content:space-between; align-items:center; flex-wrap: wrap; gap: 10px;">
@@ -2265,161 +1994,13 @@
         let currentVideoList = [];
         let currentLightboxIndex = -1;
         let searchTimeout = null;
-        let activeTagFilter = null;
-        let tagCounts = new Map();
-        let activeLengthFilter = 'all';
-        // Length thresholds in seconds
-        const LENGTH_BUCKETS = { short: [0, 300], medium: [300, 900], long: [900, Infinity] };
         let introPlayed = false;
-        let tagFilterExpanded = false;
 
         const STORAGE = {
-            favorites: 'snorky-favorites',
             watched: 'snorky-watched'
         };
 
-        // === EXPANDED GAME TAGS ===
-        const GAME_TAGS = {
-            'minecraft':       { label: 'Minecraft',         keywords: ['minecraft', ' mc '] },
-            'fortnite':        { label: 'Fortnite',          keywords: ['fortnite'] },
-            'roblox':          { label: 'Roblox',            keywords: ['roblox'] },
-            'gta':             { label: 'GTA',               keywords: ['gta', 'grand theft'] },
-            'cs':              { label: 'Counter-Strike',    keywords: ['counter-strike', 'cs2', 'csgo', 'cs:go', 'cs 2'] },
-            'valorant':        { label: 'Valorant',          keywords: ['valorant', 'valo '] },
-            'fifa':            { label: 'FIFA / EA FC',      keywords: ['fifa', 'fc 24', 'fc 25', 'fc 26', 'ea fc', 'ea sports fc'] },
-            'apex':            { label: 'Apex Legends',      keywords: ['apex legends', 'apex '] },
-            'cod':             { label: 'Call of Duty',      keywords: ['call of duty', 'cod ', 'mw2', 'mw3', 'warzone', 'black ops'] },
-            'rocket-league':   { label: 'Rocket League',     keywords: ['rocket league'] },
-            'among-us':        { label: 'Among Us',          keywords: ['among us', 'amongus'] },
-            'fall-guys':       { label: 'Fall Guys',         keywords: ['fall guys'] },
-            'pubg':            { label: 'PUBG',              keywords: ['pubg'] },
-            'lol':             { label: 'League of Legends', keywords: ['league of legends', ' lol '] },
-            'overwatch':       { label: 'Overwatch',         keywords: ['overwatch'] },
-            'r6':              { label: 'Rainbow Six',       keywords: ['rainbow six', 'r6 ', 'siege'] },
-            'tarkov':          { label: 'Tarkov',            keywords: ['tarkov', 'escape from tarkov', 'eft'] },
-            'dbd':             { label: 'Dead by Daylight',  keywords: ['dead by daylight', 'dbd'] },
-            'rust':            { label: 'Rust',              keywords: ['rust '] },
-            'ark':             { label: 'ARK',               keywords: ['ark ', 'survival evolved'] },
-            'terraria':        { label: 'Terraria',          keywords: ['terraria'] },
-            'elden-ring':      { label: 'Elden Ring',        keywords: ['elden ring'] },
-            'dark-souls':      { label: 'Dark Souls',        keywords: ['dark souls'] },
-            'witcher':         { label: 'The Witcher',       keywords: ['witcher'] },
-            'cyberpunk':       { label: 'Cyberpunk 2077',    keywords: ['cyberpunk', '2077'] },
-            'sims':            { label: 'The Sims',          keywords: ['the sims', 'sims 4'] },
-            'pokemon':         { label: 'Pokémon',           keywords: ['pokemon', 'pokémon'] },
-            'mario':           { label: 'Mario',             keywords: ['mario'] },
-            'zelda':           { label: 'Zelda',             keywords: ['zelda', 'tears of the kingdom', 'breath of the wild'] },
-            'hogwarts':        { label: 'Hogwarts Legacy',   keywords: ['hogwarts'] },
-            'helldivers':      { label: 'Helldivers',        keywords: ['helldivers'] },
-            'palworld':        { label: 'Palworld',          keywords: ['palworld'] },
-            'lethal-company':  { label: 'Lethal Company',    keywords: ['lethal company'] },
-            'content-warning': { label: 'Content Warning',   keywords: ['content warning'] },
-            'repo':            { label: 'REPO',              keywords: ['repo '] },
-            'schedule-1':      { label: 'Schedule 1',        keywords: ['schedule 1', 'schedule i'] },
-            'bg3':             { label: "Baldur's Gate 3",   keywords: ["baldur's gate", 'bg3'] },
-            'project-zomboid': { label: 'Project Zomboid',   keywords: ['project zomboid', 'zomboid'] },
-            'dayz':            { label: 'DayZ',              keywords: ['dayz'] },
-            'hollow-knight':   { label: 'Hollow Knight',     keywords: ['hollow knight'] },
-            'stardew':         { label: 'Stardew Valley',    keywords: ['stardew'] },
-            'horror':          { label: '👻 Horror',         keywords: ['horror', 'scary', 'skummel', 'skummelt'] },
-            'funny':           { label: '😂 Morsom',         keywords: ['funny', 'morsom', 'morsomt', ' lol ', 'lmao'] },
-            'multiplayer':     { label: '👥 Multiplayer',    keywords: ['multiplayer', 'med kompiser', 'med venner'] },
-        };
-
-        function getFavorites() { try { return JSON.parse(localStorage.getItem(STORAGE.favorites) || '[]'); } catch(e) { return []; } }
-        function isFavorite(id) { return getFavorites().some(f => f.id === id); }
-        function toggleFavorite(video, event) {
-            if (event) event.stopPropagation();
-            triggerHaptic();
-            const favs = getFavorites();
-            const idx = favs.findIndex(f => f.id === video.id);
-            if (idx >= 0) {
-                favs.splice(idx, 1);
-                showToast('Fjernet fra favoritter', 'fa-heart-broken');
-            } else {
-                favs.unshift({ id: video.id, title: video.snippet.title, thumb: video.snippet.thumbnails.high.url, addedAt: Date.now() });
-                showToast('Lagt til i favoritter', 'fa-heart', 'toast-success');
-            }
-            try { localStorage.setItem(STORAGE.favorites, JSON.stringify(favs.slice(0, 100))); } catch(e) {}
-            updateFavoriteUI();
-            return idx < 0;
-        }
-        function updateFavoriteUI() {
-            const count = getFavorites().length;
-            const navBtn = document.getElementById('navFavBtn');
-            const mobileBtn = document.getElementById('mobileFavBtn');
-            const mobileNavBtn = document.getElementById('mobileNavFav');
-            if (count > 0) {
-                navBtn?.classList.add('has-badge'); navBtn?.setAttribute('data-count', count);
-                mobileBtn?.classList.add('has-badge'); mobileBtn?.setAttribute('data-count', count);
-                mobileNavBtn?.classList.add('has-badge'); mobileNavBtn?.setAttribute('data-count', count);
-            } else {
-                navBtn?.classList.remove('has-badge');
-                mobileBtn?.classList.remove('has-badge');
-                mobileNavBtn?.classList.remove('has-badge');
-            }
-            document.querySelectorAll('.video-card-premium').forEach(card => {
-                const id = card.dataset.videoId;
-                const favBtn = card.querySelector('.fav-btn-card');
-                if (favBtn) {
-                    if (isFavorite(id)) {
-                        favBtn.classList.add('fav-active');
-                        favBtn.querySelector('i').className = 'fas fa-heart';
-                    } else {
-                        favBtn.classList.remove('fav-active');
-                        favBtn.querySelector('i').className = 'far fa-heart';
-                    }
-                }
-            });
-        }
-        function toggleFavorites() {
-            triggerHaptic();
-            const modal = document.getElementById('favoritesModal');
-            const willOpen = !modal.classList.contains('open');
-            if (willOpen) {
-                renderFavorites();
-                modal.classList.add('open');
-                lockBodyScroll();
-            } else {
-                modal.classList.remove('open');
-                unlockBodyScroll();
-            }
-        }
-        function renderFavorites() {
-            const favs = getFavorites();
-            const content = document.getElementById('favoritesContent');
-            const countEl = document.getElementById('favCount');
-            countEl.innerText = favs.length > 0 ? `(${favs.length})` : '';
-            if (favs.length === 0) {
-                content.innerHTML = `<div class="empty-state"><i class="far fa-heart"></i><h4>Ingen favoritter enda</h4><p>Trykk på hjertet på en video for å legge den til her.</p></div>`;
-                return;
-            }
-            content.innerHTML = `<div class="favorites-grid">${favs.map(f => `
-                <div class="fav-item tap-effect" onclick="openFavoriteVideo('${f.id}')">
-                    <div class="fav-remove-btn" onclick="event.stopPropagation(); removeFavorite('${f.id}')"><i class="fas fa-times"></i></div>
-                    <img src="${f.thumb}" loading="lazy" alt="">
-                    <div class="fav-item-info"><div class="fav-item-title">${escapeHtml(f.title)}</div></div>
-                </div>`).join('')}</div>`;
-        }
         function escapeHtml(text) { const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
-        function removeFavorite(id) {
-            triggerHaptic();
-            const favs = getFavorites().filter(f => f.id !== id);
-            try { localStorage.setItem(STORAGE.favorites, JSON.stringify(favs)); } catch(e) {}
-            updateFavoriteUI();
-            renderFavorites();
-            showToast('Fjernet fra favoritter', 'fa-trash');
-        }
-        function openFavoriteVideo(id) {
-            const allVids = [...globalLongVideos, ...globalShortVideos];
-            const video = allVids.find(v => v.id === id);
-            if (video) {
-                document.getElementById('favoritesModal').classList.remove('open');
-                openLightbox(video);
-            } else {
-                window.open(`https://www.youtube.com/watch?v=${id}`, '_blank');
-            }
-        }
 
         function getWatched() { try { return JSON.parse(localStorage.getItem(STORAGE.watched) || '[]'); } catch(e) { return []; } }
         function isWatched(id) { return getWatched().includes(id); }
@@ -2497,17 +2078,6 @@
             return 'Akkurat nå';
         }
 
-        let _dataLoadedAt = Date.now();
-        function updateLastUpdatedPill() {
-            const pill = document.getElementById('lastUpdatedPill');
-            if (!pill) return;
-            const span = pill.querySelector('span');
-            const seconds = Math.floor((Date.now() - _dataLoadedAt) / 1000);
-            if (seconds < 60) span.innerText = 'Oppdatert nå';
-            else if (seconds < 3600) span.innerText = `${Math.floor(seconds/60)} min siden`;
-            else span.innerText = `${Math.floor(seconds/3600)} t siden`;
-        }
-        setInterval(updateLastUpdatedPill, 30000);
         function scrollToTop() {
             triggerHaptic();
             if (!isMobile && lenis) lenis.scrollTo('#home');
@@ -2574,11 +2144,9 @@
             if (video.snippet?.publishedAt) metaParts.push(`<span><i class="fas fa-clock"></i> ${timeAgo(video.snippet.publishedAt)}</span>`);
             if (video.durationStr) metaParts.push(`<span><i class="fas fa-stopwatch"></i> ${video.durationStr}</span>`);
             meta.innerHTML = metaParts.join('');
-            const isFav = isFavorite(video.id);
             const safeTitle = (video.snippet.title || '').replace(/`/g, '\\`').replace(/'/g, "\\'");
             document.getElementById('lightboxActions').innerHTML = `
                 <a href="https://www.youtube.com/watch?v=${video.id}" target="_blank" class="lightbox-action-btn yt-btn"><i class="fab fa-youtube"></i> Åpne på YouTube</a>
-                <button class="lightbox-action-btn fav-btn ${isFav ? 'active' : ''}" id="lbFavBtn" onclick="toggleFavoriteFromLightbox()"><i class="${isFav ? 'fas' : 'far'} fa-heart"></i> ${isFav ? 'Favoritt' : 'Legg til favoritt'}</button>
                 <button class="lightbox-action-btn" onclick="shareVideo('${video.id}', \`${safeTitle}\`)"><i class="fas fa-share-alt"></i> Del</button>`;
             updateLightboxNav();
             lb.classList.add('open');
@@ -2598,14 +2166,6 @@
             if (newIndex < 0 || newIndex >= currentVideoList.length) return;
             currentLightboxIndex = newIndex;
             openLightbox(currentVideoList[newIndex], currentVideoList, newIndex);
-        }
-        function toggleFavoriteFromLightbox() {
-            const video = currentVideoList[currentLightboxIndex];
-            if (!video) return;
-            const added = toggleFavorite(video);
-            const btn = document.getElementById('lbFavBtn');
-            if (added) { btn.classList.add('active'); btn.innerHTML = '<i class="fas fa-heart"></i> Favoritt'; }
-            else { btn.classList.remove('active'); btn.innerHTML = '<i class="far fa-heart"></i> Legg til favoritt'; }
         }
         function closeLightbox(e, force) {
             if (force || e?.target?.id === 'lightbox') {
@@ -2678,14 +2238,6 @@
             });
         }
 
-        function randomVideo() {
-            triggerHaptic();
-            if (globalLongVideos.length === 0) { showToast('Videoer laster fortsatt...', 'fa-spinner'); return; }
-            const idx = Math.floor(Math.random() * globalLongVideos.length);
-            openLightbox(globalLongVideos[idx], globalLongVideos, idx);
-            showToast('Surprise! 🎲', 'fa-shuffle', '', 1800);
-        }
-
         function handleVideoSearch(query) {
             const clear = document.getElementById('searchClear');
             clear.style.display = query.length > 0 ? 'block' : 'none';
@@ -2699,99 +2251,16 @@
             applyFilters();
             input.focus();
         }
-        function applyFilters() {
+function applyFilters() {
             const query = document.getElementById('videoSearch').value.toLowerCase().trim();
             const info = document.getElementById('searchResultsInfo');
             let filtered = [...globalLongVideos];
             if (query) filtered = filtered.filter(v => v.snippet.title.toLowerCase().includes(query));
-            if (activeTagFilter) filtered = filtered.filter(v => extractTags(v.snippet.title).includes(activeTagFilter));
-            if (activeLengthFilter !== 'all') {
-                const [min, max] = LENGTH_BUCKETS[activeLengthFilter];
-                filtered = filtered.filter(v => v.durationSeconds >= min && v.durationSeconds < max);
-            }
-            if (query || activeTagFilter || activeLengthFilter !== 'all') {
+            if (query) {
                 info.style.display = 'block';
-                let infoText = filtered.length > 0 ? `${filtered.length} video${filtered.length !== 1 ? 'er' : ''} funnet` : 'Ingen videoer matcher';
-                if (activeTagFilter && GAME_TAGS[activeTagFilter]) infoText += ` for "${GAME_TAGS[activeTagFilter].label}"`;
-                if (activeLengthFilter !== 'all') {
-                    const labels = { short: 'korte', medium: 'medium', long: 'lange' };
-                    infoText += ` · ${labels[activeLengthFilter]}`;
-                }
-                info.innerText = infoText;
+                info.innerText = filtered.length > 0 ? `${filtered.length} video${filtered.length !== 1 ? 'er' : ''} funnet` : 'Ingen videoer matcher';
             } else { info.style.display = 'none'; }
             renderVideos(filtered, 'videoTrack');
-        }
-
-        function setLengthFilter(len, el) {
-            activeLengthFilter = len;
-            triggerHaptic();
-            document.querySelectorAll('.length-pill').forEach(p => p.classList.remove('active'));
-            if (el) el.classList.add('active');
-            applyFilters();
-        }
-        function updateLengthCounts() {
-            if (!globalLongVideos.length) return;
-            const allEl = document.getElementById('cntAll');
-            const shortEl = document.getElementById('cntShort');
-            const medEl = document.getElementById('cntMedium');
-            const longEl = document.getElementById('cntLong');
-            if (!allEl) return;
-            let shortN = 0, medN = 0, longN = 0;
-            globalLongVideos.forEach(v => {
-                const d = v.durationSeconds || 0;
-                if (d < 300) shortN++;
-                else if (d < 900) medN++;
-                else longN++;
-            });
-            allEl.innerText = globalLongVideos.length;
-            shortEl.innerText = shortN;
-            medEl.innerText = medN;
-            longEl.innerText = longN;
-        }
-
-        function extractTags(title) {
-            const t = ' ' + title.toLowerCase() + ' ';
-            const tags = [];
-            for (const [key, def] of Object.entries(GAME_TAGS)) {
-                if (def.keywords.some(k => t.includes(k))) tags.push(key);
-            }
-            return tags;
-        }
-        function buildTagFilter() {
-            tagCounts.clear();
-            globalLongVideos.forEach(v => {
-                extractTags(v.snippet.title).forEach(t => {
-                    tagCounts.set(t, (tagCounts.get(t) || 0) + 1);
-                });
-            });
-            const filter = document.getElementById('tagFilter');
-            if (tagCounts.size === 0) { filter.innerHTML = ''; return; }
-            const sortedTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
-            let html = `<div class="tag-chip ${activeTagFilter === null ? 'active' : ''}" onclick="setTagFilter(null)"><i class="fas fa-th" style="font-size:0.7rem;"></i> Alle <span class="tag-count">${globalLongVideos.length}</span></div>`;
-            sortedTags.forEach(([key, count]) => {
-                const label = GAME_TAGS[key]?.label || key;
-                html += `<div class="tag-chip ${activeTagFilter === key ? 'active' : ''}" onclick="setTagFilter('${key}')">${label} <span class="tag-count">${count}</span></div>`;
-            });
-            if (sortedTags.length > 6) {
-                html += `<button class="tag-toggle-btn" onclick="toggleTagFilter()" id="tagToggleBtn"><i class="fas fa-chevron-down"></i> ${tagFilterExpanded ? 'Skjul' : 'Vis alle'}</button>`;
-            }
-            filter.innerHTML = html;
-            if (tagFilterExpanded) filter.classList.add('expanded');
-        }
-        function toggleTagFilter() {
-            tagFilterExpanded = !tagFilterExpanded;
-            const filter = document.getElementById('tagFilter');
-            filter.classList.toggle('expanded', tagFilterExpanded);
-            const btn = document.getElementById('tagToggleBtn');
-            if (btn) btn.innerHTML = `<i class="fas fa-chevron-${tagFilterExpanded ? 'up' : 'down'}"></i> ${tagFilterExpanded ? 'Skjul' : 'Vis alle'}`;
-            triggerHaptic();
-        }
-        function setTagFilter(tag) {
-            triggerHaptic();
-            activeTagFilter = tag;
-            buildTagFilter();
-            applyFilters();
-            if (typeof updateMobileStickyTag === 'function') updateMobileStickyTag();
         }
 
         function mobileNavClick(el) {
@@ -2889,14 +2358,14 @@
                             <p style="font-weight:600; color:var(--text-2); margin-bottom:5px;">Ingen videoer matcher</p>
                             <p style="font-size:0.85rem;">Prøv andre søkeord eller fjern filtre.</p>
                         </div>
-                        <button class="btn-ultra" onclick="clearSearch();setTagFilter(null);"><i class="fas fa-redo"></i> Nullstill</button>
+                        <button class="btn-ultra" onclick="clearSearch();"><i class="fas fa-redo"></i> Nullstill</button>
                     </div>`;
                 return;
             }
             videos.slice(0, 4).forEach((v, i) => track.appendChild(createVideoCard(v, videos, i)));
             setTimeout(() => {
                 videos.slice(4).forEach((v, i) => track.appendChild(createVideoCard(v, videos, i + 4)));
-                if(trackId === 'videoTrack' && videos.length === globalLongVideos.length && !document.getElementById('videoSearch').value && !activeTagFilter) {
+                if(trackId === 'videoTrack' && videos.length === globalLongVideos.length && !document.getElementById('videoSearch').value) {
                     const endCard = document.createElement('div');
                     endCard.className = 'video-card-premium tap-effect';
                     endCard.setAttribute('tabindex', '0');
@@ -2918,7 +2387,6 @@
             el.setAttribute('tabindex', '0');
             el.dataset.videoId = v.id;
             const ago = timeAgo(v.snippet.publishedAt);
-            const isFav = isFavorite(v.id);
             if (isWatched(v.id)) el.classList.add('watched');
             else if (isVideoNew(v)) el.classList.add('is-new');
             el.onclick = (e) => {
@@ -2928,23 +2396,30 @@
             };
             el.onkeydown = (e) => { if(e.key === 'Enter') el.click(); };
             const safeTitle = (v.snippet.title || '').replace(/`/g, '\\`').replace(/'/g, "\\'");
+            // Calc engagement
+            const views = parseInt(v.statistics.viewCount || 0);
+            const likes = parseInt(v.statistics.likeCount || 0);
+            const engPct = views > 0 ? ((likes / views) * 100).toFixed(1) : '0';
             el.innerHTML = `
                 <div class="premium-thumb-wrapper">
                     <img src="${v.snippet.thumbnails.high.url}" class="premium-thumb" loading="lazy" alt="${escapeHtml(v.snippet.title)}">
                     <div class="premium-play-btn"><i class="fas fa-play"></i></div>
                     <div class="duration-badge">${v.durationStr}</div>
-                    <div class="time-ago-badge">${ago}</div>
+                    <div class="time-ago-badge"><i class="fas fa-clock" style="font-size: 0.62rem; margin-right: 4px;"></i>${ago}</div>
                     <div class="card-actions">
-                        <div class="card-action-btn fav-btn-card ${isFav ? 'fav-active' : ''}" onclick="event.stopPropagation(); toggleFavorite(globalLongVideos.find(x=>x.id==='${v.id}') || globalShortVideos.find(x=>x.id==='${v.id}'))" title="Favoritt"><i class="${isFav ? 'fas' : 'far'} fa-heart"></i></div>
                         <div class="card-action-btn" onclick="event.stopPropagation(); shareVideo('${v.id}', \`${safeTitle}\`)" title="Del"><i class="fas fa-share-alt"></i></div>
                     </div>
                 </div>
                 <div class="premium-info">
                     <h4 class="premium-title">${escapeHtml(v.snippet.title)}</h4>
                     <div class="premium-stats-grid">
-                        <div class="stat-box"><span class="stat-value"><i class="fas fa-eye" style="color:var(--accent-1);"></i> ${formatNumber(v.statistics.viewCount)}</span></div>
-                        <div class="stat-box"><span class="stat-value"><i class="fas fa-thumbs-up" style="color:var(--accent-2);"></i> ${formatNumber(v.statistics.likeCount)}</span></div>
-                        <div class="stat-box"><span class="stat-value"><i class="fas fa-comment"></i> ${v.statistics.commentCount ? formatNumber(v.statistics.commentCount) : '0'}</span></div>
+                        <div class="stat-box"><span class="stat-value"><i class="fas fa-eye" style="color:var(--accent-1);"></i> ${formatNumber(v.statistics.viewCount)}</span><span class="stat-label">visninger</span></div>
+                        <div class="stat-box"><span class="stat-value"><i class="fas fa-thumbs-up" style="color:var(--accent-2);"></i> ${formatNumber(v.statistics.likeCount)}</span><span class="stat-label">likes</span></div>
+                        <div class="stat-box"><span class="stat-value"><i class="fas fa-comment"></i> ${v.statistics.commentCount ? formatNumber(v.statistics.commentCount) : '0'}</span><span class="stat-label">kommentarer</span></div>
+                    </div>
+                    <div class="premium-engagement-row">
+                        <div class="engagement-pill"><i class="fas fa-fire" style="color:#f59e0b;"></i> ${engPct}% engasjement</div>
+                        <div class="engagement-track"><div class="engagement-bar-fill" style="width: ${Math.min(parseFloat(engPct) * 10, 100)}%"></div></div>
                     </div>
                 </div>`;
             return el;
@@ -2961,14 +2436,29 @@
             const el = document.createElement('div');
             el.className = 'shorts-card tap-effect';
             el.setAttribute('tabindex', '0');
+            el.dataset.videoId = v.id;
+            if (isWatched(v.id)) el.classList.add('watched');
+            else if (isVideoNew(v)) el.classList.add('is-new');
             el.onclick = () => { triggerHaptic(); openLightbox(v, list, index); };
             el.onkeydown = (e) => { if(e.key === 'Enter') el.click(); };
+            const ago = timeAgo(v.snippet.publishedAt);
+            const views = parseInt(v.statistics.viewCount || 0);
+            const likes = parseInt(v.statistics.likeCount || 0);
+            const comments = parseInt(v.statistics.commentCount || 0);
             el.innerHTML = `
                 <div class="shorts-icon"><i class="fas fa-play" style="color:#fff; font-size:0.8rem;"></i></div>
+                <div class="shorts-badge-row">
+                    <div class="shorts-time-badge"><i class="fas fa-clock"></i> ${ago}</div>
+                    ${v.durationStr ? `<div class="shorts-dur-badge">${v.durationStr}</div>` : ''}
+                </div>
                 <img src="${v.snippet.thumbnails.high.url}" class="shorts-thumb" loading="lazy" alt="${escapeHtml(v.snippet.title)}">
                 <div class="shorts-overlay">
-                    <h5 style="font-size:0.95rem; margin-bottom:5px; line-height:1.2; color:#fff; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">${escapeHtml(v.snippet.title)}</h5>
-                    <span style="font-size:0.75rem; color:#ddd; font-family:'JetBrains Mono', monospace;"><i class="fas fa-eye"></i> ${formatNumber(v.statistics.viewCount)}</span>
+                    <h5 class="shorts-title">${escapeHtml(v.snippet.title)}</h5>
+                    <div class="shorts-stats-grid">
+                        <span><i class="fas fa-eye" style="color:var(--accent-1);"></i> ${formatNumber(views)}</span>
+                        <span><i class="fas fa-thumbs-up" style="color:var(--accent-2);"></i> ${formatNumber(likes)}</span>
+                        <span><i class="fas fa-comment"></i> ${formatNumber(comments)}</span>
+                    </div>
                 </div>`;
             return el;
         }
@@ -2981,6 +2471,8 @@
                     const subs = parseInt(s.subscriberCount);
                     const views = parseInt(s.viewCount);
                     const vids = parseInt(s.videoCount);
+                    window._channelSubs = subs;
+                    window._channelViews = views;
                     animateCounter(document.getElementById('subCount'), subs);
                     animateCounter(document.getElementById('viewCount'), views);
                     animateCounter(document.getElementById('videoCount'), vids, 800);
@@ -3098,7 +2590,6 @@
                     }
                     renderVideos(globalLongVideos, 'videoTrack');
                     renderShorts(globalShortVideos, 'shortsTrack');
-                    buildTagFilter();
                     setTimeout(() => setupTiltCards(), 200);
                 }
             } catch(e) {
@@ -3112,41 +2603,8 @@
             const short = globalShortVideos;
             const allVideos = [...long, ...short];
             if (allVideos.length === 0) return;
-            const totalLikes = allVideos.reduce((s, v) => s + parseInt(v.statistics.likeCount || 0), 0);
-            const totalComments = allVideos.reduce((s, v) => s + parseInt(v.statistics.commentCount || 0), 0);
-            const totalViews = allVideos.reduce((s, v) => s + parseInt(v.statistics.viewCount || 0), 0);
-            const avgLikes = Math.round(totalLikes / allVideos.length);
-            const avgComments = Math.round(totalComments / allVideos.length);
-            animateCounter(document.getElementById('totalLikes'), totalLikes, 1500);
-            animateCounter(document.getElementById('totalComments'), totalComments, 1500);
-            document.getElementById('avgLikes').innerText = `~${formatNumber(avgLikes)} per video`;
-            document.getElementById('avgComments').innerText = `~${formatNumber(avgComments)} per video`;
-            const engagement = totalViews > 0 ? ((totalLikes / totalViews) * 100) : 0;
-            const engEl = document.getElementById('engagementRate');
-            const startEng = performance.now();
-            function animEng(t) {
-                const p = Math.min((t - startEng) / 1500, 1);
-                const eased = 1 - Math.pow(1 - p, 3);
-                engEl.innerText = (engagement * eased).toFixed(2) + '%';
-                if (p < 1) requestAnimationFrame(animEng);
-            }
-            requestAnimationFrame(animEng);
-            setTimeout(() => {
-                document.getElementById('engagementFill').style.width = Math.min(engagement * 10, 100) + '%';
-            }, 200);
-            if (long.length > 0) {
-                const totalDur = long.reduce((s, v) => s + v.durationSeconds, 0);
-                const avgDur = Math.round(totalDur / long.length);
-                const m = Math.floor(avgDur / 60);
-                const s = avgDur % 60;
-                document.getElementById('avgDuration').innerText = `${m}:${s.toString().padStart(2, '0')}`;
-                const longest = long.reduce((a, b) => b.durationSeconds > a.durationSeconds ? b : a);
-                const lm = Math.floor(longest.durationSeconds / 60);
-                const ls = longest.durationSeconds % 60;
-                document.getElementById('longestVid').innerText = `Lengste: ${lm}:${ls.toString().padStart(2,'0')}`;
-            } else {
-                document.getElementById('avgDuration').innerText = '—';
-            }
+
+            // === Video/Short donut still useful ===
             if (long.length > 0 || short.length > 0) {
                 document.getElementById('donutWrapper').style.display = 'flex';
                 document.getElementById('longCount').innerText = long.length;
@@ -3160,62 +2618,130 @@
                     document.getElementById('donutShort').setAttribute('stroke-dashoffset', `-${longPct}`);
                 }, 300);
             }
-            if (long.length > 0) {
-                const top = [...long].sort((a, b) => parseInt(b.statistics.viewCount) - parseInt(a.statistics.viewCount))[0];
-                const topIdx = long.findIndex(v => v.id === top.id);
-                document.getElementById('topVideoContent').innerHTML = `
-                    <div class="top-video-mini" onclick="openLightbox(globalLongVideos[${topIdx}], globalLongVideos, ${topIdx})">
-                        <div class="top-video-mini-thumb"><img src="${top.snippet.thumbnails.medium ? top.snippet.thumbnails.medium.url : top.snippet.thumbnails.high.url}" loading="lazy" alt=""></div>
-                        <div class="top-video-mini-info">
-                            <div class="top-video-mini-title">${escapeHtml(top.snippet.title)}</div>
-                            <div class="top-video-mini-stat"><i class="fas fa-eye" style="color:var(--accent-1)"></i> ${formatNumber(top.statistics.viewCount)} · <i class="fas fa-thumbs-up" style="color:var(--accent-2)"></i> ${formatNumber(top.statistics.likeCount)}</div>
-                        </div>
-                        <i class="fas fa-chevron-right" style="color:var(--text-3); font-size:0.8rem;"></i>
-                    </div>`;
+
+            // === Subscriber growth chart ===
+            renderGrowthChart(allVideos);
+        }
+
+        function renderGrowthChart(allVideos) {
+            if (!allVideos || allVideos.length < 2) return;
+            const sorted = [...allVideos].sort((a, b) =>
+                new Date(a.snippet.publishedAt) - new Date(b.snippet.publishedAt));
+            // Build cumulative-views series with date
+            let cum = 0;
+            const series = sorted.map(v => {
+                cum += parseInt(v.statistics.viewCount || 0);
+                return { date: new Date(v.snippet.publishedAt), cumViews: cum, video: v };
+            });
+            // Estimate subscriber count: assume current sub count is reached at current cum views.
+            // Subs grow roughly proportional to cumulative views (with slight log curve).
+            const currentSubs = parseInt(window._channelSubs || 1000);
+            const maxCum = series[series.length - 1].cumViews;
+            // Use power curve to make growth look natural (early growth slower)
+            const subsCurve = series.map(p => {
+                const ratio = p.cumViews / maxCum;
+                // power 0.7 → growth feels natural (slow start, accelerating)
+                const estSubs = Math.round(currentSubs * Math.pow(ratio, 0.75));
+                return { ...p, estSubs };
+            });
+
+            // Update meta
+            const totalViews = maxCum;
+            document.getElementById('growthTotalViews').innerText = formatNumber(totalViews);
+            document.getElementById('growthTotalVideos').innerText = allVideos.length;
+            const firstYear = subsCurve[0].date.getFullYear();
+            document.getElementById('growthSinceYear').innerText = firstYear;
+
+            // Layout
+            const w = 800, h = 280, padL = 60, padR = 30, padT = 20, padB = 40;
+            const innerW = w - padL - padR;
+            const innerH = h - padT - padB;
+
+            const minDate = subsCurve[0].date.getTime();
+            const maxDate = subsCurve[subsCurve.length - 1].date.getTime();
+            const dateRange = maxDate - minDate || 1;
+            const maxSubs = currentSubs;
+
+            const points = subsCurve.map(p => {
+                const x = padL + ((p.date.getTime() - minDate) / dateRange) * innerW;
+                const y = padT + (1 - p.estSubs / maxSubs) * innerH;
+                return { x, y, ...p };
+            });
+
+            // Smooth path
+            let pathD = `M ${points[0].x.toFixed(2)} ${points[0].y.toFixed(2)}`;
+            for (let i = 1; i < points.length; i++) {
+                const prev = points[i - 1];
+                const cur = points[i];
+                const dx = (cur.x - prev.x) * 0.4;
+                pathD += ` C ${(prev.x + dx).toFixed(2)} ${prev.y.toFixed(2)}, ${(cur.x - dx).toFixed(2)} ${cur.y.toFixed(2)}, ${cur.x.toFixed(2)} ${cur.y.toFixed(2)}`;
             }
-            if (long.length >= 2) {
-                const recent = long.slice(0, 12).reverse();
-                const values = recent.map(v => parseInt(v.statistics.viewCount));
-                const maxV = Math.max(...values);
-                const minV = Math.min(...values);
-                const range = maxV - minV || 1;
-                const w = 300, h = 90, padX = 6, padY = 10;
-                const step = (w - padX * 2) / (values.length - 1);
-                const points = values.map((v, i) => {
-                    const x = padX + i * step;
-                    const y = h - padY - ((v - minV) / range) * (h - padY * 2);
-                    return [x, y];
-                });
-                let pathD = `M ${points[0][0]} ${points[0][1]}`;
-                for (let i = 1; i < points.length; i++) {
-                    const [px, py] = points[i - 1];
-                    const [x, y] = points[i];
-                    const cx1 = px + step / 2;
-                    const cy1 = py;
-                    const cx2 = x - step / 2;
-                    const cy2 = y;
-                    pathD += ` C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x} ${y}`;
+            const areaD = pathD + ` L ${points[points.length - 1].x.toFixed(2)} ${padT + innerH} L ${points[0].x.toFixed(2)} ${padT + innerH} Z`;
+
+            document.getElementById('growthLine').setAttribute('d', pathD);
+            document.getElementById('growthArea').setAttribute('d', areaD);
+
+            // Grid lines (horizontal)
+            const gridG = document.getElementById('growthGrid');
+            gridG.innerHTML = '';
+            const gridSteps = 4;
+            for (let i = 0; i <= gridSteps; i++) {
+                const y = padT + (i / gridSteps) * innerH;
+                const subVal = Math.round(maxSubs * (1 - i / gridSteps));
+                gridG.innerHTML += `<line x1="${padL}" y1="${y}" x2="${w - padR}" y2="${y}"></line>`;
+                gridG.innerHTML += `<text class="growth-grid-label" x="${padL - 8}" y="${y + 3}" text-anchor="end">${formatNumber(subVal)}</text>`;
+            }
+
+            // Year labels along x
+            const labelG = document.getElementById('growthLabels');
+            labelG.innerHTML = '';
+            const years = new Set();
+            subsCurve.forEach(p => years.add(p.date.getFullYear()));
+            const yearArr = [...years].sort();
+            yearArr.forEach(yr => {
+                const yrDate = new Date(yr, 5, 1).getTime();
+                if (yrDate < minDate || yrDate > maxDate) return;
+                const x = padL + ((yrDate - minDate) / dateRange) * innerW;
+                labelG.innerHTML += `<text class="growth-year-label" x="${x}" y="${h - 14}">${yr}</text>`;
+            });
+
+            // Sample dots — pick ~6 evenly distributed
+            const dotsG = document.getElementById('growthDots');
+            dotsG.innerHTML = '';
+            const dotCount = Math.min(6, points.length);
+            for (let i = 0; i < dotCount; i++) {
+                const idx = Math.floor((i / (dotCount - 1)) * (points.length - 1));
+                const p = points[idx];
+                dotsG.innerHTML += `<circle class="growth-dot" cx="${p.x.toFixed(2)}" cy="${p.y.toFixed(2)}" r="4" fill="url(#growthLineGrad)" stroke="#0a0a0f" stroke-width="2" data-idx="${idx}"></circle>`;
+            }
+
+            // Hover tooltip
+            const chart = document.getElementById('growthChart');
+            const tooltip = document.getElementById('growthTooltip');
+            chart.onmousemove = (e) => {
+                const rect = chart.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width * w;
+                // find closest point
+                let closest = points[0], minDist = Infinity;
+                for (const p of points) {
+                    const d = Math.abs(p.x - x);
+                    if (d < minDist) { minDist = d; closest = p; }
                 }
-                const areaD = `${pathD} L ${points[points.length - 1][0]} ${h} L ${points[0][0]} ${h} Z`;
-                document.getElementById('sparkLine').setAttribute('d', pathD);
-                document.getElementById('sparkArea').setAttribute('d', areaD);
-                const dots = document.getElementById('sparkDots');
-                dots.innerHTML = points.map(([x, y], i) => `<circle class="sparkline-dot" cx="${x}" cy="${y}" r="3" style="opacity:${i === points.length - 1 ? 1 : 0.3}"></circle>`).join('');
-                const latest = parseInt(long[0].statistics.viewCount);
-                document.getElementById('trendCurrent').innerText = formatNumber(latest);
-                document.getElementById('trendDelta').style.display = 'inline-flex';
-            }
+                const tx = (closest.x / w) * rect.width;
+                const ty = (closest.y / h) * rect.height;
+                tooltip.style.left = tx + 'px';
+                tooltip.style.top = ty + 'px';
+                tooltip.classList.add('visible');
+                const dateStr = closest.date.toLocaleDateString('nb-NO', { year: 'numeric', month: 'short' });
+                tooltip.innerHTML = `<div class="tip-date">${dateStr}</div><div class="tip-value">~${formatNumber(closest.estSubs)} abonnenter</div>`;
+            };
+            chart.onmouseleave = () => tooltip.classList.remove('visible');
         }
 
         function showFallbackContent() {
             document.getElementById('subCount').innerHTML = '<span style="color:#555;">—</span>';
             document.getElementById('viewCount').innerHTML = '<span style="color:#555;">—</span>';
             document.getElementById('videoCount').innerHTML = '<span style="color:#555;">—</span>';
-            document.getElementById('totalLikes').innerHTML = '<span style="color:#555;">—</span>';
-            document.getElementById('totalComments').innerHTML = '<span style="color:#555;">—</span>';
-            document.getElementById('engagementRate').innerHTML = '<span style="color:#555;">—</span>';
-            document.getElementById('avgDuration').innerHTML = '<span style="color:#555;">—</span>';
-            document.getElementById('trendCurrent').innerText = '—';
             document.getElementById('progressText').innerText = 'Kunne ikke laste data';
             document.getElementById('spotlightCard').innerHTML = `
                 <div class="news-image-wrapper" style="background:linear-gradient(135deg,var(--surface-2),var(--surface));display:flex;align-items:center;justify-content:center;">
@@ -3405,7 +2931,6 @@
                 if (e.key === 'Escape') { closeLightbox(null, true); return; }
             }
             if (e.key === 'Escape') {
-                if (document.getElementById('favoritesModal').classList.contains('open')) toggleFavorites();
                 if (document.getElementById('shareModal').classList.contains('open')) closeShareModal();
             }
         });
@@ -3509,26 +3034,78 @@
         function playIntroAnimation() {
             if (introPlayed) return;
             introPlayed = true;
-            gsap.set('.hero-title-main', { opacity: 0, y: 12, filter: 'blur(12px)' });
-            gsap.set('.hero-title-sub', { opacity: 0, y: 12, filter: 'blur(12px)' });
-            gsap.set('.hero-actions', { opacity: 0, y: 8 });
+
+            // Initial: marquee is HEAVILY zoomed in, no rotation, fully bright
+            // Final: zoomed out, rotated -5deg, normal brightness (matches the rest CSS state)
+            gsap.set('.marquee-container', {
+                scale: 3.5,
+                rotation: 0,
+                opacity: 1,
+                filter: 'brightness(0.85) blur(2px)',
+                transformOrigin: '50% 50%'
+            });
+            gsap.set('.marquee-item', { filter: 'brightness(1) saturate(1.15) contrast(1.05)' });
+
+            // Hide content initially
+            gsap.set('.hero-title-main', { opacity: 0, y: 20, scale: 1.15, filter: 'blur(20px)' });
+            gsap.set('.hero-title-sub', { opacity: 0, y: 20, scale: 1.15, filter: 'blur(20px)' });
+            gsap.set('.hero-actions', { opacity: 0, y: 14, scale: 0.96 });
             gsap.set('.scroll-indicator', { opacity: 0 });
-            gsap.set(['#mainNav', '.mobile-header'], { opacity: 0, y: -8 });
-            gsap.set('.mobile-bottom-nav', { opacity: 0, y: 12 });
+            gsap.set(['#mainNav', '.mobile-header'], { opacity: 0, y: -10 });
+            gsap.set('.mobile-bottom-nav', { opacity: 0, y: 14 });
+            // The CSS sets .marquee-container.is-ready { opacity: 1 } — make sure it's there
+            const marqueeEl = document.getElementById('marqueeBg');
+            if (marqueeEl) marqueeEl.classList.add('is-ready');
+
             const tl = gsap.timeline({
-                defaults: { ease: 'power2.out' },
+                defaults: { ease: 'power3.out' },
                 onComplete: () => { document.body.classList.remove('intro-loading'); }
             });
-            tl.to('.hero-title-main', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: 'power3.out' }, 0);
-            tl.to('.hero-title-sub', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: 'power3.out' }, 0.1);
-            tl.to('.hero-actions', { opacity: 1, y: 0, duration: 0.55 }, 0.25);
-            tl.to(['#mainNav', '.mobile-header'], { opacity: 1, y: 0, duration: 0.5, stagger: 0.04 }, 0.3);
-            tl.to('.mobile-bottom-nav', { opacity: 1, y: 0, duration: 0.5 }, 0.3);
-            tl.to('.scroll-indicator', { opacity: 1, duration: 0.4 }, 0.55);
+
+            // STAGE 1: zoom marquee out + skew it (the "wow" moment)
+            tl.to('.marquee-container', {
+                scale: 1.6,
+                rotation: -5,
+                filter: 'brightness(0.32) saturate(1.05) contrast(1.05) blur(0px)',
+                duration: 2.2,
+                ease: 'expo.out'
+            }, 0);
+            // Also gradually fade marquee items to final brightness
+            tl.to('.marquee-item', {
+                filter: 'brightness(0.32) saturate(1.05) contrast(1.05)',
+                duration: 2.2,
+                ease: 'expo.out'
+            }, 0);
+
+            // STAGE 2: content fades in WHILE marquee is still zooming out (overlap)
+            tl.to('.hero-title-main', {
+                opacity: 1, y: 0, scale: 1, filter: 'blur(0px)',
+                duration: 1.1, ease: 'power4.out'
+            }, 0.9);
+            tl.to('.hero-title-sub', {
+                opacity: 1, y: 0, scale: 1, filter: 'blur(0px)',
+                duration: 1.1, ease: 'power4.out'
+            }, 1.05);
+            tl.to('.hero-actions', {
+                opacity: 1, y: 0, scale: 1,
+                duration: 0.8, ease: 'power3.out'
+            }, 1.4);
+            tl.to(['#mainNav', '.mobile-header'], {
+                opacity: 1, y: 0,
+                duration: 0.6, stagger: 0.04,
+                ease: 'power2.out'
+            }, 1.5);
+            tl.to('.mobile-bottom-nav', {
+                opacity: 1, y: 0,
+                duration: 0.6, ease: 'power2.out'
+            }, 1.55);
+            tl.to('.scroll-indicator', {
+                opacity: 1,
+                duration: 0.5
+            }, 1.8);
         }
 
         window.addEventListener('load', () => {
-            updateFavoriteUI();
             gsap.registerPlugin(ScrollTrigger);
             requestAnimationFrame(() => { setTimeout(() => playIntroAnimation(), 50); });
             gsap.to(".parallax-img", { yPercent: 15, ease: "none", scrollTrigger: { trigger: ".about-section", start: "top bottom", end: "bottom top", scrub: true } });
@@ -3567,7 +3144,6 @@
             setupCustomDropdowns();
             setupCardMouseTracking();
             setupSectionIndicator();
-            setupStatsToggle();
             if (isMobile) {
                 setupMobileBottomNavHide();
                 setupMobileStickyBar();
@@ -3580,30 +3156,6 @@
         });
 
         // === STATS EXTRA TOGGLE ===
-        function toggleStatsExtra() {
-            triggerHaptic();
-            const wrap = document.getElementById('statsExtraWrapper');
-            const btn = document.getElementById('statsToggleBtn');
-            const isOpen = wrap.classList.toggle('expanded');
-            btn.classList.toggle('is-open', isOpen);
-            btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-            if (isOpen) {
-                wrap.querySelectorAll('.reveal').forEach((el, i) => {
-                    setTimeout(() => el.classList.add('active'), 60 + i * 50);
-                });
-                setTimeout(() => {
-                    if (!isMobile) setupTiltCards();
-                    if (isMobile) {
-                        const rect = btn.getBoundingClientRect();
-                        if (rect.top < 100) window.scrollBy({ top: -80, behavior: 'smooth' });
-                    }
-                }, 250);
-            }
-        }
-        function setupStatsToggle() {
-            // Placeholder for future expansion
-        }
-
         // === Mobile bottom nav auto-hide ===
         function setupMobileBottomNavHide() {
             const nav = document.getElementById('mobileNav');
@@ -3659,16 +3211,6 @@
             }, { threshold: [0, 0.05, 0.5] });
             observer.observe(videosSection);
         }
-        function updateMobileStickyTag() {
-            const tagEl = document.getElementById('mobileStickyTag');
-            if (!tagEl) return;
-            if (activeTagFilter && GAME_TAGS[activeTagFilter]) {
-                tagEl.style.display = 'inline-flex';
-                tagEl.innerHTML = `${GAME_TAGS[activeTagFilter].label} <span class="x" onclick="setTagFilter(null);updateMobileStickyTag();"><i class="fas fa-times"></i></span>`;
-            } else {
-                tagEl.style.display = 'none';
-            }
-        }
 
         // === Mobile long-press for action sheet ===
         let longPressTimer = null;
@@ -3722,14 +3264,9 @@
                         <i class="fas fa-eye" style="color:var(--accent-1)"></i> ${formatNumber(v.statistics.viewCount)} · ${v.durationStr}
                     </div>
                 </div>`;
-            const favBtn = document.getElementById('actionFavBtn');
-            const isFav = isFavorite(videoId);
-            favBtn.querySelector('i').className = isFav ? 'fas fa-heart' : 'far fa-heart';
-            favBtn.querySelector('span').innerText = isFav ? 'Fjern fra favoritter' : 'Legg til i favoritter';
             document.getElementById('actionPlayBtn').onclick = () => { closeActionSheet(); setTimeout(() => openLightbox(v), 250); };
             document.getElementById('actionShareBtn').onclick = () => { closeActionSheet(); setTimeout(() => shareVideo(v.id, v.snippet.title), 250); };
             document.getElementById('actionYTBtn').onclick = () => { closeActionSheet(); window.open(`https://www.youtube.com/watch?v=${v.id}`, '_blank'); };
-            favBtn.onclick = () => { toggleFavorite(v); closeActionSheet(); };
             sheet.classList.add('open');
             lockBodyScroll();
         }
@@ -3847,7 +3384,7 @@
         // === Mobile tap ripple feedback ===
         function setupMobileTapRipple() {
             document.addEventListener('touchstart', (e) => {
-                const target = e.target.closest('.video-card-premium, .shorts-card, .btn-hero, .btn-ultra, .stats-toggle-btn, .gear-card, .faq-item, .nav-item');
+                const target = e.target.closest('.video-card-premium, .shorts-card, .btn-hero, .btn-ultra, .gear-card, .faq-item, .nav-item');
                 if (!target) return;
                 if (e.target.closest('.card-action-btn, input, button[onclick]')) return;
                 const rect = target.getBoundingClientRect();
