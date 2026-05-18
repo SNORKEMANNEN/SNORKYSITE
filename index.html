@@ -1352,6 +1352,10 @@
             .ideas-tab i { font-size: 0.9rem; }
             .ideas-cat-grid { gap: 6px; }
             .ideas-cat-chip span { padding: 9px 13px; font-size: 0.78rem; gap: 7px; min-height: 38px; }
+            .captcha-box { gap: 8px; padding: 5px; }
+            .captcha-question { font-size: 1rem; padding: 0 8px; letter-spacing: 0.5px; }
+            .captcha-input { width: 70px !important; padding: 10px 8px !important; font-size: 0.95rem !important; }
+            .captcha-refresh { width: 36px; height: 36px; }
             .ideas-stats { gap: 10px; }
             .ideas-stat-pill { padding: 12px 14px; gap: 12px; flex: 1; }
             .ideas-stat-pill > i { width: 36px; height: 36px; font-size: 0.95rem; }
@@ -1558,6 +1562,97 @@
             transition: color 0.3s ease;
         }
         .rating-label.has-rating { color: #f59e0b; }
+
+        /* Honeypot — completely invisible to humans */
+        .hp-field {
+            position: absolute !important;
+            left: -10000px !important;
+            width: 1px !important;
+            height: 1px !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            visibility: hidden !important;
+        }
+
+        /* Math captcha */
+        .captcha-row label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .captcha-row label i {
+            color: var(--accent-1);
+            font-size: 0.78rem;
+        }
+        .captcha-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 6px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            transition: border-color 0.25s ease, background 0.25s ease;
+        }
+        .captcha-box:focus-within {
+            border-color: var(--accent-1);
+            background: rgba(0,194,255,0.04);
+            box-shadow: 0 0 0 3px rgba(0,194,255,0.08);
+        }
+        .captcha-question {
+            flex: 1;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #fff;
+            padding: 0 14px;
+            letter-spacing: 1px;
+            user-select: none;
+            -webkit-user-select: none;
+            white-space: nowrap;
+        }
+        .captcha-input {
+            width: 80px !important;
+            background: rgba(255,255,255,0.04) !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+            color: #fff !important;
+            padding: 11px 14px !important;
+            border-radius: 10px !important;
+            font-family: 'JetBrains Mono', monospace !important;
+            font-size: 1rem !important;
+            font-weight: 700 !important;
+            text-align: center !important;
+            outline: none !important;
+            -moz-appearance: textfield;
+        }
+        .captcha-input::-webkit-outer-spin-button,
+        .captcha-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .captcha-input:focus {
+            border-color: var(--accent-1) !important;
+            background: rgba(0,194,255,0.06) !important;
+        }
+        .captcha-refresh {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--text-3);
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem;
+            transition: 0.25s var(--ease-smooth);
+            flex-shrink: 0;
+        }
+        .captcha-refresh:hover {
+            color: var(--accent-1);
+            border-color: rgba(0,194,255,0.3);
+            background: rgba(0,194,255,0.06);
+            transform: rotate(180deg);
+        }
+        .captcha-refresh:active { transform: rotate(360deg) scale(0.92); }
 
         /* Wall filter */
         .ideas-wall-filter {
@@ -2479,6 +2574,17 @@
                             <label for="ideaText">Din idé <span class="form-counter"><span id="ideaCharCount">0</span> / 300</span></label>
                             <textarea id="ideaText" placeholder="Beskriv ideen din kort..." maxlength="300" required rows="4" oninput="document.getElementById('ideaCharCount').innerText = this.value.length;"></textarea>
                         </div>
+                        <!-- Honeypot (hidden from humans, bots fill it) -->
+                        <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+                        <!-- Math captcha -->
+                        <div class="form-row captcha-row">
+                            <label for="ideaCaptcha"><i class="fas fa-shield-halved"></i> Bekreft at du er menneske</label>
+                            <div class="captcha-box">
+                                <div class="captcha-question" id="ideaCaptchaQ">— + — = ?</div>
+                                <input type="number" id="ideaCaptcha" class="captcha-input" placeholder="?" required autocomplete="off" inputmode="numeric">
+                                <button type="button" class="captcha-refresh" onclick="newCaptcha('idea')" title="Nytt spørsmål" aria-label="Nytt spørsmål"><i class="fas fa-rotate-right"></i></button>
+                            </div>
+                        </div>
                         <button type="submit" class="btn-ultra ideas-submit-btn">
                             <span class="btn-text"><i class="fas fa-paper-plane"></i> Send Inn Idé</span>
                             <span class="btn-loader" style="display:none;"><i class="fas fa-spinner fa-spin"></i> Sender...</span>
@@ -2512,6 +2618,17 @@
                         <div class="form-row">
                             <label for="feedbackText">Tilbakemelding <span class="form-counter"><span id="feedbackCharCount">0</span> / 500</span></label>
                             <textarea id="feedbackText" placeholder="Fortell hva du synes om siden..." maxlength="500" required rows="4" oninput="document.getElementById('feedbackCharCount').innerText = this.value.length;"></textarea>
+                        </div>
+                        <!-- Honeypot -->
+                        <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+                        <!-- Math captcha -->
+                        <div class="form-row captcha-row">
+                            <label for="fbCaptcha"><i class="fas fa-shield-halved"></i> Bekreft at du er menneske</label>
+                            <div class="captcha-box">
+                                <div class="captcha-question" id="fbCaptchaQ">— + — = ?</div>
+                                <input type="number" id="fbCaptcha" class="captcha-input" placeholder="?" required autocomplete="off" inputmode="numeric">
+                                <button type="button" class="captcha-refresh" onclick="newCaptcha('fb')" title="Nytt spørsmål" aria-label="Nytt spørsmål"><i class="fas fa-rotate-right"></i></button>
+                            </div>
                         </div>
                         <button type="submit" class="btn-ultra ideas-submit-btn">
                             <span class="btn-text"><i class="fas fa-paper-plane"></i> Send Tilbakemelding</span>
@@ -2734,6 +2851,8 @@
                 header.innerText = 'Send Inn Idéer';
                 desc.innerText = 'Har du en sykt god videoidé? Et spill du vil se mer av? En utfordring? Send det inn og kanskje blir det neste video!';
             }
+            // Refresh captcha for the newly visible tab to reset timer
+            newCaptcha(tab === 'feedback' ? 'fb' : 'idea');
         }
 
         function setRating(n) {
@@ -2756,6 +2875,66 @@
         const SUBMIT_EMAIL = 'andreas.salt08@gmail.com';
         const SUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/' + SUBMIT_EMAIL;
 
+        // === ANTI-SPAM: captcha + honeypot + timing + rate limit ===
+        const _captchaAnswers = { idea: 0, fb: 0 };
+        const _formRenderedAt = { idea: 0, fb: 0 };
+        const RATE_LIMIT_KEY = 'snorky-submit-times';
+        const RATE_LIMIT_MAX = 3;          // max submissions
+        const RATE_LIMIT_WINDOW = 600000;  // per 10 minutes
+        const MIN_FORM_TIME = 2000;         // form must be visible ≥ 2 sec
+
+        function newCaptcha(which) {
+            // Simple addition with small numbers — easy for humans, blocks lazy bots
+            const a = Math.floor(Math.random() * 9) + 1;
+            const b = Math.floor(Math.random() * 9) + 1;
+            _captchaAnswers[which] = a + b;
+            _formRenderedAt[which] = Date.now();
+            const qEl = document.getElementById(which === 'idea' ? 'ideaCaptchaQ' : 'fbCaptchaQ');
+            const inputEl = document.getElementById(which === 'idea' ? 'ideaCaptcha' : 'fbCaptcha');
+            if (qEl) qEl.innerText = `${a} + ${b} = ?`;
+            if (inputEl) inputEl.value = '';
+        }
+
+        function checkCaptcha(which, form) {
+            const answer = parseInt(document.getElementById(which === 'idea' ? 'ideaCaptcha' : 'fbCaptcha').value);
+            if (isNaN(answer) || answer !== _captchaAnswers[which]) {
+                return 'Feil svar på matte-spørsmålet. Prøv igjen.';
+            }
+            // Honeypot — bots fill it, humans don't see it
+            const honey = form.querySelector('input[name="_honey"]');
+            if (honey && honey.value.trim() !== '') {
+                return 'Spam oppdaget.';
+            }
+            // Timing check — submitted too fast = likely bot
+            const elapsed = Date.now() - _formRenderedAt[which];
+            if (elapsed < MIN_FORM_TIME) {
+                return 'Vent litt før du sender.';
+            }
+            // Rate limit
+            const times = getRateLimitTimes();
+            const cutoff = Date.now() - RATE_LIMIT_WINDOW;
+            const recent = times.filter(t => t > cutoff);
+            if (recent.length >= RATE_LIMIT_MAX) {
+                return 'For mange innsendinger. Vent litt og prøv igjen.';
+            }
+            return null;
+        }
+
+        function getRateLimitTimes() {
+            try { return JSON.parse(localStorage.getItem(RATE_LIMIT_KEY) || '[]'); }
+            catch (e) { return []; }
+        }
+        function recordSubmitTime() {
+            try {
+                const times = getRateLimitTimes();
+                times.push(Date.now());
+                // Keep only recent ones to avoid bloat
+                const cutoff = Date.now() - RATE_LIMIT_WINDOW;
+                const trimmed = times.filter(t => t > cutoff);
+                localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(trimmed));
+            } catch (e) {}
+        }
+
         async function sendToEmail(payload, subjectPrefix) {
             const fd = new FormData();
             for (const [k, v] of Object.entries(payload)) {
@@ -2764,6 +2943,8 @@
             fd.append('_subject', `[Snorky Site] ${subjectPrefix}`);
             fd.append('_captcha', 'false');
             fd.append('_template', 'table');
+            // Honeypot — Formsubmit silently discards if filled by a bot
+            fd.append('_honey', '');
             const res = await fetch(SUBMIT_ENDPOINT, {
                 method: 'POST',
                 headers: { 'Accept': 'application/json' },
@@ -2790,6 +2971,14 @@
             if (text.length < 5) {
                 showToast('Ideen er for kort — minst 5 tegn', 'fa-exclamation-circle', 'toast-error');
                 triggerHaptic('error');
+                return;
+            }
+            // Captcha + honeypot + rate limit
+            const captchaErr = checkCaptcha('idea', form);
+            if (captchaErr) {
+                showToast(captchaErr, 'fa-shield-halved', 'toast-error');
+                triggerHaptic('error');
+                newCaptcha('idea');
                 return;
             }
             // Local anti-spam (against own browser only): same text within last hour
@@ -2826,6 +3015,8 @@
                 form.reset();
                 document.getElementById('ideaCharCount').innerText = '0';
                 form.querySelector('input[name="ideaCategory"][value="Spill"]').checked = true;
+                newCaptcha('idea');
+                recordSubmitTime();
                 triggerHaptic('success');
                 showToast('Idé sendt til Snorky! 🎉', 'fa-paper-plane', 'toast-success');
                 form.animate(
@@ -2857,6 +3048,14 @@
             if (rating === 0) {
                 showToast('Velg en stjernevurdering først', 'fa-star', 'toast-error');
                 triggerHaptic('error');
+                return;
+            }
+            // Captcha + honeypot + rate limit
+            const captchaErr = checkCaptcha('fb', form);
+            if (captchaErr) {
+                showToast(captchaErr, 'fa-shield-halved', 'toast-error');
+                triggerHaptic('error');
+                newCaptcha('fb');
                 return;
             }
 
@@ -2891,6 +3090,8 @@
                 document.getElementById('ratingLabel').innerText = 'Ikke valgt';
                 document.getElementById('ratingLabel').classList.remove('has-rating');
                 form.querySelector('input[name="fbType"][value="Generelt"]').checked = true;
+                newCaptcha('fb');
+                recordSubmitTime();
                 triggerHaptic('success');
                 showToast('Takk for tilbakemeldingen! 💜', 'fa-heart', 'toast-success');
                 form.animate(
@@ -2995,7 +3196,9 @@
         // with an explicit exclusion list for known regular short videos.
         const SHORT_TITLE_EXCEPTIONS = [
             'we hit 300 subscribers!',
-            'we hit 300 subsribers!' // tolerate the channel's actual typo (Subsribers vs Subscribers)
+            'we hit 300 subsribers!', // tolerate the channel's actual typo
+            'we hit 100 subscribers!',
+            'we hit 100 subsribers!'  // same typo tolerance just in case
         ];
         function isYouTubeShort(video) {
             const seconds = video.durationSeconds || 0;
@@ -3953,6 +4156,9 @@ function applyFilters() {
             updateIdeasStats();
             const _tabs = document.querySelector('.ideas-tabs');
             if (_tabs) _tabs.dataset.active = 'idea';
+            // Initialize captchas
+            newCaptcha('idea');
+            newCaptcha('fb');
             if (isMobile) {
                 setupMobileBottomNavHide();
                 setupMobileStickyBar();
