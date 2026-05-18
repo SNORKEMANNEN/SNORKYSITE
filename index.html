@@ -1346,10 +1346,6 @@
             .ideas-grid { grid-template-columns: 1fr; gap: 28px; }
             .ideas-info { padding-top: 0; }
             .ideas-desc { font-size: 0.95rem; margin-bottom: 22px; }
-            .ideas-features { margin-top: 24px; gap: 12px; }
-            .ideas-feature-icon { width: 38px; height: 38px; font-size: 0.95rem; }
-            .ideas-feature-item h4 { font-size: 0.92rem; }
-            .ideas-feature-item p { font-size: 0.8rem; }
             .ideas-form { padding: 24px 20px; }
             .ideas-tabs { margin-bottom: 16px; padding: 3px; }
             .ideas-tab { padding: 12px 10px; font-size: 0.82rem; gap: 6px; min-height: 48px; }
@@ -1562,42 +1558,6 @@
             transition: color 0.3s ease;
         }
         .rating-label.has-rating { color: #f59e0b; }
-
-        /* Features list */
-        .ideas-features {
-            margin-top: 32px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .ideas-feature-item {
-            display: flex;
-            align-items: start;
-            gap: 16px;
-        }
-        .ideas-feature-icon {
-            width: 44px; height: 44px;
-            border-radius: 12px;
-            background: rgba(0, 194, 255, 0.1);
-            border: 1px solid rgba(0, 194, 255, 0.2);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--accent-1);
-            font-size: 1.05rem;
-            flex-shrink: 0;
-        }
-        .ideas-feature-item h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1rem;
-            color: #fff;
-            margin-bottom: 4px;
-            font-weight: 700;
-        }
-        .ideas-feature-item p {
-            font-size: 0.85rem;
-            color: var(--text-3);
-            line-height: 1.5;
-            margin: 0;
-        }
 
         /* Wall filter */
         .ideas-wall-filter {
@@ -2485,22 +2445,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ideas-features">
-                        <div class="ideas-feature-item">
-                            <div class="ideas-feature-icon"><i class="fas fa-shield-alt"></i></div>
-                            <div>
-                                <h4>100% Privat</h4>
-                                <p>Alt lagres lokalt — ingen data forlater enheten din</p>
-                            </div>
-                        </div>
-                        <div class="ideas-feature-item">
-                            <div class="ideas-feature-icon"><i class="fas fa-bolt"></i></div>
-                            <div>
-                                <h4>Lynraskt</h4>
-                                <p>Ingen registrering. Skriv. Send. Ferdig.</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="ideas-form-wrapper">
@@ -2575,7 +2519,7 @@
                         </button>
                     </form>
 
-                    <p class="ideas-disclaimer"><i class="fas fa-shield-alt"></i> Lagres lokalt i nettleseren din. Ingen data forlater enheten.</p>
+                    <p class="ideas-disclaimer"><i class="fas fa-envelope"></i> Idéer og tilbakemelding sendes direkte til Snorky.</p>
                 </div>
             </div>
 
@@ -2805,7 +2749,35 @@
             label.classList.toggle('has-rating', n > 0);
         }
 
-        function submitIdea(e) {
+        // === Email submission target ===
+        // Uses Formsubmit.co — no signup needed. On the FIRST submission, Formsubmit
+        // sends an activation email to the address below. After Andreas clicks the
+        // activation link once, all future submissions arrive directly in inbox.
+        const SUBMIT_EMAIL = 'andreas.salt08@gmail.com';
+        const SUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/' + SUBMIT_EMAIL;
+
+        async function sendToEmail(payload, subjectPrefix) {
+            const fd = new FormData();
+            for (const [k, v] of Object.entries(payload)) {
+                fd.append(k, v == null ? '' : String(v));
+            }
+            fd.append('_subject', `[Snorky Site] ${subjectPrefix}`);
+            fd.append('_captcha', 'false');
+            fd.append('_template', 'table');
+            const res = await fetch(SUBMIT_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Accept': 'application/json' },
+                body: fd
+            });
+            const data = await res.json().catch(() => ({}));
+            // Formsubmit returns { success: "true" } on success
+            if (!res.ok || (data.success !== undefined && data.success !== 'true' && data.success !== true)) {
+                throw new Error(data.message || 'Submit failed');
+            }
+            return data;
+        }
+
+        async function submitIdea(e) {
             e.preventDefault();
             const form = e.target;
             const textEl = document.getElementById('ideaText');
@@ -2820,6 +2792,7 @@
                 triggerHaptic('error');
                 return;
             }
+            // Local anti-spam (against own browser only): same text within last hour
             const ideas = getIdeas();
             const hourAgo = Date.now() - 3600000;
             if (ideas.some(i => i.text.toLowerCase() === text.toLowerCase() && i.timestamp > hourAgo)) {
@@ -2830,7 +2803,15 @@
 
             const btn = form.querySelector('.ideas-submit-btn');
             btn.classList.add('loading');
-            setTimeout(() => {
+            try {
+                await sendToEmail({
+                    'Type': 'Videoidé',
+                    'Kategori': category,
+                    'Navn': name || 'Anonym',
+                    'Idé': text
+                }, `Ny idé: ${category}`);
+
+                // Keep local copy so user sees their own submissions in the wall
                 const newIdea = {
                     id: 'idea-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
                     type: 'idea',
@@ -2845,17 +2826,22 @@
                 form.reset();
                 document.getElementById('ideaCharCount').innerText = '0';
                 form.querySelector('input[name="ideaCategory"][value="Spill"]').checked = true;
-                btn.classList.remove('loading');
                 triggerHaptic('success');
-                showToast('Idé sendt! Takk for bidraget 🎉', 'fa-check-circle', 'toast-success');
+                showToast('Idé sendt til Snorky! 🎉', 'fa-paper-plane', 'toast-success');
                 form.animate(
                     [{ transform: 'translateY(0)' }, { transform: 'translateY(-6px)' }, { transform: 'translateY(0)' }],
                     { duration: 400, easing: 'cubic-bezier(.34,1.56,.64,1)' }
                 );
-            }, 480);
+            } catch (err) {
+                console.error('Submit error:', err);
+                triggerHaptic('error');
+                showToast('Kunne ikke sende. Prøv igjen senere.', 'fa-exclamation-triangle', 'toast-error');
+            } finally {
+                btn.classList.remove('loading');
+            }
         }
 
-        function submitFeedback(e) {
+        async function submitFeedback(e) {
             e.preventDefault();
             const form = e.target;
             const textEl = document.getElementById('feedbackText');
@@ -2874,10 +2860,18 @@
                 return;
             }
 
-            const all = getFeedback();
             const btn = form.querySelector('.ideas-submit-btn');
             btn.classList.add('loading');
-            setTimeout(() => {
+            try {
+                const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+                await sendToEmail({
+                    'Type': 'Tilbakemelding',
+                    'Kategori': fbType,
+                    'Vurdering': `${stars} (${rating}/5)`,
+                    'Melding': text
+                }, `Tilbakemelding (${rating}/5): ${fbType}`);
+
+                const all = getFeedback();
                 const newFb = {
                     id: 'fb-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
                     type: 'feedback',
@@ -2897,14 +2891,19 @@
                 document.getElementById('ratingLabel').innerText = 'Ikke valgt';
                 document.getElementById('ratingLabel').classList.remove('has-rating');
                 form.querySelector('input[name="fbType"][value="Generelt"]').checked = true;
-                btn.classList.remove('loading');
                 triggerHaptic('success');
                 showToast('Takk for tilbakemeldingen! 💜', 'fa-heart', 'toast-success');
                 form.animate(
                     [{ transform: 'translateY(0)' }, { transform: 'translateY(-6px)' }, { transform: 'translateY(0)' }],
                     { duration: 400, easing: 'cubic-bezier(.34,1.56,.64,1)' }
                 );
-            }, 480);
+            } catch (err) {
+                console.error('Submit error:', err);
+                triggerHaptic('error');
+                showToast('Kunne ikke sende. Prøv igjen senere.', 'fa-exclamation-triangle', 'toast-error');
+            } finally {
+                btn.classList.remove('loading');
+            }
         }
 
         function filterWall(filter, el) {
@@ -2992,23 +2991,18 @@
         }
 
         // === YouTube Shorts detection ===
-        // The YouTube Data API doesn't tell us directly if a video is a Short.
-        // The most reliable single-request heuristic is the #shorts hashtag.
-        // A video is classified as a Short ONLY if BOTH:
-        //   1. Duration is ≤ 60 seconds (YouTube's hard cap)
-        //   2. The title OR description contains #shorts / #short
-        //      (this is how YouTube itself signals it's a Short)
-        // This means a short *regular* horizontal video without #shorts tag
-        // correctly stays in the videos section.
+        // Simple rule: any video under 40 seconds is treated as a Short,
+        // with an explicit exclusion list for known regular short videos.
+        const SHORT_TITLE_EXCEPTIONS = [
+            'we hit 300 subscribers!',
+            'we hit 300 subsribers!' // tolerate the channel's actual typo (Subsribers vs Subscribers)
+        ];
         function isYouTubeShort(video) {
             const seconds = video.durationSeconds || 0;
-            if (seconds === 0 || seconds > 60) return false;
-
-            const title = (video.snippet.title || '').toLowerCase();
-            const desc = (video.snippet.description || '').toLowerCase();
-            const tags = (video.snippet.tags || []).join(' ').toLowerCase();
-            const haystack = title + ' ' + desc + ' ' + tags;
-            return /#short(s)?\b/.test(haystack);
+            if (seconds === 0 || seconds >= 40) return false;
+            const title = (video.snippet.title || '').trim().toLowerCase();
+            if (SHORT_TITLE_EXCEPTIONS.includes(title)) return false;
+            return true;
         }
         function formatDurationString(seconds) {
             const h = Math.floor(seconds / 3600);
