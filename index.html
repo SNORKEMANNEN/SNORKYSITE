@@ -4,27 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#030305">
+    <meta name="color-scheme" content="dark">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>SNORKY SITE</title>
-    <meta name="description" content="Den offisielle nettsiden til Snorky. Se de nyeste gaming-videoene, shorts, statistikk og setups. En hub for alt Snorky-innhold.">
-    <meta name="keywords" content="Snorky, Norsk YouTuber, Gaming, Minecraft, Funny Moments, Snorky2361, Snorky Site, Videoer">
+    <meta name="format-detection" content="telephone=no">
+    <title>SNORKY SITE — Norsk Gaming YouTuber | Videoer, Shorts & Stats</title>
+    <meta name="description" content="Den offisielle nettsiden til Snorky — norsk gaming YouTuber. Se de nyeste videoene, shorts, kanal-statistikk, setup og mer. Hub for alt Snorky-innhold.">
+    <meta name="keywords" content="Snorky, Norsk YouTuber, Gaming, Minecraft, Fortnite, Funny Moments, Snorky2361, Snorky Site, Norske Gaming Videoer, Norsk Gaming, YouTube Gaming">
     <meta name="author" content="Snorky">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://snorky.site/">
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
     <link rel="shortcut icon" href="logo.png">
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Snorky Site">
+    <meta property="og:locale" content="nb_NO">
     <meta property="og:url" content="https://snorky.site/">
-    <meta property="og:title" content="SNORKY SITE">
-    <meta property="og:description" content="Ingen regler, bare gaming. Sjekk ut den offisielle huben.">
-    <meta property="og:image" content="logo.png">
+    <meta property="og:title" content="SNORKY SITE — Norsk Gaming YouTuber">
+    <meta property="og:description" content="Ingen regler, bare gaming. Den offisielle huben for alt Snorky-innhold — videoer, shorts, stats og setup.">
+    <meta property="og:image" content="https://snorky.site/logo.png">
+    <meta property="og:image:alt" content="Snorky Site logo">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SNORKY SITE">
+    <meta name="twitter:description" content="Ingen regler, bare gaming. Sjekk ut den offisielle huben.">
+    <meta name="twitter:image" content="https://snorky.site/logo.png">
+
+    <!-- Performance hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://i.ytimg.com">
     <link rel="preconnect" href="https://www.googleapis.com">
+    <link rel="dns-prefetch" href="https://www.youtube.com">
+    <link rel="dns-prefetch" href="https://yt3.ggpht.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700;800&family=JetBrains+Mono:wght@400;700&family=Gloria+Hallelujah&family=Unbounded:wght@700;800;900&display=swap" as="style">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700;800&family=JetBrains+Mono:wght@400;700&family=Gloria+Hallelujah&family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Snorky Site",
+        "alternateName": "SNORKY",
+        "url": "https://snorky.site/",
+        "description": "Den offisielle nettsiden til Snorky — norsk gaming YouTuber.",
+        "inLanguage": "nb-NO",
+        "publisher": {
+            "@type": "Person",
+            "name": "Snorky",
+            "url": "https://www.youtube.com/channel/UCvRVrLgB-Tk9R6dIzH2gE6w",
+            "sameAs": [
+                "https://www.youtube.com/channel/UCvRVrLgB-Tk9R6dIzH2gE6w",
+                "https://www.youtube.com/@snorky2361"
+            ]
+        }
+    }
+    </script>
     <style>
         :root {
             --bg: #030305; --surface: #0a0a0f; --surface-2: #0f0f15;
@@ -403,7 +446,7 @@
         @media (hover: hover) {
         }
         /* === Section base === */
-        .stats-section, .news-section, .work-section, .shorts-section, .second-channel-section, .about-section, .gear-section, .faq-section, .ideas-section { padding: 100px 0; border-top: 1px solid var(--border); position: relative; }
+        .stats-section, .news-section, .work-section, .shorts-section, .second-channel-section, .about-section, .gear-section, .faq-section { padding: 100px 0; border-top: 1px solid var(--border); position: relative; }
         .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
 
         .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 35px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; transition: 0.4s var(--ease-smooth); box-shadow: var(--shadow-card); }
@@ -464,7 +507,126 @@
         .donut-legend-item { display: flex; align-items: center; gap: 8px; color: var(--text-2); }
         .donut-dot { width: 8px; height: 8px; border-radius: 2px; }
 
-        .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%); background-size: 200% 100%; animation: skeleton-shimmer 1.5s ease-in-out infinite; border-radius: 8px; }
+        .skeleton {
+            background: linear-gradient(90deg,
+                rgba(255,255,255,0.03) 0%,
+                rgba(255,255,255,0.06) 30%,
+                rgba(0, 194, 255, 0.05) 50%,
+                rgba(255,255,255,0.06) 70%,
+                rgba(255,255,255,0.03) 100%);
+            background-size: 220% 100%;
+            animation: skeleton-shimmer 1.6s ease-in-out infinite;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Skeleton variants */
+        .skeleton-card {
+            display: flex;
+            flex-direction: column;
+            background: rgba(18, 18, 22, 0.6);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 20px;
+            overflow: hidden;
+            width: 400px;
+            min-width: 400px;
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+        }
+        .skeleton-card .sk-thumb {
+            aspect-ratio: 16/9;
+            background: linear-gradient(90deg,
+                rgba(255,255,255,0.03) 0%,
+                rgba(255,255,255,0.08) 50%,
+                rgba(255,255,255,0.03) 100%);
+            background-size: 200% 100%;
+            animation: skeleton-shimmer 1.6s ease-in-out infinite;
+        }
+        .skeleton-card .sk-body { padding: 18px 20px 22px; }
+        .skeleton-card .sk-line {
+            height: 14px;
+            border-radius: 4px;
+            background: linear-gradient(90deg,
+                rgba(255,255,255,0.03) 0%,
+                rgba(255,255,255,0.08) 50%,
+                rgba(255,255,255,0.03) 100%);
+            background-size: 200% 100%;
+            animation: skeleton-shimmer 1.6s ease-in-out infinite;
+            margin-bottom: 10px;
+        }
+        .skeleton-card .sk-line.short { width: 60%; }
+        .skeleton-card .sk-line.medium { width: 85%; }
+        .skeleton-card .sk-line.tiny { width: 40%; height: 10px; }
+        .skeleton-shorts {
+            width: 200px; min-width: 200px;
+            aspect-ratio: 9/16;
+            background: rgba(18, 18, 22, 0.6);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 18px;
+            overflow: hidden;
+            position: relative;
+        }
+        .skeleton-shorts::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg,
+                rgba(255,255,255,0.03) 0%,
+                rgba(255,255,255,0.08) 50%,
+                rgba(255,255,255,0.03) 100%);
+            background-size: 200% 100%;
+            animation: skeleton-shimmer 1.6s ease-in-out infinite;
+        }
+
+        /* === Error states === */
+        .api-error-state {
+            width: 100%;
+            padding: 50px 24px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+        .api-error-icon {
+            width: 72px; height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0, 194, 255, 0.1), rgba(255, 46, 147, 0.06));
+            border: 1px solid rgba(255,255,255,0.08);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--accent-1);
+            font-size: 1.6rem;
+            box-shadow: 0 8px 28px -6px rgba(0, 194, 255, 0.18);
+            animation: api-error-pulse 2.4s ease-in-out infinite;
+        }
+        @keyframes api-error-pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 8px 28px -6px rgba(0, 194, 255, 0.18); }
+            50% { transform: scale(1.04); box-shadow: 0 12px 36px -6px rgba(0, 194, 255, 0.3); }
+        }
+        .api-error-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            color: #fff;
+            font-weight: 700;
+            margin: 0;
+        }
+        .api-error-msg {
+            color: var(--text-3);
+            font-size: 0.92rem;
+            max-width: 420px;
+            margin: 0 auto;
+            line-height: 1.55;
+        }
+        .api-error-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        @keyframes fallback-pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.06); }
+        }
         @keyframes skeleton-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
         .skeleton-card { width: 400px; min-width: 400px; background: rgba(18,18,22,0.8); border-radius: 20px; border: 1px solid rgba(255,255,255,0.06); overflow: hidden; }
         .skeleton-thumb { width: 100%; aspect-ratio: 16/9; }
@@ -636,6 +798,30 @@
         .video-card-premium.watched::before { content: 'SETT'; position: absolute; top: 12px; left: 12px; z-index: 3; background: rgba(0, 194, 255, 0.9); color: var(--bg); padding: 3px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; }
         .premium-thumb-wrapper { width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden; }
         .premium-thumb { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.6s ease; }
+        .premium-thumb-preview {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .premium-thumb-preview.active { opacity: 1; }
+        .premium-thumb-preview::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            animation: thumb-preview-bar 2.4s linear infinite;
+        }
+        @keyframes thumb-preview-bar {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
         .premium-play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); width: 64px; height: 64px; background: rgba(255,255,255,0.18); backdrop-filter: blur(10px); border: 1.5px solid rgba(255,255,255,0.5); border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 0.4s var(--ease-bounce); color: #fff; font-size: 1.2rem; }
         .duration-badge { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.85); color: #fff; padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 0.75rem; backdrop-filter: blur(4px); font-family: 'JetBrains Mono', monospace; }
         .time-ago-badge { position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.7); color: #ddd; padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; backdrop-filter: blur(4px); font-family: 'JetBrains Mono', monospace; }
@@ -874,41 +1060,47 @@
         .qr-url { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-3); word-break: break-all; text-align: center; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid var(--border); }
         /* === MOBILE === */
         @media (max-width: 1024px) {
-            /* === KILL ALL BUTTON HOVER ANIMATIONS ON MOBILE === */
-            .btn-hero, .btn-ultra, .btn-hero-yt, .btn-hero-sec, .lightbox-action-btn,
-            .nav-icon-btn, .header-icon-btn, .card-action-btn, .scroll-btn, .nav-sub-btn,
-            .gear-card, .news-card, .card, .video-card-premium, .shorts-card, .faq-item,
-            .channel-card-compact, .footer-link, .mobile-fab, .ptr-indicator {
-                transition: opacity 0.2s ease, background 0.2s ease, transform 0.2s ease !important;
+            /* === KILL ALL HOVER STYLES ON MOBILE === */
+            /* Reset all transforms/shadows/filters on hover that won't fire on touch anyway */
+            *, *::before, *::after {
+                animation-play-state: running;
             }
-            .btn-hero:hover, .btn-hero:hover::before, .btn-hero:hover::after,
-            .btn-ultra:hover, .btn-ultra:hover::before, .btn-ultra:hover::after,
-            .btn-hero-yt:hover, .btn-hero-sec:hover,
-            .lightbox-action-btn:hover,
-            .nav-icon-btn:hover, .header-icon-btn:hover,
-            .card-action-btn:hover, .scroll-btn:hover, .nav-sub-btn:hover,
-            .gear-card:hover, .news-card:hover, .card:hover,
-            .video-card-premium:hover, .video-card-premium:hover .premium-thumb,
-            .video-card-premium:hover .premium-play-btn, .video-card-premium:hover .card-actions,
-            .video-card-premium:hover::after,
-            .shorts-card:hover, .faq-item:hover,
-            .channel-card-compact:hover, .channel-card-compact:hover::after,
-            .gear-card:hover::before, .gear-card:hover::after, .gear-card:hover .gear-icon, .gear-card:hover h4,
-            .footer-link:hover {
+            /* Completely disable hover transforms — they cause sticky :hover on touch devices */
+            *:hover, *:focus:not(:focus-visible) {
                 transform: none !important;
-                box-shadow: inherit !important;
-                filter: none !important;
-                background: inherit !important;
-                border-color: inherit !important;
-                opacity: inherit !important;
             }
-            /* Use active state for tap feedback instead */
-            .btn-hero:active, .btn-ultra:active, .card-action-btn:active,
-            .nav-icon-btn:active, .header-icon-btn:active, .card:active,
-            .video-card-premium:active, .shorts-card:active, .gear-card:active {
+            /* Re-enable transforms for elements we WANT to move (animations, not hovers) */
+            .reveal, .reveal.active, .marquee-row, .marquee-container,
+            .toast, .lightbox, .modal-overlay, .action-sheet,
+            .mobile-bottom-nav, .mobile-header, .mobile-fab, .ptr-indicator,
+            .scroll-progress, .deco-orb, .scroll-indicator,
+            .skeleton, .skeleton-card, .skeleton-shorts,
+            .premium-thumb-preview, .api-error-icon,
+            .work-track, .shorts-container, .shorts-track {
+                /* These get their transform animations back */
+            }
+            *:hover.reveal,
+            *:hover.reveal.active { transform: translateY(0) !important; }
+
+            /* Tap-state feedback — universal scale-down on press */
+            .btn-hero:active, .btn-ultra:active, .btn-hero-yt:active, .btn-hero-sec:active,
+            .lightbox-action-btn:active, .nav-icon-btn:active, .header-icon-btn:active,
+            .card-action-btn:active, .scroll-btn:active, .nav-sub-btn:active,
+            .gear-card:active, .news-card:active, .card:active,
+            .video-card-premium:active, .shorts-card:active, .faq-item:active,
+            .channel-card-compact:active, .nav-item:active,
+            button:active, a.tap-effect:active {
                 transform: scale(0.97) !important;
-                transition: transform 0.12s ease !important;
+                transition: transform 0.1s ease !important;
+                opacity: 0.92 !important;
             }
+
+            /* Disable expensive animations on mobile for performance */
+            .gear-icon { animation: none !important; }
+            .deco-orb { animation-duration: 30s !important; }
+            .corner-ornament { display: none !important; }
+            .section-rail { display: none !important; }
+            .premium-thumb-preview { display: none !important; }
 
             /* === MOBILE QoL: better touch + readability === */
             html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
@@ -1152,75 +1344,156 @@
                 justify-content: space-around;
                 align-items: center;
                 position: fixed;
-                bottom: calc(14px + var(--safe-bottom));
+                bottom: calc(16px + var(--safe-bottom));
                 left: 50%;
                 transform: translateX(-50%);
-                width: calc(100% - 22px);
-                max-width: 480px;
-                height: 72px;
+                width: calc(100% - 24px);
+                max-width: 460px;
+                height: 70px;
                 background:
-                    linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%),
-                    rgba(14, 14, 22, 0.55);
-                backdrop-filter: blur(40px) saturate(220%) brightness(1.1);
-                -webkit-backdrop-filter: blur(40px) saturate(220%) brightness(1.1);
-                border: 1px solid rgba(255,255,255,0.14);
-                border-radius: 28px;
+                    linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%),
+                    rgba(12, 12, 20, 0.5);
+                backdrop-filter: blur(50px) saturate(240%) brightness(1.15);
+                -webkit-backdrop-filter: blur(50px) saturate(240%) brightness(1.15);
+                border: 1px solid rgba(255,255,255,0.18);
+                border-radius: 30px;
                 z-index: 9990;
                 box-shadow:
-                    inset 0 1px 0 rgba(255,255,255,0.18),
-                    inset 0 -1px 0 rgba(0,0,0,0.3),
-                    inset 0 0 0 1px rgba(255,255,255,0.04),
-                    0 30px 60px -10px rgba(0,0,0,0.7),
-                    0 8px 24px -8px rgba(0,194,255,0.18);
-                padding: 0 6px;
+                    inset 0 1px 0 rgba(255,255,255,0.22),
+                    inset 0 -1px 0 rgba(0,0,0,0.35),
+                    inset 0 0 0 1px rgba(255,255,255,0.05),
+                    0 35px 70px -10px rgba(0,0,0,0.8),
+                    0 10px 30px -8px rgba(0,194,255,0.22);
+                padding: 0 8px;
                 isolation: isolate;
+                will-change: transform;
             }
-            /* Inner specular highlight (liquid glass top sheen) */
+            /* Top specular highlight (liquid glass sheen) */
             .mobile-bottom-nav::before {
                 content: '';
                 position: absolute;
                 top: 1px; left: 1px; right: 1px;
-                height: 50%;
-                border-radius: 27px 27px 100% 100% / 27px 27px 30% 30%;
-                background: linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.03) 60%, transparent 100%);
+                height: 60%;
+                border-radius: 29px 29px 100% 100% / 29px 29px 35% 35%;
+                background: linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.05) 55%, transparent 100%);
                 pointer-events: none;
                 z-index: -1;
                 mix-blend-mode: overlay;
-                opacity: 0.7;
+                opacity: 0.8;
             }
-            /* Bottom chromatic rim (subtle) */
+            /* Chromatic rim glow underneath */
             .mobile-bottom-nav::after {
                 content: '';
                 position: absolute;
-                bottom: -1px;
-                left: 20%; right: 20%;
-                height: 1px;
-                background: linear-gradient(90deg, transparent, rgba(0,194,255,0.4), rgba(255,46,147,0.4), transparent);
-                opacity: 0.6;
-                filter: blur(1px);
+                bottom: -2px;
+                left: 15%; right: 15%;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, rgba(0,194,255,0.5), rgba(168,85,247,0.4), rgba(255,46,147,0.5), transparent);
+                opacity: 0.7;
+                filter: blur(2px);
                 pointer-events: none;
             }
-            /* Active item indicator — separate floating background */
+            /* Active item indicator — frosted pill that smoothly slides */
             .mobile-bottom-nav .nav-indicator {
                 position: absolute;
-                top: 8px;
+                top: 50%;
                 left: var(--nav-indicator-x, 4px);
                 width: var(--nav-indicator-w, 60px);
-                height: 52px;
-                background: linear-gradient(180deg, rgba(0,194,255,0.15), rgba(0,194,255,0.05));
-                border: 1px solid rgba(0,194,255,0.2);
-                border-radius: 16px;
-                transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1), width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+                height: 54px;
+                transform: translateY(-50%);
+                background:
+                    linear-gradient(180deg, rgba(0,194,255,0.22) 0%, rgba(0,194,255,0.08) 100%),
+                    rgba(0,194,255,0.04);
+                border: 1px solid rgba(0,194,255,0.32);
+                border-radius: 18px;
+                transition: left 0.55s cubic-bezier(0.34, 1.5, 0.64, 1),
+                            width 0.55s cubic-bezier(0.34, 1.5, 0.64, 1);
                 pointer-events: none;
-                box-shadow: 0 0 20px rgba(0,194,255,0.15);
+                box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,0.18),
+                    0 0 24px rgba(0,194,255,0.25),
+                    0 6px 16px -4px rgba(0,194,255,0.3);
                 z-index: 1;
             }
-            .nav-item { color: var(--text-3); font-size: 1.1rem; padding: 10px 6px; transition: color 0.3s ease, transform 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-decoration: none; position: relative; flex: 1; min-width: 60px; height: 100%; border-radius: 16px; z-index: 2; -webkit-tap-highlight-color: transparent; }
-            .nav-item span { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.02em; opacity: 0.85; }
-            .nav-item.active { color: #fff; }
-            .nav-item.active i { color: var(--accent-1); transform: translateY(-1px) scale(1.05); filter: drop-shadow(0 0 6px var(--accent-glow-1)); }
-            .nav-item:active { transform: scale(0.92); }
-            .nav-item.has-badge::after { content: attr(data-count); position: absolute; top: 6px; right: calc(50% - 18px); background: var(--accent-2); color: #fff; font-size: 0.55rem; font-weight: 700; border-radius: 8px; min-width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; padding: 0 3px; box-shadow: 0 0 8px var(--accent-glow-2); }
+            .mobile-bottom-nav .nav-indicator::before {
+                content: '';
+                position: absolute;
+                top: 1px; left: 1px; right: 1px;
+                height: 50%;
+                border-radius: 17px 17px 100% 100% / 17px 17px 40% 40%;
+                background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 100%);
+                pointer-events: none;
+            }
+            .nav-item {
+                color: rgba(255,255,255,0.55);
+                padding: 10px 6px;
+                transition: color 0.4s ease;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
+                text-decoration: none;
+                position: relative;
+                flex: 1;
+                min-width: 60px;
+                height: 100%;
+                border-radius: 16px;
+                z-index: 2;
+                -webkit-tap-highlight-color: transparent;
+            }
+            .nav-item i {
+                font-size: 1.2rem;
+                transition: transform 0.45s cubic-bezier(0.34, 1.5, 0.64, 1), color 0.3s ease, filter 0.3s ease;
+            }
+            .nav-item span {
+                font-size: 0.62rem;
+                font-weight: 700;
+                letter-spacing: 0.3px;
+                opacity: 0.8;
+                transition: opacity 0.3s ease;
+                font-family: 'Inter', sans-serif;
+            }
+            .nav-item.active {
+                color: #fff;
+            }
+            .nav-item.active i {
+                color: var(--accent-1);
+                transform: translateY(-2px) scale(1.12);
+                filter: drop-shadow(0 0 10px rgba(0,194,255,0.7));
+            }
+            .nav-item.active span {
+                opacity: 1;
+            }
+            .nav-item:active {
+                transform: scale(0.92) !important;
+            }
+            .nav-item:active i {
+                transform: scale(0.9) !important;
+            }
+            .nav-item.has-badge::after {
+                content: attr(data-count);
+                position: absolute;
+                top: 6px;
+                right: calc(50% - 18px);
+                background: linear-gradient(135deg, var(--accent-2), #ff5577);
+                color: #fff;
+                font-size: 0.55rem;
+                font-weight: 700;
+                border-radius: 8px;
+                min-width: 14px;
+                height: 14px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0 3px;
+                box-shadow: 0 0 10px var(--accent-glow-2), 0 0 0 1.5px var(--bg);
+                animation: badge-pulse 2s ease-in-out infinite;
+            }
+            @keyframes badge-pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+            }
             .mobile-header { display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: calc(64px + var(--safe-top)); padding: var(--safe-top) 16px 0 16px; z-index: 9999; pointer-events: none; transition: background 0.3s ease, backdrop-filter 0.3s ease; }
             .mobile-header.scrolled {
                 background:
@@ -1280,7 +1553,7 @@
             /* Stronger hero center darken so title pops */
             .hero::before { background: radial-gradient(ellipse 90% 70% at center, rgba(3, 3, 5, 0.72), rgba(3, 3, 5, 0.4) 50%, transparent 100%); }
             .scroll-indicator { display: none; }
-            .stats-section, .news-section, .work-section, .shorts-section, .second-channel-section, .about-section, .gear-section, .faq-section, .ideas-section { padding: 55px 0; }
+            .stats-section, .news-section, .work-section, .shorts-section, .second-channel-section, .about-section, .gear-section, .faq-section { padding: 55px 0; }
             .section-header { font-size: clamp(2rem, 8.5vw, 2.6rem); margin-bottom: 18px; letter-spacing: -0.03em; }
             .section-header::after { width: 48px; height: 3px; }
             .subtitle { font-size: 0.62rem; letter-spacing: 2px; margin-bottom: 12px; }
@@ -1342,32 +1615,6 @@
             .gear-tag { font-size: 0.62rem; }
             .faq-question { font-size: 1rem; }
             .faq-question span { width: 30px; height: 30px; font-size: 1.05rem; }
-            /* Ideas section mobile */
-            .ideas-grid { grid-template-columns: 1fr; gap: 28px; }
-            .ideas-info { padding-top: 0; }
-            .ideas-desc { font-size: 0.95rem; margin-bottom: 22px; }
-            .ideas-form { padding: 24px 20px; }
-            .ideas-tabs { margin-bottom: 16px; padding: 3px; }
-            .ideas-tab { padding: 12px 10px; font-size: 0.82rem; gap: 6px; min-height: 48px; }
-            .ideas-tab i { font-size: 0.9rem; }
-            .ideas-cat-grid { gap: 6px; }
-            .ideas-cat-chip span { padding: 9px 13px; font-size: 0.78rem; gap: 7px; min-height: 38px; }
-            .captcha-box { gap: 8px; padding: 5px; }
-            .captcha-question { font-size: 1rem; padding: 0 8px; letter-spacing: 0.5px; }
-            .captcha-input { width: 70px !important; padding: 10px 8px !important; font-size: 0.95rem !important; }
-            .captcha-refresh { width: 36px; height: 36px; }
-            .ideas-stats { gap: 10px; }
-            .ideas-stat-pill { padding: 12px 14px; gap: 12px; flex: 1; }
-            .ideas-stat-pill > i { width: 36px; height: 36px; font-size: 0.95rem; }
-            .ideas-stat-num { font-size: 1.25rem; }
-            .ideas-wall-grid { grid-template-columns: 1fr; gap: 10px; }
-            .ideas-orb-1, .ideas-orb-2 { width: 220px; height: 220px; filter: blur(80px); }
-            .rating-star { font-size: 1.8rem; padding: 8px; }
-            .rating-label { font-size: 0.72rem; margin-left: 8px; display: block; flex-basis: 100%; margin-top: 6px; margin-left: 0; }
-            .rating-row { flex-wrap: wrap; gap: 2px; }
-            .ideas-wall-header { flex-direction: column; align-items: flex-start; }
-            .ideas-wall-filter { width: 100%; justify-content: space-between; }
-            .wall-filter-btn { flex: 1; padding: 9px 12px; font-size: 0.66rem; min-height: 40px; }
             .toast { font-size: 0.85rem; padding: 12px 18px; max-width: calc(100vw - 24px); }
 
             /* === Performance: disable heavy effects on mobile === */
@@ -1459,656 +1706,6 @@
             .ch-meta { gap: 8px; }
             .gear-grid { grid-template-columns: 1fr; }
             .stat-num { font-size: 2.6rem !important; }
-        }
-
-        /* === IDEAS SECTION === */
-        .ideas-section { overflow: hidden; }
-
-        /* Tab switcher */
-        .ideas-form-wrapper {
-            position: relative;
-        }
-        .ideas-tabs {
-            position: relative;
-            display: flex;
-            gap: 4px;
-            padding: 4px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 16px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(10px);
-        }
-        .ideas-tab-glider {
-            position: absolute;
-            top: 4px;
-            left: 4px;
-            width: calc(50% - 4px);
-            height: calc(100% - 8px);
-            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-            border-radius: 12px;
-            transition: transform 0.5s cubic-bezier(0.34, 1.5, 0.64, 1);
-            box-shadow: 0 6px 20px -4px rgba(0, 194, 255, 0.45);
-            z-index: 0;
-        }
-        .ideas-tabs[data-active="feedback"] .ideas-tab-glider {
-            transform: translateX(100%);
-            background: linear-gradient(135deg, var(--accent-2), #a855f7);
-            box-shadow: 0 6px 20px -4px rgba(255, 46, 147, 0.45);
-        }
-        .ideas-tab {
-            position: relative;
-            flex: 1;
-            padding: 14px 18px;
-            background: transparent;
-            border: none;
-            color: var(--text-3);
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 0.9rem;
-            letter-spacing: 0.3px;
-            cursor: pointer;
-            transition: color 0.4s ease;
-            z-index: 1;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 9px;
-        }
-        .ideas-tab i { font-size: 0.95rem; }
-        .ideas-tab.active { color: #fff; }
-        .ideas-tab:active { transform: scale(0.96); }
-        .ideas-tab-panel { display: none; animation: tab-panel-in 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
-        .ideas-tab-panel.active { display: block; }
-        @keyframes tab-panel-in {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Rating stars */
-        .rating-row {
-            display: flex;
-            gap: 4px;
-            align-items: center;
-            padding: 6px 0;
-        }
-        .rating-star {
-            background: transparent;
-            border: none;
-            color: rgba(255,255,255,0.15);
-            font-size: 1.6rem;
-            cursor: pointer;
-            transition: transform 0.25s var(--ease-bounce), color 0.25s ease;
-            padding: 4px;
-            line-height: 1;
-        }
-        .rating-star:hover { transform: scale(1.2) rotate(5deg); }
-        .rating-star.active {
-            color: #f59e0b;
-            text-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
-            animation: rating-star-pop 0.4s var(--ease-bounce);
-        }
-        @keyframes rating-star-pop {
-            0% { transform: scale(0.8); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(1); }
-        }
-        .rating-label {
-            margin-left: 12px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-            color: var(--text-3);
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-        .rating-label.has-rating { color: #f59e0b; }
-
-        /* Honeypot — completely invisible to humans */
-        .hp-field {
-            position: absolute !important;
-            left: -10000px !important;
-            width: 1px !important;
-            height: 1px !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-            visibility: hidden !important;
-        }
-
-        /* Math captcha */
-        .captcha-row label {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .captcha-row label i {
-            color: var(--accent-1);
-            font-size: 0.78rem;
-        }
-        .captcha-box {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 6px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 14px;
-            transition: border-color 0.25s ease, background 0.25s ease;
-        }
-        .captcha-box:focus-within {
-            border-color: var(--accent-1);
-            background: rgba(0,194,255,0.04);
-            box-shadow: 0 0 0 3px rgba(0,194,255,0.08);
-        }
-        .captcha-question {
-            flex: 1;
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
-            font-size: 1.15rem;
-            color: #fff;
-            padding: 0 14px;
-            letter-spacing: 1px;
-            user-select: none;
-            -webkit-user-select: none;
-            white-space: nowrap;
-        }
-        .captcha-input {
-            width: 80px !important;
-            background: rgba(255,255,255,0.04) !important;
-            border: 1px solid rgba(255,255,255,0.1) !important;
-            color: #fff !important;
-            padding: 11px 14px !important;
-            border-radius: 10px !important;
-            font-family: 'JetBrains Mono', monospace !important;
-            font-size: 1rem !important;
-            font-weight: 700 !important;
-            text-align: center !important;
-            outline: none !important;
-            -moz-appearance: textfield;
-        }
-        .captcha-input::-webkit-outer-spin-button,
-        .captcha-input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        .captcha-input:focus {
-            border-color: var(--accent-1) !important;
-            background: rgba(0,194,255,0.06) !important;
-        }
-        .captcha-refresh {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.08);
-            color: var(--text-3);
-            width: 40px; height: 40px;
-            border-radius: 10px;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.85rem;
-            transition: 0.25s var(--ease-smooth);
-            flex-shrink: 0;
-        }
-        .captcha-refresh:hover {
-            color: var(--accent-1);
-            border-color: rgba(0,194,255,0.3);
-            background: rgba(0,194,255,0.06);
-            transform: rotate(180deg);
-        }
-        .captcha-refresh:active { transform: rotate(360deg) scale(0.92); }
-
-        /* Wall filter */
-        .ideas-wall-filter {
-            display: inline-flex;
-            gap: 4px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 50px;
-            padding: 3px;
-        }
-        .wall-filter-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-3);
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s var(--ease-smooth);
-            letter-spacing: 0.5px;
-        }
-        .wall-filter-btn:hover { color: #fff; }
-        .wall-filter-btn.active {
-            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-            color: #fff;
-            box-shadow: 0 4px 12px -2px rgba(0, 194, 255, 0.35);
-        }
-
-        .ideas-clear-btn-bottom {
-            display: block;
-            margin: 28px auto 0;
-            background: transparent;
-            border: 1px dashed rgba(255,46,147,0.25);
-            color: rgba(255,46,147,0.7);
-            padding: 9px 18px;
-            border-radius: 50px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.25s var(--ease-smooth);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .ideas-clear-btn-bottom:hover {
-            background: rgba(255,46,147,0.08);
-            border-color: rgba(255,46,147,0.4);
-            color: var(--accent-2);
-            border-style: solid;
-        }
-
-        /* Idea card variants for feedback */
-        .idea-card.fb-card { border-color: rgba(255, 46, 147, 0.08); }
-        .idea-card.fb-card .idea-cat-badge {
-            color: var(--accent-2);
-            background: rgba(255, 46, 147, 0.1);
-            border-color: rgba(255, 46, 147, 0.25);
-        }
-        .idea-card .rating-display {
-            display: inline-flex;
-            gap: 2px;
-            margin-bottom: 8px;
-        }
-        .idea-card .rating-display i {
-            color: #f59e0b;
-            font-size: 0.78rem;
-        }
-        .idea-card .rating-display i.empty { color: rgba(255,255,255,0.08); }
-
-        .ideas-bg-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.18;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .ideas-orb-1 {
-            width: 400px; height: 400px;
-            background: var(--accent-1);
-            top: 10%; right: -120px;
-            animation: ideas-orb-float-1 18s ease-in-out infinite;
-        }
-        .ideas-orb-2 {
-            width: 380px; height: 380px;
-            background: var(--accent-2);
-            bottom: 5%; left: -100px;
-            animation: ideas-orb-float-2 22s ease-in-out infinite;
-        }
-        @keyframes ideas-orb-float-1 {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(-30px, 40px); }
-        }
-        @keyframes ideas-orb-float-2 {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(40px, -30px); }
-        }
-
-        .ideas-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.1fr;
-            gap: 60px;
-            align-items: start;
-            position: relative;
-            z-index: 1;
-        }
-        .ideas-info { padding-top: 10px; }
-        .ideas-desc {
-            color: var(--text-2);
-            font-size: 1.05rem;
-            line-height: 1.6;
-            max-width: 460px;
-            margin-bottom: 32px;
-        }
-        .ideas-stats {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-        .ideas-stat-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 14px;
-            padding: 14px 20px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 18px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-        .ideas-stat-pill > i {
-            width: 42px; height: 42px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-            display: flex; align-items: center; justify-content: center;
-            color: #fff;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 14px rgba(0, 194, 255, 0.3);
-            flex-shrink: 0;
-        }
-        .ideas-stat-num {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #fff;
-            line-height: 1;
-            margin-bottom: 4px;
-        }
-        .ideas-stat-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.66rem;
-            color: var(--text-3);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        /* Form */
-        .ideas-form {
-            background: linear-gradient(160deg, var(--surface-2), var(--surface));
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 36px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 50px -10px rgba(0,0,0,0.4);
-        }
-        .ideas-form::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent 0%, var(--accent-1) 25%, var(--accent-2) 75%, transparent 100%);
-            opacity: 0.7;
-        }
-        .form-row {
-            margin-bottom: 22px;
-            position: relative;
-        }
-        .form-row label {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
-            color: var(--text-3);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        .form-counter {
-            color: var(--text-3);
-            font-size: 0.68rem;
-            font-weight: 500;
-            text-transform: none;
-            letter-spacing: 0.5px;
-        }
-        .form-counter span { color: var(--accent-1); font-weight: 700; }
-        .ideas-form input[type="text"],
-        .ideas-form textarea {
-            width: 100%;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            color: #fff;
-            padding: 13px 16px;
-            border-radius: 12px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            transition: border-color 0.25s ease, background 0.25s ease;
-            resize: vertical;
-            outline: none;
-        }
-        .ideas-form input[type="text"]::placeholder,
-        .ideas-form textarea::placeholder {
-            color: var(--text-3);
-        }
-        .ideas-form input[type="text"]:focus,
-        .ideas-form textarea:focus {
-            border-color: var(--accent-1);
-            background: rgba(0,194,255,0.04);
-            box-shadow: 0 0 0 3px rgba(0,194,255,0.08);
-        }
-        .ideas-form textarea {
-            min-height: 110px;
-            line-height: 1.5;
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* Category chips */
-        .ideas-cat-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .ideas-cat-chip {
-            position: relative;
-            cursor: pointer;
-            flex: 0 0 auto;
-        }
-        .ideas-cat-chip input {
-            position: absolute;
-            opacity: 0;
-            pointer-events: none;
-        }
-        .ideas-cat-chip span {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 50px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--text-2);
-            transition: 0.25s var(--ease-smooth);
-            letter-spacing: 0.2px;
-            white-space: nowrap;
-            line-height: 1;
-        }
-        .ideas-cat-chip span i {
-            font-size: 0.82rem;
-            color: var(--text-3);
-            transition: color 0.25s ease, transform 0.3s var(--ease-bounce);
-        }
-        .ideas-cat-chip:hover span {
-            border-color: rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.06);
-            color: #fff;
-            transform: translateY(-1px);
-        }
-        .ideas-cat-chip:hover span i { color: var(--accent-1); }
-        .ideas-cat-chip input:checked + span {
-            background: linear-gradient(135deg, rgba(0,194,255,0.2), rgba(0,194,255,0.06));
-            border-color: rgba(0,194,255,0.45);
-            color: #fff;
-            box-shadow: 0 4px 16px -2px rgba(0,194,255,0.3);
-        }
-        .ideas-cat-chip input:checked + span i {
-            color: var(--accent-1);
-            transform: scale(1.15);
-        }
-        /* Feedback chips use pink accent */
-        .feedback-cat-grid .ideas-cat-chip input:checked + span {
-            background: linear-gradient(135deg, rgba(255,46,147,0.2), rgba(255,46,147,0.06));
-            border-color: rgba(255,46,147,0.45);
-            box-shadow: 0 4px 16px -2px rgba(255,46,147,0.3);
-        }
-        .feedback-cat-grid .ideas-cat-chip input:checked + span i {
-            color: var(--accent-2);
-        }
-        .ideas-cat-chip:active span { transform: scale(0.96); }
-
-        .ideas-submit-btn {
-            width: 100%;
-            justify-content: center;
-            margin-top: 8px;
-            position: relative;
-        }
-        .ideas-submit-btn .btn-loader { display: none; align-items: center; gap: 8px; }
-        .ideas-submit-btn.loading .btn-text { display: none !important; }
-        .ideas-submit-btn.loading .btn-loader { display: inline-flex !important; }
-
-        .ideas-disclaimer {
-            margin-top: 18px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-3);
-            text-align: center;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            width: 100%;
-            letter-spacing: 0.5px;
-        }
-        .ideas-disclaimer i { color: var(--accent-1); }
-
-        /* Ideas wall */
-        .ideas-wall {
-            margin-top: 50px;
-            position: relative;
-            z-index: 1;
-        }
-        .ideas-wall-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 22px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .ideas-wall-header h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #fff;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .ideas-wall-header h3 i { color: var(--accent-1); font-size: 0.95rem; }
-        .ideas-clear-btn {
-            background: transparent;
-            border: 1px solid rgba(255,46,147,0.25);
-            color: rgba(255,46,147,0.85);
-            padding: 7px 14px;
-            border-radius: 50px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.25s var(--ease-smooth);
-            display: inline-flex; align-items: center; gap: 6px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .ideas-clear-btn:hover {
-            background: rgba(255,46,147,0.12);
-            color: var(--accent-2);
-            border-color: rgba(255,46,147,0.4);
-        }
-        .ideas-wall-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 14px;
-        }
-        .idea-card {
-            background: linear-gradient(145deg, var(--surface-2), var(--surface));
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 14px;
-            padding: 18px 20px;
-            position: relative;
-            transition: 0.3s var(--ease-smooth);
-            animation: idea-card-in 0.5s var(--ease-bounce) backwards;
-        }
-        @keyframes idea-card-in {
-            from { opacity: 0; transform: translateY(20px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @media (hover: hover) {
-            .idea-card:hover {
-                border-color: rgba(255,255,255,0.15);
-                transform: translateY(-2px);
-                box-shadow: 0 14px 35px -10px rgba(0,194,255,0.15);
-            }
-        }
-        .idea-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .idea-cat-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.62rem;
-            font-weight: 700;
-            color: var(--accent-1);
-            background: rgba(0,194,255,0.1);
-            border: 1px solid rgba(0,194,255,0.2);
-            border-radius: 50px;
-            padding: 3px 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .idea-time {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.62rem;
-            color: var(--text-3);
-            letter-spacing: 0.5px;
-        }
-        .idea-text {
-            color: var(--text-1);
-            font-size: 0.92rem;
-            line-height: 1.5;
-            margin-bottom: 12px;
-            word-break: break-word;
-        }
-        .idea-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 10px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-        .idea-name {
-            font-size: 0.78rem;
-            color: var(--text-2);
-            font-weight: 600;
-            display: inline-flex; align-items: center; gap: 6px;
-        }
-        .idea-name i { color: var(--text-3); font-size: 0.7rem; }
-        .idea-delete-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-3);
-            font-size: 0.78rem;
-            cursor: pointer;
-            opacity: 0.5;
-            transition: 0.2s ease;
-            padding: 4px 8px;
-            border-radius: 6px;
-        }
-        .idea-delete-btn:hover {
-            opacity: 1;
-            color: var(--accent-2);
-            background: rgba(255,46,147,0.08);
         }
 
         /* === DISCO MODE (logo click easter egg) === */
@@ -2227,7 +1824,6 @@
                 <li><a href="#videos" class="text-link" data-section="videos"><i class="fas fa-video"></i> Videoer</a></li>
                 <li><a href="#shorts" class="text-link" data-section="shorts"><i class="fas fa-bolt"></i> Shorts</a></li>
                 <li><a href="#gear" class="text-link" data-section="gear"><i class="fas fa-keyboard"></i> Setup</a></li>
-                <li><a href="#ideas" class="text-link" data-section="ideas"><i class="fas fa-lightbulb"></i> Idé</a></li>
                 <li><a href="https://www.youtube.com/channel/UCvRVrLgB-Tk9R6dIzH2gE6w?sub_confirmation=1" target="_blank" class="nav-sub-btn"><i class="fab fa-youtube"></i> Abonner</a></li>
             </ul>
         </div>
@@ -2388,9 +1984,9 @@
             <div style="position:relative;">
                 <div class="swipe-hint"><i class="fas fa-hand-pointer"></i></div>
                 <div class="work-track" id="videoTrack">
-                    <div class="skeleton-card"><div class="skeleton skeleton-thumb"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text-short"></div></div>
-                    <div class="skeleton-card"><div class="skeleton skeleton-thumb"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text-short"></div></div>
-                    <div class="skeleton-card"><div class="skeleton skeleton-thumb"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text-short"></div></div>
+                    <div class="skeleton-card"><div class="sk-thumb"></div><div class="sk-body"><div class="sk-line medium"></div><div class="sk-line short"></div><div class="sk-line tiny"></div></div></div>
+                    <div class="skeleton-card"><div class="sk-thumb"></div><div class="sk-body"><div class="sk-line medium"></div><div class="sk-line short"></div><div class="sk-line tiny"></div></div></div>
+                    <div class="skeleton-card"><div class="sk-thumb"></div><div class="sk-body"><div class="sk-line medium"></div><div class="sk-line short"></div><div class="sk-line tiny"></div></div></div>
                 </div>
             </div>
         </div>
@@ -2421,10 +2017,10 @@
             <div class="shorts-container" id="shortsContainer">
                 <div class="swipe-hint" style="top:50%; right:20px;"><i class="fas fa-hand-pointer"></i></div>
                 <div class="shorts-track" id="shortsTrack">
-                    <div class="skeleton skeleton-short"></div>
-                    <div class="skeleton skeleton-short"></div>
-                    <div class="skeleton skeleton-short"></div>
-                    <div class="skeleton skeleton-short"></div>
+                    <div class="skeleton-shorts"></div>
+                    <div class="skeleton-shorts"></div>
+                    <div class="skeleton-shorts"></div>
+                    <div class="skeleton-shorts"></div>
                 </div>
             </div>
         </div>
@@ -2439,7 +2035,7 @@
             </div>
             <div class="channel-card-compact reveal" tabindex="0">
                 <div class="ch-left">
-                    <div class="ch-profile-wrapper"><img id="ch2-img" src="logo.png" alt="Snorky 2" class="ch2-img"></div>
+                    <div class="ch-profile-wrapper"><img id="ch2-img" src="logo.png" alt="Snorky 2" class="ch2-img" loading="lazy" decoding="async"></div>
                     <div class="ch-info">
                         <h2>SNORKY 2</h2>
                         <div class="ch-meta">
@@ -2514,148 +2110,6 @@
         </div>
     </section>
 
-    <!-- Video Idéer Section -->
-    <section class="ideas-section" id="ideas">
-        <div class="ideas-bg-orb ideas-orb-1"></div>
-        <div class="ideas-bg-orb ideas-orb-2"></div>
-        <div class="container">
-            <div class="ideas-grid reveal">
-                <div class="ideas-info">
-                    <span class="subtitle">Community</span>
-                    <h2 class="section-header" id="ideasMainHeader">Send Inn Idéer</h2>
-                    <p class="ideas-desc" id="ideasDesc">Har du en sykt god videoidé? Et spill du vil se mer av? En utfordring? Send det inn og kanskje blir det neste video!</p>
-                    <div class="ideas-stats">
-                        <div class="ideas-stat-pill">
-                            <i class="fas fa-lightbulb"></i>
-                            <div>
-                                <div class="ideas-stat-num" id="ideasCount">0</div>
-                                <div class="ideas-stat-label">Idéer sendt</div>
-                            </div>
-                        </div>
-                        <div class="ideas-stat-pill">
-                            <i class="fas fa-comment-dots"></i>
-                            <div>
-                                <div class="ideas-stat-num" id="feedbackCount">0</div>
-                                <div class="ideas-stat-label">Tilbakemelding</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="ideas-form-wrapper">
-                    <!-- Tab switcher -->
-                    <div class="ideas-tabs">
-                        <div class="ideas-tab-glider"></div>
-                        <button class="ideas-tab active" data-tab="idea" onclick="switchIdeasTab('idea')">
-                            <i class="fas fa-lightbulb"></i> <span>Idé</span>
-                        </button>
-                        <button class="ideas-tab" data-tab="feedback" onclick="switchIdeasTab('feedback')">
-                            <i class="fas fa-comment-dots"></i> <span>Tilbakemelding</span>
-                        </button>
-                    </div>
-
-                    <!-- Idea form -->
-                    <form class="ideas-form ideas-tab-panel active" id="ideasForm" data-panel="idea" onsubmit="submitIdea(event)">
-                        <div class="form-row">
-                            <label for="ideaName">Navn <span class="form-counter">Valgfritt</span></label>
-                            <input type="text" id="ideaName" placeholder="Hvem skal vi takke?" maxlength="50" autocomplete="name">
-                        </div>
-                        <div class="form-row">
-                            <label>Kategori</label>
-                            <div class="ideas-cat-grid">
-                                <label class="ideas-cat-chip"><input type="radio" name="ideaCategory" value="Spill" checked><span><i class="fas fa-gamepad"></i> Spill</span></label>
-                                <label class="ideas-cat-chip"><input type="radio" name="ideaCategory" value="Challenge"><span><i class="fas fa-trophy"></i> Challenge</span></label>
-                                <label class="ideas-cat-chip"><input type="radio" name="ideaCategory" value="Vlog"><span><i class="fas fa-video"></i> Vlog</span></label>
-                                <label class="ideas-cat-chip"><input type="radio" name="ideaCategory" value="Reaction"><span><i class="fas fa-bolt"></i> Reaction</span></label>
-                                <label class="ideas-cat-chip"><input type="radio" name="ideaCategory" value="Annet"><span><i class="fas fa-ellipsis-h"></i> Annet</span></label>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="ideaText">Din idé <span class="form-counter"><span id="ideaCharCount">0</span> / 300</span></label>
-                            <textarea id="ideaText" placeholder="Beskriv ideen din kort..." maxlength="300" required rows="4" oninput="document.getElementById('ideaCharCount').innerText = this.value.length;"></textarea>
-                        </div>
-                        <!-- Honeypot (hidden from humans, bots fill it) -->
-                        <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
-                        <!-- Math captcha -->
-                        <div class="form-row captcha-row">
-                            <label for="ideaCaptcha"><i class="fas fa-shield-halved"></i> Bekreft at du er menneske</label>
-                            <div class="captcha-box">
-                                <div class="captcha-question" id="ideaCaptchaQ">— + — = ?</div>
-                                <input type="number" id="ideaCaptcha" class="captcha-input" placeholder="?" required autocomplete="off" inputmode="numeric">
-                                <button type="button" class="captcha-refresh" onclick="newCaptcha('idea')" title="Nytt spørsmål" aria-label="Nytt spørsmål"><i class="fas fa-rotate-right"></i></button>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn-ultra ideas-submit-btn">
-                            <span class="btn-text"><i class="fas fa-paper-plane"></i> Send Inn Idé</span>
-                            <span class="btn-loader" style="display:none;"><i class="fas fa-spinner fa-spin"></i> Sender...</span>
-                        </button>
-                    </form>
-
-                    <!-- Feedback form -->
-                    <form class="ideas-form ideas-tab-panel" id="feedbackForm" data-panel="feedback" onsubmit="submitFeedback(event)">
-                        <div class="form-row">
-                            <label>Hvordan er opplevelsen?</label>
-                            <div class="rating-row">
-                                <button type="button" class="rating-star" data-rating="1" onclick="setRating(1)"><i class="fas fa-star"></i></button>
-                                <button type="button" class="rating-star" data-rating="2" onclick="setRating(2)"><i class="fas fa-star"></i></button>
-                                <button type="button" class="rating-star" data-rating="3" onclick="setRating(3)"><i class="fas fa-star"></i></button>
-                                <button type="button" class="rating-star" data-rating="4" onclick="setRating(4)"><i class="fas fa-star"></i></button>
-                                <button type="button" class="rating-star" data-rating="5" onclick="setRating(5)"><i class="fas fa-star"></i></button>
-                                <span class="rating-label" id="ratingLabel">Ikke valgt</span>
-                            </div>
-                            <input type="hidden" id="feedbackRating" value="">
-                        </div>
-                        <div class="form-row">
-                            <label>Hva gjelder det?</label>
-                            <div class="ideas-cat-grid feedback-cat-grid">
-                                <label class="ideas-cat-chip"><input type="radio" name="fbType" value="Generelt" checked><span><i class="fas fa-comment"></i> Generelt</span></label>
-                                <label class="ideas-cat-chip"><input type="radio" name="fbType" value="Bug"><span><i class="fas fa-bug"></i> Bug</span></label>
-                                <label class="ideas-cat-chip"><input type="radio" name="fbType" value="Design"><span><i class="fas fa-paint-brush"></i> Design</span></label>
-                                <label class="ideas-cat-chip"><input type="radio" name="fbType" value="Funksjon"><span><i class="fas fa-cog"></i> Funksjon</span></label>
-                                <label class="ideas-cat-chip"><input type="radio" name="fbType" value="Ros"><span><i class="fas fa-heart"></i> Ros</span></label>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="feedbackText">Tilbakemelding <span class="form-counter"><span id="feedbackCharCount">0</span> / 500</span></label>
-                            <textarea id="feedbackText" placeholder="Fortell hva du synes om siden..." maxlength="500" required rows="4" oninput="document.getElementById('feedbackCharCount').innerText = this.value.length;"></textarea>
-                        </div>
-                        <!-- Honeypot -->
-                        <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
-                        <!-- Math captcha -->
-                        <div class="form-row captcha-row">
-                            <label for="fbCaptcha"><i class="fas fa-shield-halved"></i> Bekreft at du er menneske</label>
-                            <div class="captcha-box">
-                                <div class="captcha-question" id="fbCaptchaQ">— + — = ?</div>
-                                <input type="number" id="fbCaptcha" class="captcha-input" placeholder="?" required autocomplete="off" inputmode="numeric">
-                                <button type="button" class="captcha-refresh" onclick="newCaptcha('fb')" title="Nytt spørsmål" aria-label="Nytt spørsmål"><i class="fas fa-rotate-right"></i></button>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn-ultra ideas-submit-btn">
-                            <span class="btn-text"><i class="fas fa-paper-plane"></i> Send Tilbakemelding</span>
-                            <span class="btn-loader" style="display:none;"><i class="fas fa-spinner fa-spin"></i> Sender...</span>
-                        </button>
-                    </form>
-
-                    <p class="ideas-disclaimer"><i class="fas fa-envelope"></i> Idéer og tilbakemelding sendes direkte til Snorky.</p>
-                </div>
-            </div>
-
-            <!-- History wall -->
-            <div class="ideas-wall reveal" id="ideasWall" style="display:none;">
-                <div class="ideas-wall-header">
-                    <h3><i class="fas fa-history"></i> Din historikk</h3>
-                    <div class="ideas-wall-filter">
-                        <button class="wall-filter-btn active" data-filter="all" onclick="filterWall('all', this)">Alle</button>
-                        <button class="wall-filter-btn" data-filter="idea" onclick="filterWall('idea', this)">Idéer</button>
-                        <button class="wall-filter-btn" data-filter="feedback" onclick="filterWall('feedback', this)">Tilbakemelding</button>
-                    </div>
-                </div>
-                <div class="ideas-wall-grid" id="ideasWallGrid"></div>
-                <button class="ideas-clear-btn-bottom" onclick="clearMyIdeas()" type="button"><i class="fas fa-trash"></i> Tøm alt</button>
-            </div>
-        </div>
-    </section>
-
     <footer>
         <div class="container">
             <div class="footer-grid reveal">
@@ -2672,7 +2126,6 @@
                     <a href="#videos">Videoer</a>
                     <a href="#shorts">Shorts</a>
                     <a href="#gear">Gear</a>
-                    <a href="#ideas">Send Idé</a>
                 </div>
                 <div class="footer-col">
                     <a href="https://www.youtube.com/channel/UCvRVrLgB-Tk9R6dIzH2gE6w" target="_blank">YouTube</a>
@@ -2813,378 +2266,10 @@
             if (!isMobile && lenis) lenis.scrollTo('#home');
             else window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-
-        // === VIDEO IDEAS (localStorage) ===
-        const IDEAS_KEY = 'snorky-ideas';
-        const FEEDBACK_KEY = 'snorky-feedback';
-        let _wallFilter = 'all';
-        let _currentRating = 0;
-
-        function getIdeas() {
-            try { return JSON.parse(localStorage.getItem(IDEAS_KEY) || '[]'); }
-            catch(e) { return []; }
-        }
-        function saveIdeas(arr) {
-            try { localStorage.setItem(IDEAS_KEY, JSON.stringify(arr)); } catch(e) {}
-        }
-        function getFeedback() {
-            try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '[]'); }
-            catch(e) { return []; }
-        }
-        function saveFeedback(arr) {
-            try { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(arr)); } catch(e) {}
-        }
-
-        function switchIdeasTab(tab) {
-            triggerHaptic('light');
-            const tabs = document.querySelector('.ideas-tabs');
-            tabs.dataset.active = tab;
-            document.querySelectorAll('.ideas-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
-            document.querySelectorAll('.ideas-tab-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === tab));
-            // Update header/desc to match
-            const header = document.getElementById('ideasMainHeader');
-            const desc = document.getElementById('ideasDesc');
-            if (tab === 'feedback') {
-                header.innerText = 'Send Tilbakemelding';
-                desc.innerText = 'Funnet en bug? Har et forslag? La meg høre hva du synes om siden!';
-            } else {
-                header.innerText = 'Send Inn Idéer';
-                desc.innerText = 'Har du en sykt god videoidé? Et spill du vil se mer av? En utfordring? Send det inn og kanskje blir det neste video!';
-            }
-            // Refresh captcha for the newly visible tab to reset timer
-            newCaptcha(tab === 'feedback' ? 'fb' : 'idea');
-        }
-
-        function setRating(n) {
-            _currentRating = n;
-            triggerHaptic('light');
-            document.getElementById('feedbackRating').value = n;
-            document.querySelectorAll('.rating-star').forEach((s, i) => {
-                s.classList.toggle('active', i < n);
-            });
-            const label = document.getElementById('ratingLabel');
-            const labels = ['', 'Veldig dårlig 😞', 'Dårlig 😕', 'OK 😐', 'Bra 😊', 'Fantastisk! 🤩'];
-            label.innerText = labels[n] || 'Ikke valgt';
-            label.classList.toggle('has-rating', n > 0);
-        }
-
-        // === Email submission target ===
         // Uses Formsubmit.co — no signup needed. On the FIRST submission, Formsubmit
         // sends an activation email to the address below. After Andreas clicks the
         // activation link once, all future submissions arrive directly in inbox.
-        const SUBMIT_EMAIL = 'andreas.salt08@gmail.com';
-        const SUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/' + SUBMIT_EMAIL;
-
-        // === ANTI-SPAM: captcha + honeypot + timing + rate limit ===
-        const _captchaAnswers = { idea: 0, fb: 0 };
-        const _formRenderedAt = { idea: 0, fb: 0 };
-        const RATE_LIMIT_KEY = 'snorky-submit-times';
-        const RATE_LIMIT_MAX = 3;          // max submissions
-        const RATE_LIMIT_WINDOW = 600000;  // per 10 minutes
-        const MIN_FORM_TIME = 2000;         // form must be visible ≥ 2 sec
-
-        function newCaptcha(which) {
-            // Simple addition with small numbers — easy for humans, blocks lazy bots
-            const a = Math.floor(Math.random() * 9) + 1;
-            const b = Math.floor(Math.random() * 9) + 1;
-            _captchaAnswers[which] = a + b;
-            _formRenderedAt[which] = Date.now();
-            const qEl = document.getElementById(which === 'idea' ? 'ideaCaptchaQ' : 'fbCaptchaQ');
-            const inputEl = document.getElementById(which === 'idea' ? 'ideaCaptcha' : 'fbCaptcha');
-            if (qEl) qEl.innerText = `${a} + ${b} = ?`;
-            if (inputEl) inputEl.value = '';
-        }
-
-        function checkCaptcha(which, form) {
-            const answer = parseInt(document.getElementById(which === 'idea' ? 'ideaCaptcha' : 'fbCaptcha').value);
-            if (isNaN(answer) || answer !== _captchaAnswers[which]) {
-                return 'Feil svar på matte-spørsmålet. Prøv igjen.';
-            }
-            // Honeypot — bots fill it, humans don't see it
-            const honey = form.querySelector('input[name="_honey"]');
-            if (honey && honey.value.trim() !== '') {
-                return 'Spam oppdaget.';
-            }
-            // Timing check — submitted too fast = likely bot
-            const elapsed = Date.now() - _formRenderedAt[which];
-            if (elapsed < MIN_FORM_TIME) {
-                return 'Vent litt før du sender.';
-            }
-            // Rate limit
-            const times = getRateLimitTimes();
-            const cutoff = Date.now() - RATE_LIMIT_WINDOW;
-            const recent = times.filter(t => t > cutoff);
-            if (recent.length >= RATE_LIMIT_MAX) {
-                return 'For mange innsendinger. Vent litt og prøv igjen.';
-            }
-            return null;
-        }
-
-        function getRateLimitTimes() {
-            try { return JSON.parse(localStorage.getItem(RATE_LIMIT_KEY) || '[]'); }
-            catch (e) { return []; }
-        }
-        function recordSubmitTime() {
-            try {
-                const times = getRateLimitTimes();
-                times.push(Date.now());
-                // Keep only recent ones to avoid bloat
-                const cutoff = Date.now() - RATE_LIMIT_WINDOW;
-                const trimmed = times.filter(t => t > cutoff);
-                localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(trimmed));
-            } catch (e) {}
-        }
-
-        async function sendToEmail(payload, subjectPrefix) {
-            const fd = new FormData();
-            for (const [k, v] of Object.entries(payload)) {
-                fd.append(k, v == null ? '' : String(v));
-            }
-            fd.append('_subject', `[Snorky Site] ${subjectPrefix}`);
-            fd.append('_captcha', 'false');
-            fd.append('_template', 'table');
-            // Honeypot — Formsubmit silently discards if filled by a bot
-            fd.append('_honey', '');
-            const res = await fetch(SUBMIT_ENDPOINT, {
-                method: 'POST',
-                headers: { 'Accept': 'application/json' },
-                body: fd
-            });
-            const data = await res.json().catch(() => ({}));
-            // Formsubmit returns { success: "true" } on success
-            if (!res.ok || (data.success !== undefined && data.success !== 'true' && data.success !== true)) {
-                throw new Error(data.message || 'Submit failed');
-            }
-            return data;
-        }
-
-        async function submitIdea(e) {
-            e.preventDefault();
-            const form = e.target;
-            const textEl = document.getElementById('ideaText');
-            const nameEl = document.getElementById('ideaName');
-            const catRadio = form.querySelector('input[name="ideaCategory"]:checked');
-            const text = textEl.value.trim();
-            const name = nameEl.value.trim();
-            const category = catRadio ? catRadio.value : 'Annet';
-
-            if (text.length < 5) {
-                showToast('Ideen er for kort — minst 5 tegn', 'fa-exclamation-circle', 'toast-error');
-                triggerHaptic('error');
-                return;
-            }
-            // Captcha + honeypot + rate limit
-            const captchaErr = checkCaptcha('idea', form);
-            if (captchaErr) {
-                showToast(captchaErr, 'fa-shield-halved', 'toast-error');
-                triggerHaptic('error');
-                newCaptcha('idea');
-                return;
-            }
-            // Local anti-spam (against own browser only): same text within last hour
-            const ideas = getIdeas();
-            const hourAgo = Date.now() - 3600000;
-            if (ideas.some(i => i.text.toLowerCase() === text.toLowerCase() && i.timestamp > hourAgo)) {
-                showToast('Den ideen er allerede sendt nylig', 'fa-info-circle', 'toast-info');
-                triggerHaptic('error');
-                return;
-            }
-
-            const btn = form.querySelector('.ideas-submit-btn');
-            btn.classList.add('loading');
-            try {
-                await sendToEmail({
-                    'Type': 'Videoidé',
-                    'Kategori': category,
-                    'Navn': name || 'Anonym',
-                    'Idé': text
-                }, `Ny idé: ${category}`);
-
-                // Keep local copy so user sees their own submissions in the wall
-                const newIdea = {
-                    id: 'idea-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
-                    type: 'idea',
-                    text, name, category,
-                    timestamp: Date.now()
-                };
-                ideas.unshift(newIdea);
-                if (ideas.length > 50) ideas.length = 50;
-                saveIdeas(ideas);
-                renderIdeasWall();
-                updateIdeasStats();
-                form.reset();
-                document.getElementById('ideaCharCount').innerText = '0';
-                form.querySelector('input[name="ideaCategory"][value="Spill"]').checked = true;
-                newCaptcha('idea');
-                recordSubmitTime();
-                triggerHaptic('success');
-                showToast('Idé sendt til Snorky! 🎉', 'fa-paper-plane', 'toast-success');
-                form.animate(
-                    [{ transform: 'translateY(0)' }, { transform: 'translateY(-6px)' }, { transform: 'translateY(0)' }],
-                    { duration: 400, easing: 'cubic-bezier(.34,1.56,.64,1)' }
-                );
-            } catch (err) {
-                console.error('Submit error:', err);
-                triggerHaptic('error');
-                showToast('Kunne ikke sende. Prøv igjen senere.', 'fa-exclamation-triangle', 'toast-error');
-            } finally {
-                btn.classList.remove('loading');
-            }
-        }
-
-        async function submitFeedback(e) {
-            e.preventDefault();
-            const form = e.target;
-            const textEl = document.getElementById('feedbackText');
-            const text = textEl.value.trim();
-            const fbType = form.querySelector('input[name="fbType"]:checked').value;
-            const rating = parseInt(document.getElementById('feedbackRating').value) || 0;
-
-            if (text.length < 5) {
-                showToast('Skriv litt mer (minst 5 tegn)', 'fa-exclamation-circle', 'toast-error');
-                triggerHaptic('error');
-                return;
-            }
-            if (rating === 0) {
-                showToast('Velg en stjernevurdering først', 'fa-star', 'toast-error');
-                triggerHaptic('error');
-                return;
-            }
-            // Captcha + honeypot + rate limit
-            const captchaErr = checkCaptcha('fb', form);
-            if (captchaErr) {
-                showToast(captchaErr, 'fa-shield-halved', 'toast-error');
-                triggerHaptic('error');
-                newCaptcha('fb');
-                return;
-            }
-
-            const btn = form.querySelector('.ideas-submit-btn');
-            btn.classList.add('loading');
-            try {
-                const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
-                await sendToEmail({
-                    'Type': 'Tilbakemelding',
-                    'Kategori': fbType,
-                    'Vurdering': `${stars} (${rating}/5)`,
-                    'Melding': text
-                }, `Tilbakemelding (${rating}/5): ${fbType}`);
-
-                const all = getFeedback();
-                const newFb = {
-                    id: 'fb-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
-                    type: 'feedback',
-                    text, category: fbType, rating,
-                    timestamp: Date.now()
-                };
-                all.unshift(newFb);
-                if (all.length > 50) all.length = 50;
-                saveFeedback(all);
-                renderIdeasWall();
-                updateIdeasStats();
-                form.reset();
-                document.getElementById('feedbackCharCount').innerText = '0';
-                document.getElementById('feedbackRating').value = '';
-                _currentRating = 0;
-                document.querySelectorAll('.rating-star').forEach(s => s.classList.remove('active'));
-                document.getElementById('ratingLabel').innerText = 'Ikke valgt';
-                document.getElementById('ratingLabel').classList.remove('has-rating');
-                form.querySelector('input[name="fbType"][value="Generelt"]').checked = true;
-                newCaptcha('fb');
-                recordSubmitTime();
-                triggerHaptic('success');
-                showToast('Takk for tilbakemeldingen! 💜', 'fa-heart', 'toast-success');
-                form.animate(
-                    [{ transform: 'translateY(0)' }, { transform: 'translateY(-6px)' }, { transform: 'translateY(0)' }],
-                    { duration: 400, easing: 'cubic-bezier(.34,1.56,.64,1)' }
-                );
-            } catch (err) {
-                console.error('Submit error:', err);
-                triggerHaptic('error');
-                showToast('Kunne ikke sende. Prøv igjen senere.', 'fa-exclamation-triangle', 'toast-error');
-            } finally {
-                btn.classList.remove('loading');
-            }
-        }
-
-        function filterWall(filter, el) {
-            _wallFilter = filter;
-            triggerHaptic('light');
-            document.querySelectorAll('.wall-filter-btn').forEach(b => b.classList.remove('active'));
-            if (el) el.classList.add('active');
-            renderIdeasWall();
-        }
-
-        function renderIdeasWall() {
-            const wall = document.getElementById('ideasWall');
-            const grid = document.getElementById('ideasWallGrid');
-            const ideas = getIdeas().map(x => ({ ...x, type: 'idea' }));
-            const feedback = getFeedback().map(x => ({ ...x, type: 'feedback' }));
-            let combined = [...ideas, ...feedback].sort((a, b) => b.timestamp - a.timestamp);
-            if (_wallFilter !== 'all') {
-                combined = combined.filter(x => x.type === _wallFilter);
-            }
-            if (!combined.length && _wallFilter === 'all') {
-                wall.style.display = 'none';
-                return;
-            }
-            wall.style.display = 'block';
-            const catIcons = {
-                'Spill': 'gamepad', 'Challenge': 'trophy', 'Vlog': 'video',
-                'Reaction': 'bolt', 'Annet': 'ellipsis-h',
-                'Generelt': 'comment', 'Bug': 'bug', 'Design': 'paint-brush',
-                'Funksjon': 'cog', 'Ros': 'heart'
-            };
-            if (combined.length === 0) {
-                grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding: 40px; color: var(--text-3); font-size: 0.9rem;">Ingen ${_wallFilter === 'idea' ? 'idéer' : 'tilbakemeldinger'} enda</div>`;
-                return;
-            }
-            grid.innerHTML = combined.slice(0, 12).map((item, i) => {
-                const isFb = item.type === 'feedback';
-                const stars = isFb ? `<div class="rating-display">${Array.from({length: 5}, (_, j) => `<i class="fas fa-star${j >= item.rating ? ' empty' : ''}"></i>`).join('')}</div>` : '';
-                const typeBadge = isFb ? `<i class="fas fa-comment-dots"></i>` : `<i class="fas fa-${catIcons[item.category] || 'tag'}"></i>`;
-                return `
-                <div class="idea-card ${isFb ? 'fb-card' : ''}" style="animation-delay:${i * 0.04}s;" data-id="${item.id}" data-type="${item.type}">
-                    <div class="idea-card-header">
-                        <span class="idea-cat-badge">${typeBadge} ${item.category}</span>
-                        <span class="idea-time">${timeAgo(new Date(item.timestamp).toISOString())}</span>
-                    </div>
-                    ${stars}
-                    <div class="idea-text">${escapeHtml(item.text)}</div>
-                    <div class="idea-footer">
-                        <span class="idea-name"><i class="fas fa-${isFb ? 'comment-dots' : 'user'}"></i> ${isFb ? 'Tilbakemelding' : (item.name ? escapeHtml(item.name) : 'Anonym')}</span>
-                        <button class="idea-delete-btn" onclick="deleteItem('${item.id}', '${item.type}')" title="Slett"><i class="fas fa-times"></i></button>
-                    </div>
-                </div>`;
-            }).join('');
-        }
-        function deleteItem(id, type) {
-            if (type === 'idea') {
-                saveIdeas(getIdeas().filter(i => i.id !== id));
-            } else {
-                saveFeedback(getFeedback().filter(i => i.id !== id));
-            }
-            renderIdeasWall();
-            updateIdeasStats();
-            triggerHaptic('light');
-        }
-        function clearMyIdeas() {
-            if (!confirm('Slette alle dine idéer og tilbakemeldinger?')) return;
-            saveIdeas([]);
-            saveFeedback([]);
-            renderIdeasWall();
-            updateIdeasStats();
-            triggerHaptic('heavy');
-            showToast('Alt er slettet', 'fa-trash', 'toast-info');
-        }
-        function updateIdeasStats() {
-            const cnt = document.getElementById('ideasCount');
-            const fbCnt = document.getElementById('feedbackCount');
-            if (cnt) cnt.innerText = getIdeas().length;
-            if (fbCnt) fbCnt.innerText = getFeedback().length;
-        }
         // backward-compat alias (old function name)
-        function deleteIdea(id) { return deleteItem(id, 'idea'); }
         function formatNumber(num) { return parseInt(num).toLocaleString('no-NO').replace(/,/g, ' '); }
         function parseDuration(duration) {
             const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
@@ -3515,13 +2600,15 @@ function applyFilters() {
             };
             el.onkeydown = (e) => { if(e.key === 'Enter') el.click(); };
             const safeTitle = (v.snippet.title || '').replace(/`/g, '\\`').replace(/'/g, "\\'");
-            // Calc engagement
             const views = parseInt(v.statistics.viewCount || 0);
             const likes = parseInt(v.statistics.likeCount || 0);
             const engPct = views > 0 ? ((likes / views) * 100).toFixed(1) : '0';
+            // YouTube auto-generates 3 preview frames per video at /1.jpg, /2.jpg, /3.jpg
+            const previewBase = `https://i.ytimg.com/vi/${v.id}`;
             el.innerHTML = `
                 <div class="premium-thumb-wrapper">
-                    <img src="${v.snippet.thumbnails.high.url}" class="premium-thumb" loading="lazy" alt="${escapeHtml(v.snippet.title)}">
+                    <img src="${v.snippet.thumbnails.high.url}" class="premium-thumb" loading="lazy" decoding="async" alt="${escapeHtml(v.snippet.title)}">
+                    <div class="premium-thumb-preview" data-frames='["${previewBase}/1.jpg","${previewBase}/2.jpg","${previewBase}/3.jpg"]'></div>
                     <div class="premium-play-btn"><i class="fas fa-play"></i></div>
                     <div class="duration-badge">${v.durationStr}</div>
                     <div class="time-ago-badge"><i class="fas fa-clock" style="font-size: 0.62rem; margin-right: 4px;"></i>${ago}</div>
@@ -3541,7 +2628,45 @@ function applyFilters() {
                         <div class="engagement-track"><div class="engagement-bar-fill" style="width: ${Math.min(parseFloat(engPct) * 10, 100)}%"></div></div>
                     </div>
                 </div>`;
+            // Wire up hover preview (desktop only)
+            if (!isMobile) {
+                attachHoverPreview(el);
+            }
             return el;
+        }
+
+        // === Hover preview: rotates through 3 YouTube storyboard frames ===
+        function attachHoverPreview(cardEl) {
+            const wrapper = cardEl.querySelector('.premium-thumb-wrapper');
+            const previewEl = cardEl.querySelector('.premium-thumb-preview');
+            if (!previewEl || !wrapper) return;
+            let frames;
+            try { frames = JSON.parse(previewEl.dataset.frames); }
+            catch (e) { return; }
+            let interval = null;
+            let currentFrame = 0;
+            let loaded = false;
+
+            const preloadFrames = () => {
+                if (loaded) return;
+                loaded = true;
+                frames.forEach(f => { const i = new Image(); i.src = f; });
+            };
+
+            wrapper.addEventListener('mouseenter', () => {
+                preloadFrames();
+                currentFrame = 0;
+                previewEl.style.backgroundImage = `url('${frames[0]}')`;
+                previewEl.classList.add('active');
+                interval = setInterval(() => {
+                    currentFrame = (currentFrame + 1) % frames.length;
+                    previewEl.style.backgroundImage = `url('${frames[currentFrame]}')`;
+                }, 800);
+            });
+            wrapper.addEventListener('mouseleave', () => {
+                if (interval) { clearInterval(interval); interval = null; }
+                previewEl.classList.remove('active');
+            });
         }
         function renderShorts(videos, trackId) {
             const track = document.getElementById(trackId);
@@ -3570,7 +2695,7 @@ function applyFilters() {
                     <div class="shorts-time-badge"><i class="fas fa-clock"></i> ${ago}</div>
                     ${v.durationStr ? `<div class="shorts-dur-badge">${v.durationStr}</div>` : ''}
                 </div>
-                <img src="${v.snippet.thumbnails.high.url}" class="shorts-thumb" loading="lazy" alt="${escapeHtml(v.snippet.title)}">
+                <img src="${v.snippet.thumbnails.high.url}" class="shorts-thumb" loading="lazy" decoding="async" alt="${escapeHtml(v.snippet.title)}">
                 <div class="shorts-overlay">
                     <h5 class="shorts-title">${escapeHtml(v.snippet.title)}</h5>
                     <div class="shorts-stats-grid">
@@ -3678,7 +2803,7 @@ function applyFilters() {
                         const ago = timeAgo(l.snippet.publishedAt);
                         document.getElementById('spotlightCard').innerHTML = `
                             <div class="news-image-wrapper">
-                                <img src="${l.snippet.thumbnails.maxres ? l.snippet.thumbnails.maxres.url : l.snippet.thumbnails.high.url}" class="news-img" loading="lazy" alt="${escapeHtml(l.snippet.title)}">
+                                <img src="${l.snippet.thumbnails.maxres ? l.snippet.thumbnails.maxres.url : l.snippet.thumbnails.high.url}" class="news-img" loading="lazy" decoding="async" alt="${escapeHtml(l.snippet.title)}">
                                 <div class="news-overlay"></div>
                             </div>
                             <div class="news-content">
@@ -3700,7 +2825,7 @@ function applyFilters() {
                         if(bg) {
                             const topVideos = globalLongVideos.slice(0, 15);
                             let itemsHtml = '';
-                            topVideos.forEach(v => { itemsHtml += `<div class="marquee-item"><img src="${v.snippet.thumbnails.high.url}" loading="eager" style="width:100%;height:100%;object-fit:cover;" alt=""></div>`; });
+                            topVideos.forEach(v => { itemsHtml += `<div class="marquee-item"><img src="${v.snippet.thumbnails.high.url}" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:cover;" alt=""></div>`; });
                             const fullRowHtml = itemsHtml + itemsHtml;
                             const rowCount = isMobile ? 2 : 3;
                             for(let i=0; i<rowCount; i++) {
@@ -3748,42 +2873,60 @@ function applyFilters() {
             document.getElementById('subCount').innerHTML = '<span style="color:#555;">—</span>';
             document.getElementById('viewCount').innerHTML = '<span style="color:#555;">—</span>';
             document.getElementById('videoCount').innerHTML = '<span style="color:#555;">—</span>';
-            document.getElementById('progressText').innerText = 'Kunne ikke laste data';
+            document.getElementById('progressText').innerText = 'Klarer ikke koble til YouTube akkurat nå';
             document.getElementById('spotlightCard').innerHTML = `
-                <div class="news-image-wrapper" style="background:linear-gradient(135deg,var(--surface-2),var(--surface));display:flex;align-items:center;justify-content:center;">
-                    <i class="fab fa-youtube" style="font-size:4rem;color:rgba(255,255,255,0.06);"></i>
+                <div class="news-image-wrapper" style="background:linear-gradient(135deg,var(--surface-2),var(--surface));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+                    <div style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(0,194,255,0.08), transparent 60%);"></div>
+                    <i class="fab fa-youtube" style="font-size:5rem;color:rgba(255,0,0,0.12);position:relative;animation:fallback-pulse 2.4s ease-in-out infinite;"></i>
                 </div>
                 <div class="news-content">
-                    <div class="news-badge"><span></span> YouTube</div>
-                    <h3 class="news-title">Sjekk ut kanalen</h3>
-                    <p class="news-excerpt">Kunne ikke laste nyeste video akkurat nå. Gå direkte til YouTube for å se alt innhold.</p>
-                    <a href="https://www.youtube.com/channel/${CHANNEL_ID}" target="_blank" class="btn-ultra tap-effect">Besøk YouTube <i class="fas fa-external-link-alt" style="font-size:0.8rem;"></i></a>
-                </div>`;
-            document.getElementById('videoTrack').innerHTML = `
-                <div style="width:100%;padding:60px 20px;text-align:center;color:var(--text-3);">
-                    <i class="fas fa-wifi" style="font-size:2rem;margin-bottom:15px;display:block;opacity:0.3;"></i>
-                    <p style="margin-bottom:8px;font-weight:600;color:var(--text-2);">Kunne ikke koble til YouTube</p>
-                    <p style="font-size:0.85rem;margin-bottom:20px;">Videoer laster automatisk når API-et er tilgjengelig.</p>
-                    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-                        <button onclick="retryLoad()" class="btn-ultra tap-effect" style="cursor:pointer;background:rgba(0,194,255,0.1);border-color:rgba(0,194,255,0.3);"><i class="fas fa-redo"></i> Prøv igjen</button>
-                        <a href="https://www.youtube.com/channel/${CHANNEL_ID}/videos" target="_blank" class="btn-ultra tap-effect">YouTube <i class="fas fa-arrow-right"></i></a>
+                    <div class="news-badge"><span></span> Offline</div>
+                    <h3 class="news-title">Klarer ikke nå YouTube</h3>
+                    <p class="news-excerpt">Det kan være et midlertidig problem med YouTube sitt API. Prøv igjen om litt — eller gå direkte til kanalen.</p>
+                    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                        <button onclick="retryLoad()" class="btn-ultra tap-effect" style="cursor:pointer;"><i class="fas fa-redo-alt"></i> Prøv igjen</button>
+                        <a href="https://www.youtube.com/channel/${CHANNEL_ID}" target="_blank" class="btn-ultra tap-effect" style="background:rgba(255,0,0,0.1);border-color:rgba(255,0,0,0.25);"><i class="fab fa-youtube" style="color:#ff0000;"></i> YouTube</a>
                     </div>
                 </div>`;
-            document.getElementById('shortsTrack').innerHTML = `
-                <div style="width:100%;padding:40px 20px;text-align:center;color:var(--text-3);">
-                    <p style="font-size:0.9rem;">Shorts laster når API-et er tilgjengelig.</p>
-                    <a href="https://www.youtube.com/channel/${CHANNEL_ID}/shorts" target="_blank" class="btn-ultra tap-effect" style="margin-top:15px;display:inline-flex;">Se shorts på YouTube <i class="fas fa-arrow-right"></i></a>
-                </div>`;
-            showToast('Offline modus — API ikke tilgjengelig', 'fa-wifi', 'toast-error');
+            document.getElementById('videoTrack').innerHTML = renderErrorState('videos');
+            document.getElementById('shortsTrack').innerHTML = renderErrorState('shorts');
+            showToast('Klarer ikke koble til YouTube', 'fa-wifi', 'toast-error');
         }
+
+        function renderErrorState(kind) {
+            const text = kind === 'videos' ? 'videoer' : 'shorts';
+            const link = kind === 'videos'
+                ? `https://www.youtube.com/channel/${CHANNEL_ID}/videos`
+                : `https://www.youtube.com/channel/${CHANNEL_ID}/shorts`;
+            return `
+                <div class="api-error-state">
+                    <div class="api-error-icon"><i class="fas fa-cloud-slash"></i></div>
+                    <h4 class="api-error-title">Klarer ikke laste ${text}</h4>
+                    <p class="api-error-msg">YouTube sitt API svarer ikke akkurat nå. Det kan være midlertidig.</p>
+                    <div class="api-error-actions">
+                        <button onclick="retryLoad()" class="btn-ultra tap-effect"><i class="fas fa-redo-alt"></i> Prøv igjen</button>
+                        <a href="${link}" target="_blank" rel="noopener" class="btn-ultra tap-effect" style="background:rgba(255,0,0,0.08);border-color:rgba(255,0,0,0.2);"><i class="fab fa-youtube" style="color:#ff0000;"></i> Se på YouTube</a>
+                    </div>
+                </div>`;
+        }
+
         function retryLoad() {
-            triggerHaptic();
-            showToast('Laster på nytt...', 'fa-spinner');
+            triggerHaptic('light');
+            showToast('Prøver på nytt...', 'fa-spinner');
             globalLongVideos = []; globalShortVideos = [];
-            document.getElementById('videoTrack').innerHTML = `
-                <div class="skeleton-card"><div class="skeleton skeleton-thumb"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text-short"></div></div>
-                <div class="skeleton-card"><div class="skeleton skeleton-thumb"></div><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text-short"></div></div>`;
-            document.getElementById('shortsTrack').innerHTML = `<div class="skeleton skeleton-short"></div><div class="skeleton skeleton-short"></div><div class="skeleton skeleton-short"></div>`;
+            // Show skeleton cards while retrying
+            const skVid = Array.from({length:3}, () => `
+                <div class="skeleton-card">
+                    <div class="sk-thumb"></div>
+                    <div class="sk-body">
+                        <div class="sk-line medium"></div>
+                        <div class="sk-line short"></div>
+                        <div class="sk-line tiny"></div>
+                    </div>
+                </div>`).join('');
+            const skShorts = Array.from({length:5}, () => `<div class="skeleton-shorts"></div>`).join('');
+            document.getElementById('videoTrack').innerHTML = skVid;
+            document.getElementById('shortsTrack').innerHTML = skShorts;
             loadData();
         }
 
@@ -4145,20 +3288,24 @@ function applyFilters() {
                 if (indicator) indicator.style.opacity = window.scrollY > 100 ? '0' : '';
             }, { passive: true });
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-            }, { threshold: 0.1 });
+                entries.forEach((entry, i) => {
+                    if (entry.isIntersecting) {
+                        // Slight stagger for groups of siblings
+                        const siblings = entry.target.parentElement
+                            ? Array.from(entry.target.parentElement.querySelectorAll(':scope > .reveal:not(.active)'))
+                            : [];
+                        const idx = siblings.indexOf(entry.target);
+                        const delay = idx >= 0 ? Math.min(idx * 70, 350) : 0;
+                        setTimeout(() => entry.target.classList.add('active'), delay);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
             setupScrollSpy();
             setupCustomDropdowns();
             setupCardMouseTracking();
             setupSectionIndicator();
-            renderIdeasWall();
-            updateIdeasStats();
-            const _tabs = document.querySelector('.ideas-tabs');
-            if (_tabs) _tabs.dataset.active = 'idea';
-            // Initialize captchas
-            newCaptcha('idea');
-            newCaptcha('fb');
             if (isMobile) {
                 setupMobileBottomNavHide();
                 setupMobileStickyBar();
