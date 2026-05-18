@@ -60,7 +60,7 @@
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; border: 2px solid var(--bg); }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent-1); }
         @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s var(--ease-smooth); }
+        .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .tap-effect { transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
         .tap-effect:active { transform: scale(0.96); }
@@ -144,6 +144,22 @@
         @keyframes header-line {
             from { width: 0; opacity: 0; }
             to { width: 64px; opacity: 1; }
+        }
+        /* Section header shimmer sweep on reveal */
+        .section-header.reveal {
+            position: relative;
+            background: linear-gradient(95deg, #fff 0%, #fff 30%, var(--accent-1) 50%, #fff 70%, #fff 100%);
+            background-size: 220% 100%;
+            background-position: 100% 0;
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        .section-header.reveal.active {
+            animation: header-shimmer 1.8s ease-out 0.2s both;
+        }
+        @keyframes header-shimmer {
+            0% { background-position: 100% 0; }
+            70%, 100% { background-position: 0% 0; }
         }
 
         /* === Premium section divider — glow strip + accent === */
@@ -1020,7 +1036,14 @@
             .gear-card:hover h4 { background: linear-gradient(135deg, #fff, var(--accent-1)); -webkit-background-clip: text; background-clip: text; color: transparent; }
         }
         .gear-card h4 { transition: 0.4s; }
-        .gear-icon { position: absolute; top: 30px; right: 30px; font-size: 1.5rem; color: #444; transition: 0.4s; }
+        .gear-icon { position: absolute; top: 30px; right: 30px; font-size: 1.5rem; color: #444; transition: 0.4s; animation: gear-icon-float 4s ease-in-out infinite; }
+        .gear-card:nth-child(2n) .gear-icon { animation-delay: 0.5s; }
+        .gear-card:nth-child(3n) .gear-icon { animation-delay: 1s; }
+        .gear-card:nth-child(4n) .gear-icon { animation-delay: 1.5s; }
+        @keyframes gear-icon-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(-2deg); }
+        }
         .gear-tag { font-size: 0.7rem; color: var(--text-3); margin-top: 6px; text-transform: uppercase; letter-spacing: 1px; font-family: 'JetBrains Mono', monospace; }
         .faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; transition: 0.3s; }
         @media (hover: hover) { .faq-item:hover { background: rgba(255,255,255,0.01); padding-left: 10px; } }
@@ -1476,16 +1499,24 @@
             .swipe-hint { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5); font-size: 1.5rem; animation: swipeAnim 2s infinite; pointer-events: none; z-index: 10; display: block !important; }
             @keyframes swipeAnim { 0% { transform: translate(0, -50%); opacity: 0; } 20% { opacity: 1; } 80% { transform: translate(-20px, -50%); opacity: 0; } 100% { opacity: 0; } }
             .container { padding: 0 18px; }
-            .hero { padding-top: calc(var(--safe-top) + 50px); }
-            .hero-title { margin-bottom: 14px; }
-            .hero-title-main { font-size: 15vw; }
-            .hero-title-sub { font-size: 13.5vw; }
+            .hero { padding-top: calc(var(--safe-top) + 60px); min-height: 100dvh; }
+            .hero-title { margin-bottom: 18px; }
+            .hero-title-main { font-size: 19vw; letter-spacing: -0.04em; line-height: 0.9; }
+            .hero-title-sub { font-size: 17vw; letter-spacing: -0.04em; line-height: 0.9; }
             .hero-actions { flex-direction: column; width: 100%; gap: 10px; max-width: 320px; }
-            .btn-hero { width: 100%; justify-content: center; padding: 16px 20px; font-size: 0.95rem; }
+            .btn-hero { width: 100%; justify-content: center; padding: 18px 22px; font-size: 1rem; font-weight: 700; min-height: 56px; }
             .hero-overlay { padding: 50px 18px; }
-            .stats-section, .news-section, .work-section, .shorts-section, .second-channel-section, .about-section, .gear-section, .faq-section, .ideas-section { padding: 60px 0; }
-            .section-header { font-size: clamp(2rem, 8vw, 2.6rem); margin-bottom: 18px; }
-            .subtitle { font-size: 0.65rem; letter-spacing: 2.5px; }
+            /* Quieter marquee on mobile — fewer rows, more blur, much darker */
+            .marquee-container { transform: rotate(-3deg) scale(1.4); filter: blur(2px); }
+            .marquee-item { width: 240px; filter: brightness(0.28) saturate(0.9) contrast(1.02); border-radius: 10px; }
+            .marquee-row { gap: 14px; }
+            /* Stronger hero center darken so title pops */
+            .hero::before { background: radial-gradient(ellipse 90% 70% at center, rgba(3, 3, 5, 0.72), rgba(3, 3, 5, 0.4) 50%, transparent 100%); }
+            .scroll-indicator { display: none; }
+            .stats-section, .news-section, .work-section, .shorts-section, .second-channel-section, .about-section, .gear-section, .faq-section, .ideas-section { padding: 55px 0; }
+            .section-header { font-size: clamp(2rem, 8.5vw, 2.6rem); margin-bottom: 18px; letter-spacing: -0.03em; }
+            .section-header::after { width: 48px; height: 3px; }
+            .subtitle { font-size: 0.62rem; letter-spacing: 2px; margin-bottom: 12px; }
             .bento-grid { grid-template-columns: 1fr; gap: 14px; }
             .flip-card-wrapper { grid-column: span 1; grid-row: span 1; min-height: 340px; }
             .flip-card-back { padding: 24px 18px !important; }
@@ -1554,39 +1585,337 @@
             .faq-question { font-size: 1rem; }
             .faq-question span { width: 30px; height: 30px; font-size: 1.05rem; }
             /* Ideas section mobile */
-            .ideas-grid { grid-template-columns: 1fr; gap: 30px; }
+            .ideas-grid { grid-template-columns: 1fr; gap: 28px; }
             .ideas-info { padding-top: 0; }
             .ideas-desc { font-size: 0.95rem; margin-bottom: 22px; }
+            .ideas-features { margin-top: 24px; gap: 12px; }
+            .ideas-feature-icon { width: 38px; height: 38px; font-size: 0.95rem; }
+            .ideas-feature-item h4 { font-size: 0.92rem; }
+            .ideas-feature-item p { font-size: 0.8rem; }
             .ideas-form { padding: 24px 20px; }
+            .ideas-tabs { margin-bottom: 16px; padding: 3px; }
+            .ideas-tab { padding: 12px 10px; font-size: 0.82rem; gap: 6px; min-height: 48px; }
+            .ideas-tab i { font-size: 0.9rem; }
             .ideas-cat-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
-            .ideas-cat-chip span { padding: 10px 4px; font-size: 0.62rem; }
+            .ideas-cat-chip span { padding: 11px 4px; font-size: 0.62rem; min-height: 56px; }
+            .feedback-cat-grid { grid-template-columns: repeat(3, 1fr); }
             .ideas-stats { gap: 10px; }
-            .ideas-stat-pill { padding: 12px 14px; gap: 12px; }
+            .ideas-stat-pill { padding: 12px 14px; gap: 12px; flex: 1; }
             .ideas-stat-pill > i { width: 36px; height: 36px; font-size: 0.95rem; }
             .ideas-stat-num { font-size: 1.25rem; }
             .ideas-wall-grid { grid-template-columns: 1fr; gap: 10px; }
             .ideas-orb-1, .ideas-orb-2 { width: 220px; height: 220px; filter: blur(80px); }
+            .rating-star { font-size: 1.8rem; padding: 8px; }
+            .rating-label { font-size: 0.72rem; margin-left: 8px; display: block; flex-basis: 100%; margin-top: 6px; margin-left: 0; }
+            .rating-row { flex-wrap: wrap; gap: 2px; }
+            .ideas-wall-header { flex-direction: column; align-items: flex-start; }
+            .ideas-wall-filter { width: 100%; justify-content: space-between; }
+            .wall-filter-btn { flex: 1; padding: 9px 12px; font-size: 0.66rem; min-height: 40px; }
             .toast { font-size: 0.85rem; padding: 12px 18px; max-width: calc(100vw - 24px); }
-            .marquee-container { transform: rotate(-5deg) scale(1.4); gap: 14px; }
-            .marquee-item { width: 220px; border-radius: 12px; }
-            .marquee-row { gap: 14px; }
-            .scroll-indicator { font-size: 0.7rem; bottom: 22px; }
 
+            /* === Performance: disable heavy effects on mobile === */
+            .parallax-img { transform: none !important; }
+            .reveal { transition-duration: 0.4s !important; }
+            * { will-change: auto !important; }
+
+            /* === Larger, easier-to-tap interactive elements === */
+            .nav-item, .header-icon-btn, .mobile-fab, .back-to-top, .close-btn {
+                -webkit-tap-highlight-color: transparent;
+            }
+            .nav-item { padding: 6px 4px; min-width: 56px; }
+            .nav-item i { font-size: 1.25rem !important; }
+            .nav-item span { font-size: 0.62rem; letter-spacing: 0.3px; margin-top: 2px; }
+
+            /* === Better typography on mobile === */
+            body { font-size: 15px; line-height: 1.55; }
+            p { font-size: 0.95rem; }
+
+            /* === Section headers more compact === */
+            .section-num-badge { font-size: 0.66rem; }
+
+            /* === Tighter card design === */
+            .card { border-radius: 18px !important; }
+            .card-large { background: linear-gradient(160deg, var(--surface-2), var(--bg)); }
+            .stat-trend { font-size: 0.68rem; padding: 4px 9px; }
+
+            /* === Buttons feel chunkier on touch === */
+            .btn-ultra { min-height: 48px; font-size: 0.9rem; }
+            .card-action-btn { width: 40px !important; height: 40px !important; font-size: 1rem !important; }
+            .lightbox-close { width: 44px; height: 44px; }
+
+            /* === Faster scroll-snap on horizontal tracks === */
+            .work-track, .shorts-container, .shorts-track {
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                overscroll-behavior-x: contain;
+            }
+            .video-card-premium, .shorts-card {
+                scroll-snap-align: center;
+            }
+
+            /* === Better scroll experience: native overflow with mobile padding === */
+            section { scroll-margin-top: 70px; }
+
+            /* === Hide section-rail decorations to reduce clutter === */
+            .section-rail { display: none !important; }
+
+            /* === Reduce decorative orbs on mobile (performance) === */
+            .deco-orb { opacity: 0.12 !important; filter: blur(60px) !important; }
+
+            /* === Larger touch areas for FAQ === */
+            .faq-question { padding: 18px 6px !important; min-height: 56px; }
+            .faq-item { padding: 4px 0; }
+
+            /* === Mobile-only smooth fade on cards entering viewport === */
+            .reveal { transform: translateY(20px); }
+
+            /* === Fix horizontal overflow === */
+            html, body { overflow-x: hidden; max-width: 100vw; }
+
+            /* === Better tap feedback on all interactive cards === */
+            .video-card-premium:active, .shorts-card:active, .news-card:active, .gear-card:active, .channel-card-compact:active, .flip-card-front:active {
+                transform: scale(0.985) !important;
+                transition: transform 0.1s ease !important;
+            }
+
+            /* === Bigger close buttons === */
+            .lightbox-close { background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.15); }
+
+            /* === Quality of life: pull-to-refresh visual === */
+            .ptr-indicator { font-weight: 700; }
+
+            /* === Stats cards have bigger numbers on mobile === */
+            .stat-num { font-size: 3rem !important; }
+
+            /* === Cleaner videos sort dropdown === */
+            .custom-select { font-size: 0.85rem; }
+            .custom-option { padding: 14px 18px; min-height: 48px; display: flex; align-items: center; }
         }
         @media(min-width: 1025px) { .swipe-hint { display: none; } .mobile-fab { display: none !important; } }
         .mobile-fab { display: none; }
         @media (max-width: 380px) {
-            .hero-title-main { font-size: 16vw; }
-            .hero-title-sub { font-size: 14.5vw; }
+            .hero-title-main { font-size: 18vw; }
+            .hero-title-sub { font-size: 16vw; }
             .container { padding: 0 14px; }
             .ch-stats { flex-direction: column; gap: 4px; align-items: center; }
             .ch-stats span[style*="margin"] { display: none; }
             .ch-meta { gap: 8px; }
             .gear-grid { grid-template-columns: 1fr; }
+            .ideas-cat-grid { grid-template-columns: repeat(2, 1fr); }
+            .stat-num { font-size: 2.6rem !important; }
         }
 
         /* === IDEAS SECTION === */
         .ideas-section { overflow: hidden; }
+
+        /* Tab switcher */
+        .ideas-form-wrapper {
+            position: relative;
+        }
+        .ideas-tabs {
+            position: relative;
+            display: flex;
+            gap: 4px;
+            padding: 4px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .ideas-tab-glider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            border-radius: 12px;
+            transition: transform 0.5s cubic-bezier(0.34, 1.5, 0.64, 1);
+            box-shadow: 0 6px 20px -4px rgba(0, 194, 255, 0.45);
+            z-index: 0;
+        }
+        .ideas-tabs[data-active="feedback"] .ideas-tab-glider {
+            transform: translateX(100%);
+            background: linear-gradient(135deg, var(--accent-2), #a855f7);
+            box-shadow: 0 6px 20px -4px rgba(255, 46, 147, 0.45);
+        }
+        .ideas-tab {
+            position: relative;
+            flex: 1;
+            padding: 14px 18px;
+            background: transparent;
+            border: none;
+            color: var(--text-3);
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: color 0.4s ease;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+        }
+        .ideas-tab i { font-size: 0.95rem; }
+        .ideas-tab.active { color: #fff; }
+        .ideas-tab:active { transform: scale(0.96); }
+        .ideas-tab-panel { display: none; animation: tab-panel-in 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
+        .ideas-tab-panel.active { display: block; }
+        @keyframes tab-panel-in {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Rating stars */
+        .rating-row {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            padding: 6px 0;
+        }
+        .rating-star {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.15);
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: transform 0.25s var(--ease-bounce), color 0.25s ease;
+            padding: 4px;
+            line-height: 1;
+        }
+        .rating-star:hover { transform: scale(1.2) rotate(5deg); }
+        .rating-star.active {
+            color: #f59e0b;
+            text-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+            animation: rating-star-pop 0.4s var(--ease-bounce);
+        }
+        @keyframes rating-star-pop {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        .rating-label {
+            margin-left: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-3);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .rating-label.has-rating { color: #f59e0b; }
+
+        /* Features list */
+        .ideas-features {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .ideas-feature-item {
+            display: flex;
+            align-items: start;
+            gap: 16px;
+        }
+        .ideas-feature-icon {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            background: rgba(0, 194, 255, 0.1);
+            border: 1px solid rgba(0, 194, 255, 0.2);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--accent-1);
+            font-size: 1.05rem;
+            flex-shrink: 0;
+        }
+        .ideas-feature-item h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            color: #fff;
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+        .ideas-feature-item p {
+            font-size: 0.85rem;
+            color: var(--text-3);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Wall filter */
+        .ideas-wall-filter {
+            display: inline-flex;
+            gap: 4px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 50px;
+            padding: 3px;
+        }
+        .wall-filter-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-3);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s var(--ease-smooth);
+            letter-spacing: 0.5px;
+        }
+        .wall-filter-btn:hover { color: #fff; }
+        .wall-filter-btn.active {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            color: #fff;
+            box-shadow: 0 4px 12px -2px rgba(0, 194, 255, 0.35);
+        }
+
+        .ideas-clear-btn-bottom {
+            display: block;
+            margin: 28px auto 0;
+            background: transparent;
+            border: 1px dashed rgba(255,46,147,0.25);
+            color: rgba(255,46,147,0.7);
+            padding: 9px 18px;
+            border-radius: 50px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s var(--ease-smooth);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .ideas-clear-btn-bottom:hover {
+            background: rgba(255,46,147,0.08);
+            border-color: rgba(255,46,147,0.4);
+            color: var(--accent-2);
+            border-style: solid;
+        }
+
+        /* Idea card variants for feedback */
+        .idea-card.fb-card { border-color: rgba(255, 46, 147, 0.08); }
+        .idea-card.fb-card .idea-cat-badge {
+            color: var(--accent-2);
+            background: rgba(255, 46, 147, 0.1);
+            border-color: rgba(255, 46, 147, 0.25);
+        }
+        .idea-card .rating-display {
+            display: inline-flex;
+            gap: 2px;
+            margin-bottom: 8px;
+        }
+        .idea-card .rating-display i {
+            color: #f59e0b;
+            font-size: 0.78rem;
+        }
+        .idea-card .rating-display i.empty { color: rgba(255,255,255,0.08); }
+
         .ideas-bg-orb {
             position: absolute;
             border-radius: 50%;
@@ -2071,6 +2400,7 @@
                 <li><a href="#videos" class="text-link" data-section="videos"><i class="fas fa-video"></i> Videoer</a></li>
                 <li><a href="#shorts" class="text-link" data-section="shorts"><i class="fas fa-bolt"></i> Shorts</a></li>
                 <li><a href="#gear" class="text-link" data-section="gear"><i class="fas fa-keyboard"></i> Setup</a></li>
+                <li><a href="#ideas" class="text-link" data-section="ideas"><i class="fas fa-lightbulb"></i> Idé</a></li>
                 <li><a href="https://www.youtube.com/channel/UCvRVrLgB-Tk9R6dIzH2gE6w?sub_confirmation=1" target="_blank" class="nav-sub-btn"><i class="fab fa-youtube"></i> Abonner</a></li>
             </ul>
         </div>
@@ -2429,60 +2759,130 @@
             <div class="ideas-grid reveal">
                 <div class="ideas-info">
                     <span class="subtitle">Community</span>
-                    <h2 class="section-header">Send Inn Idéer</h2>
-                    <p class="ideas-desc">Har du en sykt god videoidé? Et spill du vil se mer av? Et utfordring? Send det inn og kanskje blir det neste video!</p>
+                    <h2 class="section-header" id="ideasMainHeader">Send Inn Idéer</h2>
+                    <p class="ideas-desc" id="ideasDesc">Har du en sykt god videoidé? Et spill du vil se mer av? En utfordring? Send det inn og kanskje blir det neste video!</p>
                     <div class="ideas-stats">
                         <div class="ideas-stat-pill">
                             <i class="fas fa-lightbulb"></i>
                             <div>
                                 <div class="ideas-stat-num" id="ideasCount">0</div>
-                                <div class="ideas-stat-label">Idéer sendt inn</div>
+                                <div class="ideas-stat-label">Idéer sendt</div>
                             </div>
                         </div>
                         <div class="ideas-stat-pill">
-                            <i class="fas fa-fire"></i>
+                            <i class="fas fa-comment-dots"></i>
                             <div>
-                                <div class="ideas-stat-num" id="ideasPopular">0</div>
-                                <div class="ideas-stat-label">Populære</div>
+                                <div class="ideas-stat-num" id="feedbackCount">0</div>
+                                <div class="ideas-stat-label">Tilbakemelding</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ideas-features">
+                        <div class="ideas-feature-item">
+                            <div class="ideas-feature-icon"><i class="fas fa-shield-alt"></i></div>
+                            <div>
+                                <h4>100% Privat</h4>
+                                <p>Alt lagres lokalt — ingen data forlater enheten din</p>
+                            </div>
+                        </div>
+                        <div class="ideas-feature-item">
+                            <div class="ideas-feature-icon"><i class="fas fa-bolt"></i></div>
+                            <div>
+                                <h4>Lynraskt</h4>
+                                <p>Ingen registrering. Skriv. Send. Ferdig.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <form class="ideas-form" id="ideasForm" onsubmit="submitIdea(event)">
-                    <div class="form-row">
-                        <label for="ideaName">Navn (valgfritt)</label>
-                        <input type="text" id="ideaName" placeholder="Hvem skal vi takke?" maxlength="50" autocomplete="name">
+                <div class="ideas-form-wrapper">
+                    <!-- Tab switcher -->
+                    <div class="ideas-tabs">
+                        <div class="ideas-tab-glider"></div>
+                        <button class="ideas-tab active" data-tab="idea" onclick="switchIdeasTab('idea')">
+                            <i class="fas fa-lightbulb"></i> <span>Idé</span>
+                        </button>
+                        <button class="ideas-tab" data-tab="feedback" onclick="switchIdeasTab('feedback')">
+                            <i class="fas fa-comment-dots"></i> <span>Tilbakemelding</span>
+                        </button>
                     </div>
-                    <div class="form-row">
-                        <label for="ideaCategory">Kategori</label>
-                        <div class="ideas-cat-grid">
-                            <label class="ideas-cat-chip"><input type="radio" name="ideaCategory" value="Spill" checked><span><i class="fas fa-gamepad"></i> Spill</span></label>
-                            <label class="ideas-cat-chip"><input type="radio" name="ideaCategory" value="Challenge"><span><i class="fas fa-trophy"></i> Challenge</span></label>
-                            <label class="ideas-cat-chip"><input type="radio" name="ideaCategory" value="Vlog"><span><i class="fas fa-video"></i> Vlog</span></label>
-                            <label class="ideas-cat-chip"><input type="radio" name="ideaCategory" value="Reaction"><span><i class="fas fa-bolt"></i> Reaction</span></label>
-                            <label class="ideas-cat-chip"><input type="radio" name="ideaCategory" value="Annet"><span><i class="fas fa-ellipsis-h"></i> Annet</span></label>
+
+                    <!-- Idea form -->
+                    <form class="ideas-form ideas-tab-panel active" id="ideasForm" data-panel="idea" onsubmit="submitIdea(event)">
+                        <div class="form-row">
+                            <label for="ideaName">Navn <span class="form-counter">Valgfritt</span></label>
+                            <input type="text" id="ideaName" placeholder="Hvem skal vi takke?" maxlength="50" autocomplete="name">
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <label for="ideaText">Din idé <span class="form-counter"><span id="ideaCharCount">0</span> / 300</span></label>
-                        <textarea id="ideaText" placeholder="Beskriv ideen din kort..." maxlength="300" required rows="4" oninput="document.getElementById('ideaCharCount').innerText = this.value.length;"></textarea>
-                    </div>
-                    <button type="submit" class="btn-ultra ideas-submit-btn">
-                        <span class="btn-text"><i class="fas fa-paper-plane"></i> Send Inn Idé</span>
-                        <span class="btn-loader" style="display:none;"><i class="fas fa-spinner fa-spin"></i> Sender...</span>
-                    </button>
+                        <div class="form-row">
+                            <label>Kategori</label>
+                            <div class="ideas-cat-grid">
+                                <label class="ideas-cat-chip"><input type="radio" name="ideaCategory" value="Spill" checked><span><i class="fas fa-gamepad"></i> Spill</span></label>
+                                <label class="ideas-cat-chip"><input type="radio" name="ideaCategory" value="Challenge"><span><i class="fas fa-trophy"></i> Challenge</span></label>
+                                <label class="ideas-cat-chip"><input type="radio" name="ideaCategory" value="Vlog"><span><i class="fas fa-video"></i> Vlog</span></label>
+                                <label class="ideas-cat-chip"><input type="radio" name="ideaCategory" value="Reaction"><span><i class="fas fa-bolt"></i> Reaction</span></label>
+                                <label class="ideas-cat-chip"><input type="radio" name="ideaCategory" value="Annet"><span><i class="fas fa-ellipsis-h"></i> Annet</span></label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="ideaText">Din idé <span class="form-counter"><span id="ideaCharCount">0</span> / 300</span></label>
+                            <textarea id="ideaText" placeholder="Beskriv ideen din kort..." maxlength="300" required rows="4" oninput="document.getElementById('ideaCharCount').innerText = this.value.length;"></textarea>
+                        </div>
+                        <button type="submit" class="btn-ultra ideas-submit-btn">
+                            <span class="btn-text"><i class="fas fa-paper-plane"></i> Send Inn Idé</span>
+                            <span class="btn-loader" style="display:none;"><i class="fas fa-spinner fa-spin"></i> Sender...</span>
+                        </button>
+                    </form>
+
+                    <!-- Feedback form -->
+                    <form class="ideas-form ideas-tab-panel" id="feedbackForm" data-panel="feedback" onsubmit="submitFeedback(event)">
+                        <div class="form-row">
+                            <label>Hvordan er opplevelsen?</label>
+                            <div class="rating-row">
+                                <button type="button" class="rating-star" data-rating="1" onclick="setRating(1)"><i class="fas fa-star"></i></button>
+                                <button type="button" class="rating-star" data-rating="2" onclick="setRating(2)"><i class="fas fa-star"></i></button>
+                                <button type="button" class="rating-star" data-rating="3" onclick="setRating(3)"><i class="fas fa-star"></i></button>
+                                <button type="button" class="rating-star" data-rating="4" onclick="setRating(4)"><i class="fas fa-star"></i></button>
+                                <button type="button" class="rating-star" data-rating="5" onclick="setRating(5)"><i class="fas fa-star"></i></button>
+                                <span class="rating-label" id="ratingLabel">Ikke valgt</span>
+                            </div>
+                            <input type="hidden" id="feedbackRating" value="">
+                        </div>
+                        <div class="form-row">
+                            <label>Hva gjelder det?</label>
+                            <div class="ideas-cat-grid feedback-cat-grid">
+                                <label class="ideas-cat-chip"><input type="radio" name="fbType" value="Generelt" checked><span><i class="fas fa-comment"></i> Generelt</span></label>
+                                <label class="ideas-cat-chip"><input type="radio" name="fbType" value="Bug"><span><i class="fas fa-bug"></i> Bug</span></label>
+                                <label class="ideas-cat-chip"><input type="radio" name="fbType" value="Design"><span><i class="fas fa-paint-brush"></i> Design</span></label>
+                                <label class="ideas-cat-chip"><input type="radio" name="fbType" value="Funksjon"><span><i class="fas fa-cog"></i> Funksjon</span></label>
+                                <label class="ideas-cat-chip"><input type="radio" name="fbType" value="Ros"><span><i class="fas fa-heart"></i> Ros</span></label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="feedbackText">Tilbakemelding <span class="form-counter"><span id="feedbackCharCount">0</span> / 500</span></label>
+                            <textarea id="feedbackText" placeholder="Fortell hva du synes om siden..." maxlength="500" required rows="4" oninput="document.getElementById('feedbackCharCount').innerText = this.value.length;"></textarea>
+                        </div>
+                        <button type="submit" class="btn-ultra ideas-submit-btn">
+                            <span class="btn-text"><i class="fas fa-paper-plane"></i> Send Tilbakemelding</span>
+                            <span class="btn-loader" style="display:none;"><i class="fas fa-spinner fa-spin"></i> Sender...</span>
+                        </button>
+                    </form>
+
                     <p class="ideas-disclaimer"><i class="fas fa-shield-alt"></i> Lagres lokalt i nettleseren din. Ingen data forlater enheten.</p>
-                </form>
+                </div>
             </div>
 
-            <!-- Recent ideas wall -->
+            <!-- History wall -->
             <div class="ideas-wall reveal" id="ideasWall" style="display:none;">
                 <div class="ideas-wall-header">
-                    <h3><i class="fas fa-history"></i> Dine siste idéer</h3>
-                    <button class="ideas-clear-btn" onclick="clearMyIdeas()" type="button"><i class="fas fa-trash"></i> Tøm</button>
+                    <h3><i class="fas fa-history"></i> Din historikk</h3>
+                    <div class="ideas-wall-filter">
+                        <button class="wall-filter-btn active" data-filter="all" onclick="filterWall('all', this)">Alle</button>
+                        <button class="wall-filter-btn" data-filter="idea" onclick="filterWall('idea', this)">Idéer</button>
+                        <button class="wall-filter-btn" data-filter="feedback" onclick="filterWall('feedback', this)">Tilbakemelding</button>
+                    </div>
                 </div>
                 <div class="ideas-wall-grid" id="ideasWallGrid"></div>
+                <button class="ideas-clear-btn-bottom" onclick="clearMyIdeas()" type="button"><i class="fas fa-trash"></i> Tøm alt</button>
             </div>
         </div>
     </section>
@@ -2653,6 +3053,10 @@
 
         // === VIDEO IDEAS (localStorage) ===
         const IDEAS_KEY = 'snorky-ideas';
+        const FEEDBACK_KEY = 'snorky-feedback';
+        let _wallFilter = 'all';
+        let _currentRating = 0;
+
         function getIdeas() {
             try { return JSON.parse(localStorage.getItem(IDEAS_KEY) || '[]'); }
             catch(e) { return []; }
@@ -2660,6 +3064,45 @@
         function saveIdeas(arr) {
             try { localStorage.setItem(IDEAS_KEY, JSON.stringify(arr)); } catch(e) {}
         }
+        function getFeedback() {
+            try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '[]'); }
+            catch(e) { return []; }
+        }
+        function saveFeedback(arr) {
+            try { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(arr)); } catch(e) {}
+        }
+
+        function switchIdeasTab(tab) {
+            triggerHaptic('light');
+            const tabs = document.querySelector('.ideas-tabs');
+            tabs.dataset.active = tab;
+            document.querySelectorAll('.ideas-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+            document.querySelectorAll('.ideas-tab-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === tab));
+            // Update header/desc to match
+            const header = document.getElementById('ideasMainHeader');
+            const desc = document.getElementById('ideasDesc');
+            if (tab === 'feedback') {
+                header.innerText = 'Send Tilbakemelding';
+                desc.innerText = 'Funnet en bug? Har et forslag? La meg høre hva du synes om siden!';
+            } else {
+                header.innerText = 'Send Inn Idéer';
+                desc.innerText = 'Har du en sykt god videoidé? Et spill du vil se mer av? En utfordring? Send det inn og kanskje blir det neste video!';
+            }
+        }
+
+        function setRating(n) {
+            _currentRating = n;
+            triggerHaptic('light');
+            document.getElementById('feedbackRating').value = n;
+            document.querySelectorAll('.rating-star').forEach((s, i) => {
+                s.classList.toggle('active', i < n);
+            });
+            const label = document.getElementById('ratingLabel');
+            const labels = ['', 'Veldig dårlig 😞', 'Dårlig 😕', 'OK 😐', 'Bra 😊', 'Fantastisk! 🤩'];
+            label.innerText = labels[n] || 'Ikke valgt';
+            label.classList.toggle('has-rating', n > 0);
+        }
+
         function submitIdea(e) {
             e.preventDefault();
             const form = e.target;
@@ -2675,7 +3118,6 @@
                 triggerHaptic('error');
                 return;
             }
-            // simple anti-spam: prevent identical text within last hour
             const ideas = getIdeas();
             const hourAgo = Date.now() - 3600000;
             if (ideas.some(i => i.text.toLowerCase() === text.toLowerCase() && i.timestamp > hourAgo)) {
@@ -2686,86 +3128,161 @@
 
             const btn = form.querySelector('.ideas-submit-btn');
             btn.classList.add('loading');
-            // Simulate small delay for UX feedback
             setTimeout(() => {
                 const newIdea = {
                     id: 'idea-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
+                    type: 'idea',
                     text, name, category,
                     timestamp: Date.now()
                 };
                 ideas.unshift(newIdea);
-                // Keep max 50
                 if (ideas.length > 50) ideas.length = 50;
                 saveIdeas(ideas);
                 renderIdeasWall();
                 updateIdeasStats();
                 form.reset();
                 document.getElementById('ideaCharCount').innerText = '0';
-                // Reset default category
                 form.querySelector('input[name="ideaCategory"][value="Spill"]').checked = true;
                 btn.classList.remove('loading');
                 triggerHaptic('success');
                 showToast('Idé sendt! Takk for bidraget 🎉', 'fa-check-circle', 'toast-success');
-                // Confetti-ish — just shake the form once
                 form.animate(
                     [{ transform: 'translateY(0)' }, { transform: 'translateY(-6px)' }, { transform: 'translateY(0)' }],
                     { duration: 400, easing: 'cubic-bezier(.34,1.56,.64,1)' }
                 );
             }, 480);
         }
+
+        function submitFeedback(e) {
+            e.preventDefault();
+            const form = e.target;
+            const textEl = document.getElementById('feedbackText');
+            const text = textEl.value.trim();
+            const fbType = form.querySelector('input[name="fbType"]:checked').value;
+            const rating = parseInt(document.getElementById('feedbackRating').value) || 0;
+
+            if (text.length < 5) {
+                showToast('Skriv litt mer (minst 5 tegn)', 'fa-exclamation-circle', 'toast-error');
+                triggerHaptic('error');
+                return;
+            }
+            if (rating === 0) {
+                showToast('Velg en stjernevurdering først', 'fa-star', 'toast-error');
+                triggerHaptic('error');
+                return;
+            }
+
+            const all = getFeedback();
+            const btn = form.querySelector('.ideas-submit-btn');
+            btn.classList.add('loading');
+            setTimeout(() => {
+                const newFb = {
+                    id: 'fb-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
+                    type: 'feedback',
+                    text, category: fbType, rating,
+                    timestamp: Date.now()
+                };
+                all.unshift(newFb);
+                if (all.length > 50) all.length = 50;
+                saveFeedback(all);
+                renderIdeasWall();
+                updateIdeasStats();
+                form.reset();
+                document.getElementById('feedbackCharCount').innerText = '0';
+                document.getElementById('feedbackRating').value = '';
+                _currentRating = 0;
+                document.querySelectorAll('.rating-star').forEach(s => s.classList.remove('active'));
+                document.getElementById('ratingLabel').innerText = 'Ikke valgt';
+                document.getElementById('ratingLabel').classList.remove('has-rating');
+                form.querySelector('input[name="fbType"][value="Generelt"]').checked = true;
+                btn.classList.remove('loading');
+                triggerHaptic('success');
+                showToast('Takk for tilbakemeldingen! 💜', 'fa-heart', 'toast-success');
+                form.animate(
+                    [{ transform: 'translateY(0)' }, { transform: 'translateY(-6px)' }, { transform: 'translateY(0)' }],
+                    { duration: 400, easing: 'cubic-bezier(.34,1.56,.64,1)' }
+                );
+            }, 480);
+        }
+
+        function filterWall(filter, el) {
+            _wallFilter = filter;
+            triggerHaptic('light');
+            document.querySelectorAll('.wall-filter-btn').forEach(b => b.classList.remove('active'));
+            if (el) el.classList.add('active');
+            renderIdeasWall();
+        }
+
         function renderIdeasWall() {
             const wall = document.getElementById('ideasWall');
             const grid = document.getElementById('ideasWallGrid');
-            const ideas = getIdeas();
-            if (!ideas.length) {
+            const ideas = getIdeas().map(x => ({ ...x, type: 'idea' }));
+            const feedback = getFeedback().map(x => ({ ...x, type: 'feedback' }));
+            let combined = [...ideas, ...feedback].sort((a, b) => b.timestamp - a.timestamp);
+            if (_wallFilter !== 'all') {
+                combined = combined.filter(x => x.type === _wallFilter);
+            }
+            if (!combined.length && _wallFilter === 'all') {
                 wall.style.display = 'none';
                 return;
             }
             wall.style.display = 'block';
             const catIcons = {
                 'Spill': 'gamepad', 'Challenge': 'trophy', 'Vlog': 'video',
-                'Reaction': 'bolt', 'Annet': 'ellipsis-h'
+                'Reaction': 'bolt', 'Annet': 'ellipsis-h',
+                'Generelt': 'comment', 'Bug': 'bug', 'Design': 'paint-brush',
+                'Funksjon': 'cog', 'Ros': 'heart'
             };
-            grid.innerHTML = ideas.slice(0, 9).map((idea, i) => `
-                <div class="idea-card" style="animation-delay:${i * 0.04}s;" data-id="${idea.id}">
+            if (combined.length === 0) {
+                grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding: 40px; color: var(--text-3); font-size: 0.9rem;">Ingen ${_wallFilter === 'idea' ? 'idéer' : 'tilbakemeldinger'} enda</div>`;
+                return;
+            }
+            grid.innerHTML = combined.slice(0, 12).map((item, i) => {
+                const isFb = item.type === 'feedback';
+                const stars = isFb ? `<div class="rating-display">${Array.from({length: 5}, (_, j) => `<i class="fas fa-star${j >= item.rating ? ' empty' : ''}"></i>`).join('')}</div>` : '';
+                const typeBadge = isFb ? `<i class="fas fa-comment-dots"></i>` : `<i class="fas fa-${catIcons[item.category] || 'tag'}"></i>`;
+                return `
+                <div class="idea-card ${isFb ? 'fb-card' : ''}" style="animation-delay:${i * 0.04}s;" data-id="${item.id}" data-type="${item.type}">
                     <div class="idea-card-header">
-                        <span class="idea-cat-badge"><i class="fas fa-${catIcons[idea.category] || 'tag'}"></i> ${idea.category}</span>
-                        <span class="idea-time">${timeAgo(new Date(idea.timestamp).toISOString())}</span>
+                        <span class="idea-cat-badge">${typeBadge} ${item.category}</span>
+                        <span class="idea-time">${timeAgo(new Date(item.timestamp).toISOString())}</span>
                     </div>
-                    <div class="idea-text">${escapeHtml(idea.text)}</div>
+                    ${stars}
+                    <div class="idea-text">${escapeHtml(item.text)}</div>
                     <div class="idea-footer">
-                        <span class="idea-name"><i class="fas fa-user"></i> ${idea.name ? escapeHtml(idea.name) : 'Anonym'}</span>
-                        <button class="idea-delete-btn" onclick="deleteIdea('${idea.id}')" title="Slett"><i class="fas fa-times"></i></button>
+                        <span class="idea-name"><i class="fas fa-${isFb ? 'comment-dots' : 'user'}"></i> ${isFb ? 'Tilbakemelding' : (item.name ? escapeHtml(item.name) : 'Anonym')}</span>
+                        <button class="idea-delete-btn" onclick="deleteItem('${item.id}', '${item.type}')" title="Slett"><i class="fas fa-times"></i></button>
                     </div>
-                </div>
-            `).join('');
+                </div>`;
+            }).join('');
         }
-        function deleteIdea(id) {
-            const ideas = getIdeas().filter(i => i.id !== id);
-            saveIdeas(ideas);
+        function deleteItem(id, type) {
+            if (type === 'idea') {
+                saveIdeas(getIdeas().filter(i => i.id !== id));
+            } else {
+                saveFeedback(getFeedback().filter(i => i.id !== id));
+            }
             renderIdeasWall();
             updateIdeasStats();
             triggerHaptic('light');
         }
         function clearMyIdeas() {
-            if (!confirm('Slette alle dine idéer?')) return;
+            if (!confirm('Slette alle dine idéer og tilbakemeldinger?')) return;
             saveIdeas([]);
+            saveFeedback([]);
             renderIdeasWall();
             updateIdeasStats();
             triggerHaptic('heavy');
-            showToast('Alle idéer slettet', 'fa-trash', 'toast-info');
+            showToast('Alt er slettet', 'fa-trash', 'toast-info');
         }
         function updateIdeasStats() {
-            const ideas = getIdeas();
             const cnt = document.getElementById('ideasCount');
-            const pop = document.getElementById('ideasPopular');
-            if (cnt) cnt.innerText = ideas.length;
-            // "Popular" = ideas more than 1 day old (have stood the test of time)
-            if (pop) {
-                const dayAgo = Date.now() - 86400000;
-                pop.innerText = ideas.filter(i => i.timestamp < dayAgo).length;
-            }
+            const fbCnt = document.getElementById('feedbackCount');
+            if (cnt) cnt.innerText = getIdeas().length;
+            if (fbCnt) fbCnt.innerText = getFeedback().length;
         }
+        // backward-compat alias (old function name)
+        function deleteIdea(id) { return deleteItem(id, 'idea'); }
         function formatNumber(num) { return parseInt(num).toLocaleString('no-NO').replace(/,/g, ' '); }
         function parseDuration(duration) {
             const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
@@ -2773,38 +3290,23 @@
         }
 
         // === YouTube Shorts detection ===
-        // A video is a Short only if ALL of:
-        //   1. Duration ≤ 60 seconds (YouTube's hard cap)
-        //   2. At least one short-indicator signal:
-        //      - Title contains #shorts / #short
-        //      - Description contains #shorts / #short
-        //      - Thumbnail is vertical (height > width — shorts are 9:16)
+        // The YouTube Data API doesn't tell us directly if a video is a Short.
+        // The most reliable single-request heuristic is the #shorts hashtag.
+        // A video is classified as a Short ONLY if BOTH:
+        //   1. Duration is ≤ 60 seconds (YouTube's hard cap)
+        //   2. The title OR description contains #shorts / #short
+        //      (this is how YouTube itself signals it's a Short)
+        // This means a short *regular* horizontal video without #shorts tag
+        // correctly stays in the videos section.
         function isYouTubeShort(video) {
             const seconds = video.durationSeconds || 0;
-            if (seconds > 60) return false;
-            if (seconds === 0) return false;
+            if (seconds === 0 || seconds > 60) return false;
 
             const title = (video.snippet.title || '').toLowerCase();
             const desc = (video.snippet.description || '').toLowerCase();
-            if (/#short(s)?\b/.test(title) || /#short(s)?\b/.test(desc)) return true;
-
-            // Check thumbnail dimensions — shorts have vertical thumbs
-            const thumbs = video.snippet.thumbnails || {};
-            // Find the largest available thumbnail with dimensions
-            const tk = ['maxres', 'standard', 'high', 'medium', 'default'];
-            for (const k of tk) {
-                const t = thumbs[k];
-                if (t && t.width && t.height) {
-                    // Shorts thumbnails are vertical (9:16). Regular videos are 16:9.
-                    // Use a generous threshold — anything taller than wide is a short.
-                    if (t.height > t.width) return true;
-                    // First valid thumb gives us the answer; stop here
-                    return false;
-                }
-            }
-            // No thumb dimension info — fall back to duration heuristic
-            // (only classify as short if duration is very short, < 35s)
-            return seconds < 35;
+            const tags = (video.snippet.tags || []).join(' ').toLowerCase();
+            const haystack = title + ' ' + desc + ' ' + tags;
+            return /#short(s)?\b/.test(haystack);
         }
         function formatDurationString(seconds) {
             const h = Math.floor(seconds / 3600);
@@ -3831,7 +4333,9 @@ function applyFilters() {
         window.addEventListener('load', () => {
             gsap.registerPlugin(ScrollTrigger);
             requestAnimationFrame(() => { setTimeout(() => playIntroAnimation(), 50); });
-            gsap.to(".parallax-img", { yPercent: 15, ease: "none", scrollTrigger: { trigger: ".about-section", start: "top bottom", end: "bottom top", scrub: true } });
+            if (!isMobile) {
+                gsap.to(".parallax-img", { yPercent: 15, ease: "none", scrollTrigger: { trigger: ".about-section", start: "top bottom", end: "bottom top", scrub: true } });
+            }
             if(!isMobile) {
                 lenis = new Lenis({ duration: 1.5, smooth: true, mouseMultiplier: 1.2 });
                 function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
@@ -3869,6 +4373,8 @@ function applyFilters() {
             setupSectionIndicator();
             renderIdeasWall();
             updateIdeasStats();
+            const _tabs = document.querySelector('.ideas-tabs');
+            if (_tabs) _tabs.dataset.active = 'idea';
             if (isMobile) {
                 setupMobileBottomNavHide();
                 setupMobileStickyBar();
