@@ -134,6 +134,92 @@
         body.intro-loading .scroll-indicator { opacity: 0; }
         body.intro-loading .hero-title-main, body.intro-loading .hero-title-sub, body.intro-loading .hero-actions { opacity: 0; }
         #particle-canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.5; }
+
+        /* === Aurora Borealis background === */
+        .aurora-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0.55;
+            filter: blur(40px);
+            will-change: filter;
+        }
+        .aurora-layer {
+            position: absolute;
+            width: 140vmax;
+            height: 70vmax;
+            border-radius: 50%;
+            mix-blend-mode: screen;
+            opacity: 0.55;
+        }
+        .aurora-layer-1 {
+            background: radial-gradient(ellipse at center, var(--accent-1) 0%, transparent 60%);
+            top: -20vmax; left: -30vmax;
+            animation: aurora-drift-1 28s ease-in-out infinite;
+        }
+        .aurora-layer-2 {
+            background: radial-gradient(ellipse at center, var(--accent-2) 0%, transparent 60%);
+            top: -10vmax; right: -30vmax;
+            animation: aurora-drift-2 36s ease-in-out infinite;
+            animation-delay: -8s;
+        }
+        .aurora-layer-3 {
+            background: radial-gradient(ellipse at center, #a855f7 0%, transparent 60%);
+            top: 30vmax; left: 10vmax;
+            animation: aurora-drift-3 32s ease-in-out infinite;
+            animation-delay: -16s;
+            opacity: 0.45;
+        }
+        @keyframes aurora-drift-1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            33% { transform: translate(20vmax, 10vmax) rotate(20deg) scale(1.1); }
+            66% { transform: translate(-15vmax, 20vmax) rotate(-15deg) scale(0.95); }
+        }
+        @keyframes aurora-drift-2 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            33% { transform: translate(-25vmax, 15vmax) rotate(-25deg) scale(1.15); }
+            66% { transform: translate(10vmax, 25vmax) rotate(15deg) scale(0.9); }
+        }
+        @keyframes aurora-drift-3 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            50% { transform: translate(15vmax, -10vmax) rotate(20deg) scale(1.05); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .aurora-layer { animation: none; }
+        }
+
+        /* Depth-of-field: aurora + particles blur progressively as you scroll */
+        .aurora-bg, #particle-canvas {
+            transition: filter 0.3s ease-out, opacity 0.3s ease-out;
+        }
+        body.scrolled-deep .aurora-bg { filter: blur(80px); opacity: 0.35; }
+        body.scrolled-deep #particle-canvas { opacity: 0.25; filter: blur(2px); }
+        body.scrolled-deeper .aurora-bg { filter: blur(120px); opacity: 0.2; }
+        body.scrolled-deeper #particle-canvas { opacity: 0.12; filter: blur(4px); }
+
+        /* === Liquid morph section transitions === */
+        .liquid-morph {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 60px;
+            pointer-events: none;
+            z-index: 4;
+            overflow: hidden;
+        }
+        .liquid-morph-top { top: -1px; }
+        .liquid-morph-bottom { bottom: -1px; transform: rotate(180deg); }
+        .liquid-morph svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .liquid-morph svg path {
+            fill: var(--bg);
+            transition: d 0.8s cubic-bezier(0.7, 0, 0.2, 1);
+        }
         .noise { position: fixed; inset: 0; background: url('https://grainy-gradients.vercel.app/noise.svg'); opacity: 0.04; pointer-events: none; z-index: 9990; mix-blend-mode: overlay; }
         .cyber-grid { position: fixed; inset: 0; z-index: -3; background-image: linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(circle at center, black 30%, transparent 80%); -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%); transform: perspective(800px) rotateX(15deg) scale(1.2); opacity: 0.3; pointer-events: none; }
         .ambient-glow { position: fixed; pointer-events: none; z-index: -2; border-radius: 50%; filter: blur(120px); opacity: 0.35; transition: opacity 0.5s ease; }
@@ -761,8 +847,17 @@
         .scroll-controls { display: flex; gap: 12px; }
         .scroll-btn { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--border); background: rgba(255,255,255,0.03); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; z-index: 5; }
         .scroll-btn:hover { background: #fff; color: var(--bg); transform: scale(1.05); }
-        .work-track { display: flex; gap: 25px; overflow-x: auto; scroll-behavior: smooth; padding-bottom: 60px; -ms-overflow-style: none; scrollbar-width: none; position: relative; z-index: 10; }
+        .work-track { display: flex; gap: 25px; overflow-x: auto; scroll-behavior: smooth; padding-bottom: 60px; -ms-overflow-style: none; scrollbar-width: none; position: relative; z-index: 10; perspective: 1400px; perspective-origin: center center; }
         .work-track::-webkit-scrollbar { display: none; }
+        .work-track .video-card-premium {
+            transform-style: preserve-3d;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @media (hover: hover) {
+            .work-track .video-card-premium {
+                will-change: transform;
+            }
+        }
         .video-card-premium { width: 400px; min-width: 400px; background: rgba(18, 18, 22, 0.8); border-radius: 20px; border: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; overflow: hidden; position: relative; transition: all 0.4s var(--ease-smooth); box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5); }
         .video-card-premium::after {
             content: '';
@@ -1167,6 +1262,228 @@
 
             .mobile-fab { transition: transform 0.4s var(--ease-bounce), opacity 0.4s ease, visibility 0.4s; }
 
+            /* === Mobile hamburger menu toggle button === */
+            .mobile-menu-toggle {
+                width: 44px; height: 44px;
+                background: rgba(255,255,255,0.06);
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: 12px;
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                padding: 0;
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                transition: background 0.2s ease, transform 0.2s ease, border-color 0.3s ease;
+                -webkit-tap-highlight-color: transparent;
+                position: relative;
+            }
+            .mobile-menu-toggle:active { transform: scale(0.92); background: rgba(255,255,255,0.1); }
+            .hamburger-line {
+                width: 18px;
+                height: 2px;
+                background: #fff;
+                border-radius: 2px;
+                transition: transform 0.45s cubic-bezier(0.7, 0, 0.2, 1), opacity 0.3s ease, width 0.4s ease;
+            }
+            .mobile-menu-toggle.is-open .hamburger-line:nth-child(1) {
+                transform: translateY(7px) rotate(45deg);
+            }
+            .mobile-menu-toggle.is-open .hamburger-line:nth-child(2) {
+                opacity: 0;
+                transform: scaleX(0);
+            }
+            .mobile-menu-toggle.is-open .hamburger-line:nth-child(3) {
+                transform: translateY(-7px) rotate(-45deg);
+            }
+            .mobile-menu-toggle.is-open {
+                background: rgba(0, 194, 255, 0.12);
+                border-color: rgba(0, 194, 255, 0.3);
+            }
+
+            /* === Mobile slide-in menu (from right) === */
+            .mobile-menu-overlay {
+                position: fixed;
+                inset: 0;
+                z-index: 99997;
+                background: rgba(0, 0, 0, 0);
+                backdrop-filter: blur(0);
+                -webkit-backdrop-filter: blur(0);
+                pointer-events: none;
+                transition: background 0.5s ease, backdrop-filter 0.5s ease;
+            }
+            .mobile-menu-overlay.open {
+                pointer-events: auto;
+                background: rgba(0, 0, 0, 0.55);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+            }
+            .mobile-menu-panel {
+                position: fixed;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: min(86vw, 380px);
+                background:
+                    linear-gradient(180deg, rgba(18, 18, 26, 0.96) 0%, rgba(8, 8, 14, 0.98) 100%);
+                backdrop-filter: blur(40px) saturate(180%);
+                -webkit-backdrop-filter: blur(40px) saturate(180%);
+                border-left: 1px solid rgba(255,255,255,0.08);
+                padding: calc(var(--safe-top) + 22px) 22px calc(var(--safe-bottom) + 22px);
+                transform: translateX(100%);
+                transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+                box-shadow: -20px 0 60px -10px rgba(0,0,0,0.6);
+                display: flex;
+                flex-direction: column;
+                overflow-y: auto;
+            }
+            .mobile-menu-overlay.open .mobile-menu-panel {
+                transform: translateX(0);
+            }
+            /* Decorative gradient strip on left edge */
+            .mobile-menu-panel::before {
+                content: '';
+                position: absolute;
+                left: 0; top: 0; bottom: 0;
+                width: 2px;
+                background: linear-gradient(180deg,
+                    transparent 0%,
+                    var(--accent-1) 20%,
+                    var(--accent-2) 60%,
+                    transparent 100%);
+                opacity: 0.6;
+                pointer-events: none;
+            }
+            .mobile-menu-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-bottom: 18px;
+                margin-bottom: 14px;
+                border-bottom: 1px solid rgba(255,255,255,0.06);
+            }
+            .mobile-menu-title {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.72rem;
+                font-weight: 700;
+                color: var(--text-3);
+                text-transform: uppercase;
+                letter-spacing: 3px;
+            }
+            .mobile-menu-close {
+                width: 38px; height: 38px;
+                background: rgba(255,255,255,0.05);
+                border: 1px solid rgba(255,255,255,0.08);
+                border-radius: 12px;
+                color: #fff;
+                font-size: 0.92rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                -webkit-tap-highlight-color: transparent;
+                transition: background 0.25s ease, transform 0.2s ease;
+            }
+            .mobile-menu-close:active { transform: scale(0.92); background: rgba(255,255,255,0.1); }
+            .mobile-menu-nav {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                gap: 2px;
+            }
+            .mobile-menu-link {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                padding: 14px 14px;
+                color: #fff;
+                text-decoration: none;
+                border-radius: 12px;
+                font-family: 'Inter', sans-serif;
+                font-weight: 600;
+                font-size: 0.98rem;
+                position: relative;
+                transition: background 0.25s ease, transform 0.2s ease, color 0.25s ease;
+                -webkit-tap-highlight-color: transparent;
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            .mobile-menu-overlay.open .mobile-menu-link {
+                opacity: 1;
+                transform: translateX(0);
+                transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, color 0.25s ease;
+            }
+            /* Stagger each link in */
+            .mobile-menu-overlay.open .mobile-menu-link:nth-child(1) { transition-delay: 0.1s; }
+            .mobile-menu-overlay.open .mobile-menu-link:nth-child(2) { transition-delay: 0.15s; }
+            .mobile-menu-overlay.open .mobile-menu-link:nth-child(3) { transition-delay: 0.2s; }
+            .mobile-menu-overlay.open .mobile-menu-link:nth-child(4) { transition-delay: 0.25s; }
+            .mobile-menu-overlay.open .mobile-menu-link:nth-child(5) { transition-delay: 0.3s; }
+            .mobile-menu-overlay.open .mobile-menu-link:nth-child(6) { transition-delay: 0.35s; }
+            .mobile-menu-overlay.open .mobile-menu-link:nth-child(7) { transition-delay: 0.4s; }
+            .mobile-menu-overlay.open .mobile-menu-link:nth-child(8) { transition-delay: 0.45s; }
+            .mobile-menu-link > i:first-child {
+                width: 36px; height: 36px;
+                border-radius: 10px;
+                background: linear-gradient(135deg, rgba(0,194,255,0.12), rgba(0,194,255,0.04));
+                border: 1px solid rgba(0,194,255,0.18);
+                display: flex; align-items: center; justify-content: center;
+                color: var(--accent-1);
+                font-size: 0.92rem;
+                flex-shrink: 0;
+                transition: transform 0.3s var(--ease-bounce), background 0.25s ease;
+            }
+            .mobile-menu-link > span { flex: 1; }
+            .mobile-menu-arrow {
+                color: var(--text-3);
+                font-size: 0.72rem;
+                opacity: 0.6;
+                transition: transform 0.3s ease, opacity 0.25s ease, color 0.25s ease;
+            }
+            .mobile-menu-link:active {
+                background: linear-gradient(90deg, rgba(0,194,255,0.08), transparent);
+                transform: scale(0.985);
+            }
+            .mobile-menu-link:active .mobile-menu-arrow {
+                transform: translateX(4px);
+                opacity: 1;
+                color: var(--accent-1);
+            }
+            .mobile-menu-link:active > i:first-child {
+                transform: scale(1.08);
+                background: linear-gradient(135deg, rgba(0,194,255,0.2), rgba(0,194,255,0.08));
+            }
+            .mobile-menu-cta {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                padding: 16px 20px;
+                margin-top: 18px;
+                background: linear-gradient(135deg, #ff0000, #cc0000);
+                color: #fff;
+                border-radius: 14px;
+                text-decoration: none;
+                font-family: 'Inter', sans-serif;
+                font-weight: 700;
+                font-size: 0.95rem;
+                box-shadow: 0 8px 24px -6px rgba(255, 0, 0, 0.5);
+                -webkit-tap-highlight-color: transparent;
+                transition: transform 0.2s ease;
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            .mobile-menu-overlay.open .mobile-menu-cta {
+                opacity: 1;
+                transform: translateY(0);
+                transition: opacity 0.5s ease 0.55s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.55s;
+            }
+            .mobile-menu-cta:active { transform: scale(0.97); }
+            .mobile-menu-cta i { font-size: 1.1rem; }
+
             /* === Mobile sticky search bar === */
             .mobile-sticky-bar {
                 position: fixed;
@@ -1388,7 +1705,7 @@
             .mobile-fab.visible { opacity: 1; visibility: visible; transform: scale(1) translateY(0); }
             .mobile-fab:active { transform: scale(0.92); }
             .work-track, .shorts-container { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-right: 20%; scroll-padding-left: 20px; }
-            .video-card-premium, .shorts-card { scroll-snap-align: center; margin-right: 15px; }
+            .video-card-premium, .shorts-card { scroll-snap-align: start; margin-right: 15px; }
             .video-card-premium { width: 85vw; min-width: 85vw; max-width: 360px; }
             .card-actions { opacity: 1; transform: translateY(0); }
             .swipe-hint { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5); font-size: 1.5rem; animation: swipeAnim 2s infinite; pointer-events: none; z-index: 10; display: block !important; }
@@ -1824,7 +2141,7 @@
                 overscroll-behavior-x: contain;
             }
             .video-card-premium, .shorts-card {
-                scroll-snap-align: center;
+                scroll-snap-align: start;
             }
 
             /* === Better scroll experience: native overflow with mobile padding === */
@@ -1983,6 +2300,12 @@
 
     <div class="scroll-progress" id="scrollProgress"></div>
     <div class="noise"></div>
+    <!-- Aurora borealis background — sweeping color clouds behind everything -->
+    <div class="aurora-bg" aria-hidden="true">
+        <div class="aurora-layer aurora-layer-1"></div>
+        <div class="aurora-layer aurora-layer-2"></div>
+        <div class="aurora-layer aurora-layer-3"></div>
+    </div>
     <canvas id="particle-canvas"></canvas>
 
     <nav id="mainNav">
@@ -2004,6 +2327,69 @@
     <div class="mobile-header" id="mobileHeader">
         <img src="logo2.png" class="mobile-logo tap-effect" id="mobileLogoEl" alt="" onclick="handleLogoClick(event)">
         <div class="mobile-header-actions">
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" onclick="toggleMobileMenu()" aria-label="Meny" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile slide-in menu (from right side, navbar-style) -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="if(event.target===this) closeMobileMenu()">
+        <div class="mobile-menu-panel" id="mobileMenuPanel" role="dialog" aria-modal="true" aria-label="Hovedmeny">
+            <div class="mobile-menu-header">
+                <span class="mobile-menu-title">Meny</span>
+                <button class="mobile-menu-close" onclick="closeMobileMenu()" aria-label="Lukk meny">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="mobile-menu-nav">
+                <a href="#home" class="mobile-menu-link" onclick="closeMobileMenu()">
+                    <i class="fas fa-home"></i>
+                    <span>Hjem</span>
+                    <i class="fas fa-chevron-right mobile-menu-arrow"></i>
+                </a>
+                <a href="#stats" class="mobile-menu-link" onclick="closeMobileMenu()">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Stats</span>
+                    <i class="fas fa-chevron-right mobile-menu-arrow"></i>
+                </a>
+                <a href="#news" class="mobile-menu-link" onclick="closeMobileMenu()">
+                    <i class="fas fa-star"></i>
+                    <span>Nytt</span>
+                    <i class="fas fa-chevron-right mobile-menu-arrow"></i>
+                </a>
+                <a href="#videos" class="mobile-menu-link" onclick="closeMobileMenu()">
+                    <i class="fas fa-video"></i>
+                    <span>Videoer</span>
+                    <i class="fas fa-chevron-right mobile-menu-arrow"></i>
+                </a>
+                <a href="#shorts" class="mobile-menu-link" onclick="closeMobileMenu()">
+                    <i class="fas fa-bolt"></i>
+                    <span>Shorts</span>
+                    <i class="fas fa-chevron-right mobile-menu-arrow"></i>
+                </a>
+                <a href="#gear" class="mobile-menu-link" onclick="closeMobileMenu()">
+                    <i class="fas fa-keyboard"></i>
+                    <span>Setup</span>
+                    <i class="fas fa-chevron-right mobile-menu-arrow"></i>
+                </a>
+                <a href="#about" class="mobile-menu-link" onclick="closeMobileMenu()">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Om</span>
+                    <i class="fas fa-chevron-right mobile-menu-arrow"></i>
+                </a>
+                <a href="#faq" class="mobile-menu-link" onclick="closeMobileMenu()">
+                    <i class="fas fa-question-circle"></i>
+                    <span>FAQ</span>
+                    <i class="fas fa-chevron-right mobile-menu-arrow"></i>
+                </a>
+            </nav>
+            <a href="https://www.youtube.com/channel/UCvRVrLgB-Tk9R6dIzH2gE6w?sub_confirmation=1" target="_blank" rel="noopener" class="mobile-menu-cta">
+                <i class="fab fa-youtube"></i>
+                <span>Abonner på Snorky</span>
+            </a>
         </div>
     </div>
 
@@ -2297,14 +2683,19 @@
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script>
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123) return false;
-            if(e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) return false;
-            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+        // Only load Lenis smooth-scroll on desktop. Mobile uses native scroll.
+        if (window.innerWidth > 1024) {
+            const lenisScript = document.createElement('script');
+            lenisScript.src = 'https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js';
+            document.head.appendChild(lenisScript);
         }
+    </script>
+    <script>
+        // Right-click is still soft-blocked to discourage casual copy of layout,
+        // but ALL keyboard shortcuts remain free so DevTools, screen readers, and
+        // browser keybindings work normally.
+        document.addEventListener('contextmenu', event => event.preventDefault());
 
         const API_KEY = 'AIzaSyDZRrshuJJCqAgk-dShcdsXvBzrse_6VjA';
         const CHANNEL_ID = 'UCvRVrLgB-Tk9R6dIzH2gE6w';
@@ -2425,6 +2816,35 @@
             else window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // === Mobile slide-in menu ===
+        function toggleMobileMenu() {
+            const overlay = document.getElementById('mobileMenuOverlay');
+            const toggle = document.getElementById('mobileMenuToggle');
+            if (!overlay || !toggle) return;
+            const isOpen = overlay.classList.contains('open');
+            if (isOpen) closeMobileMenu();
+            else openMobileMenu();
+        }
+        function openMobileMenu() {
+            const overlay = document.getElementById('mobileMenuOverlay');
+            const toggle = document.getElementById('mobileMenuToggle');
+            if (!overlay || !toggle) return;
+            overlay.classList.add('open');
+            toggle.classList.add('is-open');
+            toggle.setAttribute('aria-expanded', 'true');
+            lockBodyScroll();
+            triggerHaptic('light');
+        }
+        function closeMobileMenu() {
+            const overlay = document.getElementById('mobileMenuOverlay');
+            const toggle = document.getElementById('mobileMenuToggle');
+            if (!overlay || !toggle) return;
+            overlay.classList.remove('open');
+            toggle.classList.remove('is-open');
+            toggle.setAttribute('aria-expanded', 'false');
+            unlockBodyScroll();
+        }
+
         // === Mobile section drawer ===
         function scrollToSection(id) {
             const el = document.getElementById(id);
@@ -2543,13 +2963,41 @@
             openLightbox(currentVideoList[newIndex], currentVideoList, newIndex);
         }
         function closeLightbox(e, force) {
-            if (force || e?.target?.id === 'lightbox') {
-                const lb = document.getElementById('lightbox');
+            // Close when:
+            //   - Forced (close button)
+            //   - Clicked on the lightbox overlay itself (not bubbled from a child)
+            //   - Clicked on .lightbox-info (the bottom region outside the player)
+            //   - On mobile: clicked anywhere that's NOT the player, action buttons, or close btn
+            const lb = document.getElementById('lightbox');
+            if (!lb) return;
+            const closeNow = () => {
                 lb.classList.remove('open');
-                document.getElementById('lightboxPlayer').innerHTML = '';
+                const playerEl = document.getElementById('lightboxPlayer');
+                if (playerEl) playerEl.innerHTML = '';
                 unlockBodyScroll();
+            };
+            if (force) { closeNow(); return; }
+            if (!e) return;
+            // event.target should be the lightbox itself (not bubbled from child)
+            const target = e.target;
+            if (!target) return;
+            // The actual close-zone is anywhere OUTSIDE the player, action row, and close btn
+            const isInPlayer = target.closest('.lightbox-player');
+            const isInActionRow = target.closest('.lightbox-actions, .lightbox-action-btn');
+            const isCloseBtn = target.closest('.lightbox-close');
+            if (!isInPlayer && !isInActionRow && !isCloseBtn) {
+                closeNow();
             }
         }
+        // Escape key also closes
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const lb = document.getElementById('lightbox');
+                if (lb && lb.classList.contains('open')) closeLightbox(null, true);
+                const mm = document.getElementById('mobileMenuOverlay');
+                if (mm && mm.classList.contains('open')) closeMobileMenu();
+            }
+        });
 
         (function setupLightboxSwipe() {
             if (!isMobile) return;
@@ -2788,6 +3236,40 @@ function applyFilters() {
                 attachHoverPreview(el);
             }
             return el;
+        }
+
+        // === 3D perspective scroll for video track (desktop only) ===
+        // Cards in the horizontal track rotate slightly based on their position
+        // relative to the viewport center — creating a coverflow-like depth feel.
+        function setup3DScroll() {
+            if (isMobile) return;
+            const track = document.getElementById('videoTrack');
+            if (!track) return;
+            let raf = null;
+            const update = () => {
+                raf = null;
+                const trackRect = track.getBoundingClientRect();
+                const centerX = trackRect.left + trackRect.width / 2;
+                const cards = track.querySelectorAll('.video-card-premium');
+                cards.forEach(card => {
+                    const cardRect = card.getBoundingClientRect();
+                    const cardCenter = cardRect.left + cardRect.width / 2;
+                    const distFromCenter = (cardCenter - centerX) / trackRect.width;
+                    const clampedDist = Math.max(-0.7, Math.min(0.7, distFromCenter));
+                    // Rotate around Y axis based on distance from center
+                    const rotateY = clampedDist * -22;  // up to ±15deg
+                    const scale = 1 - Math.abs(clampedDist) * 0.07;
+                    const translateZ = -Math.abs(clampedDist) * 80;
+                    card.style.transform = `translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;
+                    card.style.opacity = String(1 - Math.abs(clampedDist) * 0.25);
+                });
+            };
+            const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+            track.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll, { passive: true });
+            // Initial pass — wait for cards to render
+            setTimeout(update, 600);
+            setTimeout(update, 1500);
         }
 
         // === Hover preview: 2-second delay, then smooth crossfade through HQ frames ===
@@ -3030,7 +3512,7 @@ const trend = document.getElementById('subTrend');
                         if(bg) {
                             const topVideos = globalLongVideos.slice(0, 15);
                             let itemsHtml = '';
-                            topVideos.forEach(v => { itemsHtml += `<div class="marquee-item"><img src="${v.snippet.thumbnails.high.url}" loading="eager" decoding="async" style="width:100%;height:100%;object-fit:cover;" alt=""></div>`; });
+                            topVideos.forEach(v => { itemsHtml += `<div class="marquee-item"><img src="${v.snippet.thumbnails.high.url}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" alt=""></div>`; });
                             const fullRowHtml = itemsHtml + itemsHtml;
                             const rowCount = isMobile ? 2 : 3;
                             for(let i=0; i<rowCount; i++) {
@@ -3046,6 +3528,7 @@ const trend = document.getElementById('subTrend');
                     renderShorts(globalShortVideos, 'shortsTrack');
                     setTimeout(() => setupTiltCards(), 200);
                     setTimeout(() => tagNewVideos(), 300);
+                    setTimeout(() => setup3DScroll(), 400);
                 }
             } catch(e) {
                 console.error("API Error", e);
@@ -3248,12 +3731,26 @@ const trend = document.getElementById('subTrend');
             }
         }
         for(let i=0; i<pCount; i++) particles.push(new Particle());
+        let particlesRAF = null;
+        let particlesPaused = false;
         function animate() {
+            if (particlesPaused) { particlesRAF = null; return; }
             ctx.clearRect(0,0,canvas.width,canvas.height);
             particles.forEach(p=>{p.update();p.draw();});
-            requestAnimationFrame(animate);
+            particlesRAF = requestAnimationFrame(animate);
         }
         animate();
+        // Pause when tab is hidden to save battery / CPU
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                particlesPaused = true;
+            } else {
+                if (particlesPaused) {
+                    particlesPaused = false;
+                    if (!particlesRAF) animate();
+                }
+            }
+        });
 
         // Spotlight
         if (!isMobile) {
@@ -3461,7 +3958,7 @@ const trend = document.getElementById('subTrend');
             if (!isMobile) {
                 gsap.to(".parallax-img", { yPercent: 15, ease: "none", scrollTrigger: { trigger: ".about-section", start: "top bottom", end: "bottom top", scrub: true } });
             }
-            if(!isMobile) {
+            if(!isMobile && typeof Lenis !== 'undefined') {
                 lenis = new Lenis({ duration: 1.5, smooth: true, mouseMultiplier: 1.2 });
                 function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
                 requestAnimationFrame(raf);
@@ -3487,6 +3984,9 @@ const trend = document.getElementById('subTrend');
                 if (mobileFab) mobileFab.classList.toggle('visible', window.scrollY > 800);
                 const indicator = document.getElementById('scrollIndicator');
                 if (indicator) indicator.style.opacity = window.scrollY > 100 ? '0' : '';
+                // Depth-of-field: background blurs more as you scroll deeper
+                document.body.classList.toggle('scrolled-deep', scrolled > 25 && scrolled <= 60);
+                document.body.classList.toggle('scrolled-deeper', scrolled > 60);
             }, { passive: true });
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry, i) => {
@@ -3574,7 +4074,14 @@ const trend = document.getElementById('subTrend');
                 }
             });
             document.addEventListener('touchcancel', cancel);
+            document.addEventListener('pointercancel', cancel);  // backup for browsers that fire pointer events instead
+            document.addEventListener('pointerup', () => {
+                // Only act if no touchend fires (some Android browsers)
+                if (longPressTimer) cancel();
+            });
             document.addEventListener('touchmove', cancel, { passive: true });
+            window.addEventListener('scroll', cancel, { passive: true });
+            window.addEventListener('blur', cancel);
             // Block click when long-press just fired
             document.addEventListener('click', (e) => {
                 if (longPressBlockClick) { e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); }
