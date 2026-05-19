@@ -9,7 +9,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="format-detection" content="telephone=no">
-    <title>SNORKY SITE</title>
+    <title>SNORKY SITE — Norsk Gaming YouTuber | Videoer, Shorts & Stats</title>
     <meta name="description" content="Den offisielle nettsiden til Snorky — norsk gaming YouTuber. Se de nyeste videoene, shorts, kanal-statistikk, setup og mer. Hub for alt Snorky-innhold.">
     <meta name="keywords" content="Snorky, Norsk YouTuber, Gaming, Minecraft, Fortnite, Funny Moments, Snorky2361, Snorky Site, Norske Gaming Videoer, Norsk Gaming, YouTube Gaming">
     <meta name="author" content="Snorky">
@@ -96,7 +96,7 @@
         .lenis.lenis-stopped { overflow: hidden; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         :focus-visible { outline: 2px solid var(--accent-1); outline-offset: 4px; box-shadow: 0 0 15px var(--accent-1); border-radius: 4px; }
-        body { background-color: var(--bg); color: var(--text-1); font-family: 'Inter', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; font-size: 16px; padding-bottom: calc(90px + var(--safe-bottom)); overscroll-behavior-y: none; }
+        body { background-color: var(--bg); color: var(--text-1); font-family: 'Inter', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; font-size: 16px; padding-bottom: var(--safe-bottom); overscroll-behavior-y: none; }
         @media(min-width: 1025px) { body { padding-bottom: 0; } }
         @media (min-width: 2000px) { body { font-size: 20px; } .container { max-width: 1800px; } }
         ::-webkit-scrollbar { width: 8px; background: var(--bg); }
@@ -130,7 +130,7 @@
         .footer-col a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--accent-1); transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .footer-col a:hover::after { width: 20px; }
         body.intro-loading { overflow: hidden; }
-        body.intro-loading nav, body.intro-loading .mobile-header, body.intro-loading .mobile-bottom-nav { opacity: 0; pointer-events: none; }
+        body.intro-loading nav, body.intro-loading .mobile-header { opacity: 0; pointer-events: none; }
         body.intro-loading .scroll-indicator { opacity: 0; }
         body.intro-loading .hero-title-main, body.intro-loading .hero-title-sub, body.intro-loading .hero-actions { opacity: 0; }
         #particle-canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.5; }
@@ -267,7 +267,6 @@
         .nav-sub-btn:hover::before { left: 220%; transition: left 0.8s ease; }
 
         .mobile-header { display: none; }
-        .mobile-bottom-nav { display: none; }
 
         /* === HERO — no vignette === */
         .hero { height: 100vh; height: 100dvh; min-height: 600px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; text-align: center; background: var(--bg); }
@@ -1082,7 +1081,7 @@
             /* Re-enable transforms for elements we WANT to move (animations, not hovers) */
             .reveal, .reveal.active, .marquee-row, .marquee-container,
             .toast, .lightbox, .modal-overlay, .action-sheet,
-            .mobile-bottom-nav, .mobile-header, .mobile-fab, .ptr-indicator,
+            .mobile-header, .mobile-fab, .ptr-indicator,
             .scroll-progress, .deco-orb, .scroll-indicator,
             .skeleton, .skeleton-card, .skeleton-shorts,
             .premium-thumb-preview, .api-error-icon,
@@ -1098,7 +1097,7 @@
             .card-action-btn:active, .scroll-btn:active, .nav-sub-btn:active,
             .gear-card:active, .news-card:active, .card:active,
             .video-card-premium:active, .shorts-card:active, .faq-item:active,
-            .channel-card-compact:active, .nav-item:active,
+            .channel-card-compact:active,
             button:active, a.tap-effect:active {
                 transform: scale(0.97) !important;
                 transition: transform 0.1s ease !important;
@@ -1166,11 +1165,7 @@
             .mobile-sticky-bar { display: flex !important; }
             .action-sheet-overlay { display: flex !important; }
 
-            /* === Mobile bottom nav: auto-hide on scroll down === */
-            .mobile-bottom-nav { transition: transform 0.4s var(--ease-smooth), opacity 0.4s ease; }
-            .mobile-bottom-nav.is-hidden { transform: translateX(-50%) translateY(calc(100% + 30px)); opacity: 0; }
             .mobile-fab { transition: transform 0.4s var(--ease-bounce), opacity 0.4s ease, visibility 0.4s; }
-            .mobile-fab.nav-hidden { transform: scale(1) translateY(-72px); }
 
             /* === Mobile sticky search bar === */
             .mobile-sticky-bar {
@@ -1312,9 +1307,6 @@
             /* === Card visual feedback === */
             .video-card-premium.long-press-feedback { transform: scale(0.97); transition: transform 0.15s ease; }
 
-            /* === Bigger touch targets in nav === */
-            .nav-item { min-height: 60px; }
-
             /* === Better skeleton on mobile === */
             .skeleton { background-size: 100% 100%; background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.09), rgba(255,255,255,0.04)); background-size: 200% 100%; animation: skeleton-shimmer 1.2s ease-in-out infinite; }
 
@@ -1349,161 +1341,6 @@
             .scroll-controls { display: none !important; }
             .back-to-top { display: none !important; }
             .lightbox-nav { display: none; }
-            .mobile-bottom-nav {
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-                position: fixed;
-                bottom: calc(16px + var(--safe-bottom));
-                left: 50%;
-                transform: translateX(-50%);
-                width: calc(100% - 24px);
-                max-width: 460px;
-                height: 70px;
-                background:
-                    linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%),
-                    rgba(12, 12, 20, 0.5);
-                backdrop-filter: blur(50px) saturate(240%) brightness(1.15);
-                -webkit-backdrop-filter: blur(50px) saturate(240%) brightness(1.15);
-                border: 1px solid rgba(255,255,255,0.18);
-                border-radius: 30px;
-                z-index: 9990;
-                box-shadow:
-                    inset 0 1px 0 rgba(255,255,255,0.22),
-                    inset 0 -1px 0 rgba(0,0,0,0.35),
-                    inset 0 0 0 1px rgba(255,255,255,0.05),
-                    0 35px 70px -10px rgba(0,0,0,0.8),
-                    0 10px 30px -8px rgba(0,194,255,0.22);
-                padding: 0 8px;
-                isolation: isolate;
-                will-change: transform;
-            }
-            /* Top specular highlight (liquid glass sheen) */
-            .mobile-bottom-nav::before {
-                content: '';
-                position: absolute;
-                top: 1px; left: 1px; right: 1px;
-                height: 60%;
-                border-radius: 29px 29px 100% 100% / 29px 29px 35% 35%;
-                background: linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.05) 55%, transparent 100%);
-                pointer-events: none;
-                z-index: -1;
-                mix-blend-mode: overlay;
-                opacity: 0.8;
-            }
-            /* Chromatic rim glow underneath */
-            .mobile-bottom-nav::after {
-                content: '';
-                position: absolute;
-                bottom: -2px;
-                left: 15%; right: 15%;
-                height: 2px;
-                background: linear-gradient(90deg, transparent, rgba(0,194,255,0.5), rgba(168,85,247,0.4), rgba(255,46,147,0.5), transparent);
-                opacity: 0.7;
-                filter: blur(2px);
-                pointer-events: none;
-            }
-            /* Active item indicator — frosted pill that smoothly slides */
-            .mobile-bottom-nav .nav-indicator {
-                position: absolute;
-                top: 50%;
-                left: var(--nav-indicator-x, 4px);
-                width: var(--nav-indicator-w, 60px);
-                height: 54px;
-                transform: translateY(-50%);
-                background:
-                    linear-gradient(180deg, rgba(0,194,255,0.22) 0%, rgba(0,194,255,0.08) 100%),
-                    rgba(0,194,255,0.04);
-                border: 1px solid rgba(0,194,255,0.32);
-                border-radius: 18px;
-                transition: left 0.55s cubic-bezier(0.34, 1.5, 0.64, 1),
-                            width 0.55s cubic-bezier(0.34, 1.5, 0.64, 1);
-                pointer-events: none;
-                box-shadow:
-                    inset 0 1px 0 rgba(255,255,255,0.18),
-                    0 0 24px rgba(0,194,255,0.25),
-                    0 6px 16px -4px rgba(0,194,255,0.3);
-                z-index: 1;
-            }
-            .mobile-bottom-nav .nav-indicator::before {
-                content: '';
-                position: absolute;
-                top: 1px; left: 1px; right: 1px;
-                height: 50%;
-                border-radius: 17px 17px 100% 100% / 17px 17px 40% 40%;
-                background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 100%);
-                pointer-events: none;
-            }
-            .nav-item {
-                color: rgba(255,255,255,0.55);
-                padding: 10px 6px;
-                transition: color 0.4s ease;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 4px;
-                text-decoration: none;
-                position: relative;
-                flex: 1;
-                min-width: 60px;
-                height: 100%;
-                border-radius: 16px;
-                z-index: 2;
-                -webkit-tap-highlight-color: transparent;
-            }
-            .nav-item i {
-                font-size: 1.2rem;
-                transition: transform 0.45s cubic-bezier(0.34, 1.5, 0.64, 1), color 0.3s ease, filter 0.3s ease;
-            }
-            .nav-item span {
-                font-size: 0.62rem;
-                font-weight: 700;
-                letter-spacing: 0.3px;
-                opacity: 0.8;
-                transition: opacity 0.3s ease;
-                font-family: 'Inter', sans-serif;
-            }
-            .nav-item.active {
-                color: #fff;
-            }
-            .nav-item.active i {
-                color: var(--accent-1);
-                transform: translateY(-2px) scale(1.12);
-                filter: drop-shadow(0 0 10px rgba(0,194,255,0.7));
-            }
-            .nav-item.active span {
-                opacity: 1;
-            }
-            .nav-item:active {
-                transform: scale(0.92) !important;
-            }
-            .nav-item:active i {
-                transform: scale(0.9) !important;
-            }
-            .nav-item.has-badge::after {
-                content: attr(data-count);
-                position: absolute;
-                top: 6px;
-                right: calc(50% - 18px);
-                background: linear-gradient(135deg, var(--accent-2), #ff5577);
-                color: #fff;
-                font-size: 0.55rem;
-                font-weight: 700;
-                border-radius: 8px;
-                min-width: 14px;
-                height: 14px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 0 3px;
-                box-shadow: 0 0 10px var(--accent-glow-2), 0 0 0 1.5px var(--bg);
-                animation: badge-pulse 2s ease-in-out infinite;
-            }
-            @keyframes badge-pulse {
-                0%, 100% { transform: scale(1); }
-                50% { transform: scale(1.1); }
-            }
             .mobile-header { display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: calc(64px + var(--safe-top)); padding: var(--safe-top) 16px 0 16px; z-index: 9999; pointer-events: none; transition: background 0.3s ease, backdrop-filter 0.3s ease; }
             .mobile-header.scrolled {
                 background:
@@ -1892,16 +1729,353 @@
             * { will-change: auto !important; }
 
             /* === Larger, easier-to-tap interactive elements === */
-            .nav-item, .header-icon-btn, .mobile-fab, .back-to-top, .close-btn {
+            .header-icon-btn, .mobile-fab, .back-to-top, .close-btn {
                 -webkit-tap-highlight-color: transparent;
             }
-            .nav-item { padding: 6px 4px; min-width: 56px; }
-            .nav-item i { font-size: 1.25rem !important; }
-            .nav-item span { font-size: 0.62rem; letter-spacing: 0.3px; margin-top: 2px; }
 
             /* === Better typography on mobile === */
             body { font-size: 15px; line-height: 1.55; }
             p { font-size: 0.95rem; }
+
+            /* =====================================================
+               PREMIUM MOBILE-ONLY ANIMATIONS
+               ===================================================== */
+
+            /* Smooth fade-in for video cards as they enter view */
+            .video-card-premium.reveal { opacity: 0; transform: translateY(30px) scale(0.96); }
+            .video-card-premium.reveal.active {
+                opacity: 1; transform: translateY(0) scale(1);
+                transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                            transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            /* Cards "breathe" subtly when at rest */
+            @keyframes mobile-card-breathe {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-1px); }
+            }
+
+            /* Premium ripple on tap (no JS needed) */
+            .video-card-premium, .shorts-card, .gear-card, .news-card, .faq-item, .channel-card-compact, .stat-box {
+                position: relative;
+                overflow: hidden;
+            }
+            .video-card-premium::after, .shorts-card::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%),
+                    rgba(0, 194, 255, 0.18) 0%, transparent 60%);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.4s ease;
+            }
+            .video-card-premium:active::after, .shorts-card:active::after {
+                opacity: 1;
+                transition: opacity 0.1s ease;
+            }
+
+            /* Title glow pulse on hero (mobile-only, premium feel) */
+            .hero-title-main, .hero-title-sub {
+                animation: hero-title-glow 4s ease-in-out infinite;
+            }
+            .hero-title-sub { animation-delay: 0.5s; }
+            @keyframes hero-title-glow {
+                0%, 100% { filter: drop-shadow(0 4px 20px rgba(0, 194, 255, 0.18)); }
+                50% { filter: drop-shadow(0 8px 30px rgba(255, 46, 147, 0.25)); }
+            }
+
+            /* Section transition: gradient slide as section enters */
+            .stats-section, .news-section, .work-section, .shorts-section,
+            .second-channel-section, .about-section, .gear-section, .faq-section {
+                position: relative;
+            }
+            .stats-section::before, .news-section::before, .work-section::before,
+            .shorts-section::before, .second-channel-section::before,
+            .about-section::before, .gear-section::before, .faq-section::before {
+                content: '';
+                position: absolute;
+                top: 0; left: 50%;
+                width: 0;
+                height: 1px;
+                background: linear-gradient(90deg, transparent, var(--accent-1), var(--accent-2), transparent);
+                transform: translateX(-50%);
+                transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+                z-index: 1;
+                opacity: 0.7;
+                box-shadow: 0 0 16px rgba(0, 194, 255, 0.4);
+            }
+            section.in-view::before { width: 80%; }
+
+            /* Floating section number indicators */
+            .section-num-badge {
+                animation: section-badge-float 5s ease-in-out infinite;
+            }
+            @keyframes section-badge-float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-3px); }
+            }
+
+            /* Smooth stat counter pulse on update */
+            .stat-num { transition: color 0.4s ease; }
+            .stat-num.pulse {
+                animation: stat-pulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+            @keyframes stat-pulse {
+                0% { transform: scale(1); color: #fff; }
+                40% { transform: scale(1.08); color: var(--accent-1); text-shadow: 0 0 20px var(--accent-1); }
+                100% { transform: scale(1); color: #fff; }
+            }
+
+            /* Animated gradient border on important CTAs */
+            .btn-hero-yt {
+                position: relative;
+                background: linear-gradient(135deg, #ff0000, #cc0000);
+                background-size: 200% 200%;
+                animation: cta-gradient 4s ease infinite;
+            }
+            @keyframes cta-gradient {
+                0%, 100% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+            }
+
+            /* Image cards smooth scale-in */
+            .news-img, .premium-thumb, .shorts-thumb {
+                transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .reveal.active .news-img,
+            .reveal.active .premium-thumb,
+            .reveal.active .shorts-thumb {
+                animation: img-scale-in 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+            }
+            @keyframes img-scale-in {
+                from { transform: scale(1.08); filter: blur(4px); }
+                to { transform: scale(1); filter: blur(0); }
+            }
+
+            /* Premium swipe-track scroll edge fade */
+            .work-track::before, .work-track::after,
+            .shorts-track::before, .shorts-track::after {
+                content: '';
+                position: absolute;
+                top: 0; bottom: 0;
+                width: 30px;
+                z-index: 5;
+                pointer-events: none;
+            }
+            .work-track::before, .shorts-track::before {
+                left: 0;
+                background: linear-gradient(90deg, var(--bg), transparent);
+            }
+            .work-track::after, .shorts-track::after {
+                right: 0;
+                background: linear-gradient(-90deg, var(--bg), transparent);
+            }
+
+            /* Magnetic button press effect */
+            .btn-hero, .btn-ultra {
+                transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            }
+            .btn-hero:active, .btn-ultra:active {
+                transform: scale(0.94) translateY(2px) !important;
+            }
+
+            /* Smooth section header reveal */
+            .section-header.reveal { opacity: 0; transform: translateX(-20px); }
+            .section-header.reveal.active {
+                opacity: 1; transform: translateX(0);
+                transition: opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+            }
+
+            /* =====================================================
+               MOBILE QUALITY OF LIFE IMPROVEMENTS
+               ===================================================== */
+
+            /* Better touch feedback with haptic-feeling shrink */
+            a, button { -webkit-touch-callout: none; user-select: none; }
+            .btn-hero, .btn-ultra, button, .tap-effect {
+                touch-action: manipulation;  /* Prevents 300ms tap delay */
+            }
+
+            /* Smoother horizontal scroll on tracks */
+            .work-track, .shorts-track {
+                scroll-snap-type: x mandatory;
+                scroll-padding-left: 20px;
+                -webkit-overflow-scrolling: touch;
+                overscroll-behavior-x: contain;
+                scrollbar-width: none;
+            }
+            .work-track::-webkit-scrollbar,
+            .shorts-track::-webkit-scrollbar { display: none; }
+            .video-card-premium, .shorts-card {
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+            }
+
+            /* Pull-to-refresh visual upgrade */
+            .ptr-indicator {
+                background:
+                    linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%),
+                    rgba(10, 10, 18, 0.6) !important;
+                backdrop-filter: blur(20px) saturate(180%);
+                -webkit-backdrop-filter: blur(20px) saturate(180%);
+                border: 1px solid rgba(255,255,255,0.1);
+                box-shadow: 0 8px 24px -6px rgba(0,0,0,0.4),
+                           inset 0 1px 0 rgba(255,255,255,0.1);
+            }
+
+            /* Better focus visible (accessibility + premium) */
+            button:focus-visible, a:focus-visible, input:focus-visible {
+                outline: 2px solid var(--accent-1);
+                outline-offset: 3px;
+                border-radius: 8px;
+            }
+
+            /* Smoother modal/lightbox slide-in from bottom on mobile */
+            .lightbox { align-items: flex-end !important; }
+            .lightbox-player {
+                width: 100% !important; max-width: 100% !important;
+                border-radius: 18px 18px 0 0 !important;
+                transform: translateY(100%) !important;
+                transition: transform 0.5s cubic-bezier(0.34, 1.3, 0.64, 1) !important;
+                margin-bottom: 0 !important;
+            }
+            .lightbox.open .lightbox-player {
+                transform: translateY(0) !important;
+            }
+            .lightbox-info {
+                width: 100% !important;
+                background: linear-gradient(180deg, rgba(8,8,12,0.95), rgba(8,8,12,1));
+                padding: 16px 18px calc(24px + var(--safe-bottom));
+                margin-top: 0 !important;
+                border-top: 1px solid rgba(255,255,255,0.06);
+            }
+
+            /* Premium close button on lightbox */
+            .lightbox-close {
+                position: fixed !important;
+                top: calc(16px + var(--safe-top)) !important;
+                right: 16px !important;
+                background: rgba(0,0,0,0.5) !important;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.15) !important;
+            }
+
+            /* Cards lift smoothly when entering view */
+            .card.reveal, .news-card.reveal, .gear-card.reveal, .video-card-premium.reveal, .shorts-card.reveal {
+                will-change: transform, opacity;
+            }
+            .card.reveal.active, .news-card.reveal.active, .gear-card.reveal.active {
+                will-change: auto;
+            }
+
+            /* Floating action button polish */
+            .mobile-fab {
+                box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,0.2),
+                    0 12px 30px -6px rgba(0,194,255,0.5),
+                    0 6px 16px -4px rgba(255,46,147,0.3) !important;
+                animation: fab-float 3s ease-in-out infinite;
+            }
+            @keyframes fab-float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-4px); }
+            }
+            .mobile-fab:active {
+                animation-play-state: paused;
+                transform: scale(0.9) !important;
+            }
+
+            /* New "NY" badge for fresh videos */
+            .premium-thumb-wrapper .new-badge {
+                position: absolute;
+                top: 12px; left: 12px;
+                background: linear-gradient(135deg, var(--accent-2), #ff5577);
+                color: #fff;
+                font-size: 0.65rem;
+                font-weight: 800;
+                padding: 4px 10px;
+                border-radius: 6px;
+                font-family: 'JetBrains Mono', monospace;
+                letter-spacing: 1px;
+                box-shadow: 0 4px 12px rgba(255, 46, 147, 0.5);
+                z-index: 4;
+                animation: new-badge-pulse 2s ease-in-out infinite;
+            }
+            @keyframes new-badge-pulse {
+                0%, 100% { box-shadow: 0 4px 12px rgba(255, 46, 147, 0.5); }
+                50% { box-shadow: 0 4px 20px rgba(255, 46, 147, 0.8); }
+            }
+
+            /* Section pagination indicator (left edge) */
+            .section-rail-mobile {
+                position: fixed;
+                left: 8px;
+                top: 50%;
+                transform: translateY(-50%);
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                z-index: 100;
+                opacity: 0;
+                transition: opacity 0.4s ease;
+                pointer-events: none;
+            }
+            .section-rail-mobile.visible { opacity: 1; }
+            .section-rail-dot {
+                width: 4px;
+                height: 16px;
+                background: rgba(255,255,255,0.15);
+                border-radius: 4px;
+                transition: all 0.4s var(--ease-smooth);
+            }
+            .section-rail-dot.active {
+                height: 32px;
+                background: linear-gradient(180deg, var(--accent-1), var(--accent-2));
+                box-shadow: 0 0 10px rgba(0,194,255,0.5);
+            }
+
+            /* Hero entry: full-screen white flash on first load */
+            .hero-flash {
+                position: fixed; inset: 0;
+                background: #fff;
+                z-index: 99998;
+                pointer-events: none;
+                opacity: 0;
+                animation: hero-flash 0.6s ease-out;
+            }
+            @keyframes hero-flash {
+                0% { opacity: 0; }
+                10% { opacity: 0.06; }
+                100% { opacity: 0; }
+            }
+
+            /* Smoother number animations */
+            .stat-num, .ideas-stat-num, .mqs-num {
+                font-variant-numeric: tabular-nums;
+                letter-spacing: -0.02em;
+            }
+
+            /* Bigger, more readable times-ago badges */
+            .time-ago-badge {
+                font-size: 0.7rem !important;
+                font-weight: 700 !important;
+                background: rgba(0, 194, 255, 0.18) !important;
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                border: 1px solid rgba(0, 194, 255, 0.3) !important;
+            }
+
+            /* Better duration badges */
+            .duration-badge {
+                font-weight: 800 !important;
+                background: rgba(0,0,0,0.75) !important;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+                letter-spacing: 0.5px;
+            }
 
             /* === Section headers more compact === */
             .section-num-badge { font-size: 0.66rem; }
@@ -1980,7 +2154,7 @@
         /* === DISCO MODE (logo click easter egg) === */
         body.disco-mode { animation: disco-bg 0.6s steps(8, end) infinite; overflow: hidden; }
         @keyframes disco-bg { 0%{background-color:#ff006e;}12%{background-color:#fb5607;}25%{background-color:#ffbe0b;}37%{background-color:#06ffa5;}50%{background-color:#00d4ff;}62%{background-color:#3a86ff;}75%{background-color:#8338ec;}87%{background-color:#ff006e;}100%{background-color:#fb5607;}}
-        body.disco-mode .video-card-premium, body.disco-mode .card, body.disco-mode .news-card, body.disco-mode .gear-card, body.disco-mode .channel-card-compact, body.disco-mode .shorts-card, body.disco-mode .faq-item, body.disco-mode nav, body.disco-mode .mobile-bottom-nav, body.disco-mode .mobile-header, body.disco-mode footer { animation: disco-rotate 0.5s ease-in-out infinite alternate; transform-origin: center; }
+        body.disco-mode .video-card-premium, body.disco-mode .card, body.disco-mode .news-card, body.disco-mode .gear-card, body.disco-mode .channel-card-compact, body.disco-mode .shorts-card, body.disco-mode .faq-item, body.disco-mode nav, body.disco-mode .mobile-header, body.disco-mode footer { animation: disco-rotate 0.5s ease-in-out infinite alternate; transform-origin: center; }
         @keyframes disco-rotate { 0% { transform: rotate(-1.5deg) scale(0.985); filter: hue-rotate(0deg) saturate(1.4); } 100% { transform: rotate(1.5deg) scale(1.015); filter: hue-rotate(180deg) saturate(1.8); } }
         body.disco-mode h1, body.disco-mode h2, body.disco-mode h3, body.disco-mode .hero-title-main, body.disco-mode .hero-title-sub, body.disco-mode .section-header { animation: disco-text 0.4s linear infinite !important; background: linear-gradient(90deg, #ff006e, #fb5607, #ffbe0b, #06ffa5, #00d4ff, #8338ec, #ff006e) !important; background-size: 400% 100% !important; -webkit-background-clip: text !important; background-clip: text !important; color: transparent !important; }
         @keyframes disco-text { 0% { background-position: 0% 50%; } 100% { background-position: 400% 50%; } }
@@ -2220,14 +2394,6 @@
             <button class="action-sheet-btn" id="actionYTBtn"><i class="fab fa-youtube" style="color:#FF0000"></i> Åpne på YouTube</button>
             <button class="action-sheet-btn" onclick="closeActionSheet()"><i class="fas fa-times"></i> Avbryt</button>
         </div>
-    </div>
-
-    <div class="mobile-bottom-nav" id="mobileNav">
-        <div class="nav-indicator"></div>
-        <a href="#home" class="nav-item active" data-section="home" onclick="mobileNavClick(this)"><i class="fas fa-home"></i><span>Hjem</span></a>
-        <a href="#videos" class="nav-item" data-section="videos" onclick="mobileNavClick(this)"><i class="fas fa-play-circle"></i><span>Videoer</span></a>
-        <a href="#shorts" class="nav-item" data-section="shorts" onclick="mobileNavClick(this)"><i class="fas fa-bolt"></i><span>Shorts</span></a>
-        <a href="#stats" class="nav-item" data-section="stats" onclick="mobileNavClick(this)"><i class="fas fa-chart-bar"></i><span>Stats</span></a>
     </div>
 
     <section class="hero">
@@ -2758,7 +2924,10 @@
                 const eased = 1 - Math.pow(1 - progress, 3);
                 element.innerText = formatNumber(Math.round(target * eased));
                 if (progress < 1) requestAnimationFrame(update);
-                else if (typeof updateMobileQuickStats === 'function') updateMobileQuickStats();
+                else if (typeof updateMobileQuickStats === 'function') {
+                    updateMobileQuickStats();
+                    if (typeof pulseStat === 'function') pulseStat(element);
+                }
             }
             requestAnimationFrame(update);
         }
@@ -2900,34 +3069,14 @@ function applyFilters() {
             renderVideos(filtered, 'videoTrack');
         }
 
-        function mobileNavClick(el) {
-            document.querySelectorAll('.mobile-bottom-nav .nav-item').forEach(i => i.classList.remove('active'));
-            el.classList.add('active');
-            updateMobileNavIndicator(el);
-            triggerHaptic();
-        }
-        function updateMobileNavIndicator(activeEl) {
-            const nav = document.getElementById('mobileNav');
-            if (!nav || !activeEl) return;
-            const navRect = nav.getBoundingClientRect();
-            const itemRect = activeEl.getBoundingClientRect();
-            nav.style.setProperty('--nav-indicator-x', (itemRect.left - navRect.left) + 'px');
-            nav.style.setProperty('--nav-indicator-w', itemRect.width + 'px');
-        }
         function setupScrollSpy() {
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.nav-links a.text-link[data-section]');
-            const mobileNavItems = document.querySelectorAll('.mobile-bottom-nav .nav-item[data-section]');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const id = entry.target.id;
                         navLinks.forEach(l => l.classList.toggle('nav-active', l.dataset.section === id));
-                        mobileNavItems.forEach(i => {
-                            const isActive = i.dataset.section === id;
-                            i.classList.toggle('active', isActive);
-                            if (isActive) updateMobileNavIndicator(i);
-                        });
                     }
                 });
             }, { threshold: 0.3, rootMargin: '-100px 0px -50% 0px' });
@@ -3328,6 +3477,7 @@ function applyFilters() {
                     renderVideos(globalLongVideos, 'videoTrack');
                     renderShorts(globalShortVideos, 'shortsTrack');
                     setTimeout(() => setupTiltCards(), 200);
+                    setTimeout(() => tagNewVideos(), 300);
                 }
             } catch(e) {
                 console.error("API Error", e);
@@ -3689,7 +3839,6 @@ function applyFilters() {
             gsap.set('.hero-actions', { opacity: 0, y: 14, scale: 0.96 });
             gsap.set('.scroll-indicator', { opacity: 0 });
             gsap.set(['#mainNav', '.mobile-header'], { opacity: 0, y: -10 });
-            gsap.set('.mobile-bottom-nav', { opacity: 0, y: 14 });
             // The CSS sets .marquee-container.is-ready { opacity: 1 } — make sure it's there
             const marqueeEl = document.getElementById('marqueeBg');
             if (marqueeEl) marqueeEl.classList.add('is-ready');
@@ -3732,10 +3881,6 @@ function applyFilters() {
                 duration: 0.6, stagger: 0.04,
                 ease: 'power2.out'
             }, 1.5);
-            tl.to('.mobile-bottom-nav', {
-                opacity: 1, y: 0,
-                duration: 0.6, ease: 'power2.out'
-            }, 1.55);
             tl.to('.scroll-indicator', {
                 opacity: 1,
                 duration: 0.5
@@ -3795,49 +3940,18 @@ function applyFilters() {
             setupCardMouseTracking();
             setupSectionIndicator();
             if (isMobile) {
-                setupMobileBottomNavHide();
                 setupMobileStickyBar();
                 setupMobileQuickStats();
                 setupMobileLongPress();
                 setupPullToRefresh();
-                setupMobileDoubleTapHome();
                 setupMobileTapRipple();
                 setupMobileSwipeLightbox();
+                setupMobileInViewSections();
+                setupMobileSectionRail();
             }
         });
 
         // === STATS EXTRA TOGGLE ===
-        // === Mobile bottom nav auto-hide ===
-        function setupMobileBottomNavHide() {
-            const nav = document.getElementById('mobileNav');
-            const fab = document.getElementById('mobileFab');
-            if (!nav) return;
-            let lastY = window.scrollY;
-            let ticking = false;
-            window.addEventListener('scroll', () => {
-                if (!ticking) {
-                    requestAnimationFrame(() => {
-                        const y = window.scrollY;
-                        const dy = y - lastY;
-                        if (y < 80) {
-                            nav.classList.remove('is-hidden');
-                            fab?.classList.remove('nav-hidden');
-                        } else if (dy > 8) {
-                            // scrolling down → hide nav
-                            nav.classList.add('is-hidden');
-                            fab?.classList.add('nav-hidden');
-                        } else if (dy < -8) {
-                            // scrolling up → show nav
-                            nav.classList.remove('is-hidden');
-                            fab?.classList.remove('nav-hidden');
-                        }
-                        lastY = y;
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            }, { passive: true });
-        }
 
         // === Mobile sticky search/filter bar (visible inside #videos section) ===
         function setupMobileStickyBar() {
@@ -4016,31 +4130,21 @@ function applyFilters() {
             return published > lastVisit;
         }
 
-        // === Double-tap Home in bottom nav → scroll to top ===
-        function setupMobileDoubleTapHome() {
-            let lastTap = 0;
-            const homeItem = document.querySelector('.mobile-bottom-nav .nav-item[data-section="home"]');
-            if (!homeItem) return;
-            homeItem.addEventListener('click', (e) => {
-                const now = Date.now();
-                if (now - lastTap < 350) {
-                    e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                    triggerHaptic('double');
-                }
-                lastTap = now;
-            });
-        }
-
         // === Mobile tap ripple feedback ===
         function setupMobileTapRipple() {
             document.addEventListener('touchstart', (e) => {
-                const target = e.target.closest('.video-card-premium, .shorts-card, .btn-hero, .btn-ultra, .gear-card, .faq-item, .nav-item');
+                const target = e.target.closest('.video-card-premium, .shorts-card, .btn-hero, .btn-ultra, .gear-card, .faq-item');
                 if (!target) return;
                 if (e.target.closest('.card-action-btn, input, button[onclick]')) return;
                 const rect = target.getBoundingClientRect();
                 const x = e.touches[0].clientX - rect.left;
                 const y = e.touches[0].clientY - rect.top;
+                // Set CSS custom props for gradient ripple
+                const xPct = ((x / rect.width) * 100).toFixed(1) + '%';
+                const yPct = ((y / rect.height) * 100).toFixed(1) + '%';
+                target.style.setProperty('--ripple-x', xPct);
+                target.style.setProperty('--ripple-y', yPct);
+                // Also drop the older centered ripple
                 const ripple = document.createElement('span');
                 ripple.className = 'mobile-ripple';
                 ripple.style.left = x + 'px';
@@ -4052,6 +4156,88 @@ function applyFilters() {
                 target.appendChild(ripple);
                 setTimeout(() => ripple.remove(), 600);
             }, { passive: true });
+        }
+
+        // === Mobile: mark new videos (uploaded within 7 days) with a "NY" badge ===
+        function tagNewVideos() {
+            if (!isMobile) return;
+            const cutoff = Date.now() - (7 * 24 * 3600 * 1000);
+            document.querySelectorAll('.video-card-premium, .shorts-card').forEach(card => {
+                const vid = card.dataset.videoId;
+                const all = [...globalLongVideos, ...globalShortVideos];
+                const v = all.find(x => x.id === vid);
+                if (!v) return;
+                const published = new Date(v.snippet.publishedAt).getTime();
+                if (published > cutoff && !card.querySelector('.new-badge')) {
+                    const wrapper = card.querySelector('.premium-thumb-wrapper') || card.querySelector('.shorts-thumb-wrapper');
+                    if (wrapper) {
+                        const badge = document.createElement('div');
+                        badge.className = 'new-badge';
+                        badge.textContent = 'NY';
+                        wrapper.appendChild(badge);
+                    }
+                }
+            });
+        }
+
+        // === Mobile: in-view section tracking for transition effects ===
+        function setupMobileInViewSections() {
+            if (!isMobile) return;
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    entry.target.classList.toggle('in-view', entry.isIntersecting);
+                });
+            }, { threshold: 0.15, rootMargin: '-10% 0px -20% 0px' });
+            sections.forEach(s => observer.observe(s));
+        }
+
+        // === Mobile: section rail dots on the left edge ===
+        function setupMobileSectionRail() {
+            if (!isMobile) return;
+            const sections = document.querySelectorAll('section[id]');
+            if (!sections.length) return;
+            const rail = document.createElement('div');
+            rail.className = 'section-rail-mobile';
+            sections.forEach((s, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'section-rail-dot';
+                dot.dataset.section = s.id;
+                if (i === 0) dot.classList.add('active');
+                rail.appendChild(dot);
+            });
+            document.body.appendChild(rail);
+
+            // Show rail once user has scrolled past hero
+            let lastShow = false;
+            window.addEventListener('scroll', () => {
+                const show = window.scrollY > 200;
+                if (show !== lastShow) {
+                    rail.classList.toggle('visible', show);
+                    lastShow = show;
+                }
+            }, { passive: true });
+
+            // Mark active dot via IntersectionObserver
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        rail.querySelectorAll('.section-rail-dot').forEach(d => {
+                            d.classList.toggle('active', d.dataset.section === id);
+                        });
+                    }
+                });
+            }, { threshold: 0.3, rootMargin: '-100px 0px -50% 0px' });
+            sections.forEach(s => observer.observe(s));
+        }
+
+        // === Mobile: pulse stat numbers when they finish counting ===
+        function pulseStat(el) {
+            if (!isMobile || !el) return;
+            el.classList.remove('pulse');
+            void el.offsetWidth;  // force reflow
+            el.classList.add('pulse');
         }
 
         // === Swipe horizontally inside lightbox to change video (mobile) ===
