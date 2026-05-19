@@ -353,6 +353,11 @@
         .nav-sub-btn:hover::before { left: 220%; transition: left 0.8s ease; }
 
         .mobile-header { display: none; }
+        .mobile-menu-toggle { display: none; }
+        .mobile-menu-overlay { display: none; }
+        .ptr-indicator { display: none; }
+        .mobile-sticky-bar { display: none; }
+        .mobile-fab { display: none; }
 
         /* === HERO — no vignette === */
         .hero { height: 100vh; height: 100dvh; min-height: 600px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; text-align: center; background: var(--bg); }
@@ -1304,8 +1309,11 @@
                 border-color: rgba(0, 194, 255, 0.3);
             }
 
+            .mobile-menu-toggle { display: flex; }
+
             /* === Mobile slide-in menu (from right) === */
             .mobile-menu-overlay {
+                display: block;
                 position: fixed;
                 inset: 0;
                 z-index: 99997;
@@ -1406,25 +1414,30 @@
                 font-weight: 600;
                 font-size: 0.98rem;
                 position: relative;
-                transition: background 0.25s ease, transform 0.2s ease, color 0.25s ease;
+                transition: background 0.25s ease, transform 0.2s ease, color 0.25s ease, opacity 0.4s ease;
                 -webkit-tap-highlight-color: transparent;
+            }
+            /* Animation: start hidden when panel is closed, slide in when opened */
+            .mobile-menu-overlay:not(.open) .mobile-menu-link {
                 opacity: 0;
                 transform: translateX(20px);
+                transition: none;
             }
             .mobile-menu-overlay.open .mobile-menu-link {
                 opacity: 1;
                 transform: translateX(0);
-                transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, color 0.25s ease;
+                transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                            background 0.25s ease, color 0.25s ease;
             }
             /* Stagger each link in */
-            .mobile-menu-overlay.open .mobile-menu-link:nth-child(1) { transition-delay: 0.1s; }
-            .mobile-menu-overlay.open .mobile-menu-link:nth-child(2) { transition-delay: 0.15s; }
-            .mobile-menu-overlay.open .mobile-menu-link:nth-child(3) { transition-delay: 0.2s; }
-            .mobile-menu-overlay.open .mobile-menu-link:nth-child(4) { transition-delay: 0.25s; }
-            .mobile-menu-overlay.open .mobile-menu-link:nth-child(5) { transition-delay: 0.3s; }
-            .mobile-menu-overlay.open .mobile-menu-link:nth-child(6) { transition-delay: 0.35s; }
-            .mobile-menu-overlay.open .mobile-menu-link:nth-child(7) { transition-delay: 0.4s; }
-            .mobile-menu-overlay.open .mobile-menu-link:nth-child(8) { transition-delay: 0.45s; }
+            .mobile-menu-overlay.open .mobile-menu-link:nth-child(1) { transition-delay: 0.08s, 0.08s, 0s, 0s; }
+            .mobile-menu-overlay.open .mobile-menu-link:nth-child(2) { transition-delay: 0.12s, 0.12s, 0s, 0s; }
+            .mobile-menu-overlay.open .mobile-menu-link:nth-child(3) { transition-delay: 0.16s, 0.16s, 0s, 0s; }
+            .mobile-menu-overlay.open .mobile-menu-link:nth-child(4) { transition-delay: 0.2s, 0.2s, 0s, 0s; }
+            .mobile-menu-overlay.open .mobile-menu-link:nth-child(5) { transition-delay: 0.24s, 0.24s, 0s, 0s; }
+            .mobile-menu-overlay.open .mobile-menu-link:nth-child(6) { transition-delay: 0.28s, 0.28s, 0s, 0s; }
+            .mobile-menu-overlay.open .mobile-menu-link:nth-child(7) { transition-delay: 0.32s, 0.32s, 0s, 0s; }
+            .mobile-menu-overlay.open .mobile-menu-link:nth-child(8) { transition-delay: 0.36s, 0.36s, 0s, 0s; }
             .mobile-menu-link > i:first-child {
                 width: 36px; height: 36px;
                 border-radius: 10px;
@@ -1473,13 +1486,16 @@
                 box-shadow: 0 8px 24px -6px rgba(255, 0, 0, 0.5);
                 -webkit-tap-highlight-color: transparent;
                 transition: transform 0.2s ease;
+            }
+            .mobile-menu-overlay:not(.open) .mobile-menu-cta {
                 opacity: 0;
                 transform: translateY(20px);
+                transition: none;
             }
             .mobile-menu-overlay.open .mobile-menu-cta {
                 opacity: 1;
                 transform: translateY(0);
-                transition: opacity 0.5s ease 0.55s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.55s;
+                transition: opacity 0.5s ease 0.45s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.45s;
             }
             .mobile-menu-cta:active { transform: scale(0.97); }
             .mobile-menu-cta i { font-size: 1.1rem; }
@@ -1791,7 +1807,16 @@
 
             /* === Performance: disable heavy effects on mobile === */
             .parallax-img { transform: none !important; }
-            .reveal { transition-duration: 0.4s !important; }
+            /* === Smoother mobile reveal animations === */
+            .reveal {
+                opacity: 0;
+                transform: translateY(28px);
+                transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) !important;
+            }
+            .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
             * { will-change: auto !important; }
 
             /* === Larger, easier-to-tap interactive elements === */
@@ -2156,9 +2181,6 @@
             /* === Larger touch areas for FAQ === */
             .faq-question { padding: 18px 6px !important; min-height: 56px; }
             .faq-item { padding: 4px 0; }
-
-            /* === Mobile-only smooth fade on cards entering viewport === */
-            .reveal { transform: translateY(20px); }
 
             /* === Fix horizontal overflow === */
             html, body { overflow-x: hidden; max-width: 100vw; }
@@ -2834,16 +2856,72 @@
             toggle.setAttribute('aria-expanded', 'true');
             lockBodyScroll();
             triggerHaptic('light');
+            // Push a history entry so Android back button closes the menu instead of leaving the page
+            try { history.pushState({ mobileMenuOpen: true }, ''); } catch (e) {}
         }
         function closeMobileMenu() {
             const overlay = document.getElementById('mobileMenuOverlay');
             const toggle = document.getElementById('mobileMenuToggle');
             if (!overlay || !toggle) return;
+            if (!overlay.classList.contains('open')) return;
             overlay.classList.remove('open');
             toggle.classList.remove('is-open');
             toggle.setAttribute('aria-expanded', 'false');
             unlockBodyScroll();
+            triggerHaptic('light');
+            // Pop the history entry if it's ours
+            if (history.state && history.state.mobileMenuOpen) {
+                try { history.back(); } catch (e) {}
+            }
         }
+        // Listen for browser back button to close menu
+        window.addEventListener('popstate', (e) => {
+            const overlay = document.getElementById('mobileMenuOverlay');
+            if (overlay && overlay.classList.contains('open')) {
+                overlay.classList.remove('open');
+                const toggle = document.getElementById('mobileMenuToggle');
+                if (toggle) {
+                    toggle.classList.remove('is-open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                }
+                unlockBodyScroll();
+            }
+        });
+        // Swipe-right-to-close on the menu panel
+        (function setupMenuSwipe() {
+            const panel = document.getElementById('mobileMenuPanel');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            if (!panel || !overlay) return;
+            let startX = 0, startY = 0, currentX = 0, dragging = false;
+            panel.addEventListener('touchstart', (e) => {
+                if (!overlay.classList.contains('open')) return;
+                if (e.target.closest('.mobile-menu-close, .mobile-menu-link, .mobile-menu-cta')) return;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                currentX = startX;
+                dragging = true;
+            }, { passive: true });
+            panel.addEventListener('touchmove', (e) => {
+                if (!dragging) return;
+                currentX = e.touches[0].clientX;
+                const dx = currentX - startX;
+                const dy = Math.abs(e.touches[0].clientY - startY);
+                // Only horizontal drags trigger swipe
+                if (Math.abs(dx) < dy) { dragging = false; panel.style.transform = ''; return; }
+                if (dx > 0) {
+                    panel.style.transform = `translateX(${dx}px)`;
+                    panel.style.transition = 'none';
+                }
+            }, { passive: true });
+            panel.addEventListener('touchend', () => {
+                if (!dragging) return;
+                dragging = false;
+                const dx = currentX - startX;
+                panel.style.transition = '';
+                panel.style.transform = '';
+                if (dx > 80) closeMobileMenu();
+            });
+        })();
 
         // === Mobile section drawer ===
         function scrollToSection(id) {
@@ -2908,6 +2986,49 @@
                 span.innerText = "+";
             }
         }
+        // === Defer stats counters until scrolled into view ===
+        // Solves: counters previously only animated if you happened to be on
+        // the stats section when page loaded. Now they wait until visible.
+        const _statsCounterQueue = new Map();
+        let _statsObserverInit = false;
+        function queueStatsCounter(elementId, target, duration = 1500) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            _statsCounterQueue.set(elementId, { target, duration, started: false });
+            if (el.innerHTML.includes('skeleton')) el.innerHTML = '0';
+            initStatsObserver();
+            // If user is already past stats on load, fire immediately
+            const stats = document.getElementById('stats');
+            if (stats) {
+                const rect = stats.getBoundingClientRect();
+                const inView = rect.top < window.innerHeight * 0.85 && rect.bottom > 0;
+                if (inView) flushStatsCounters();
+            }
+        }
+        function flushStatsCounters() {
+            _statsCounterQueue.forEach((entry, id) => {
+                if (entry.started) return;
+                entry.started = true;
+                const el = document.getElementById(id);
+                if (el) animateCounter(el, entry.target, entry.duration);
+            });
+        }
+        function initStatsObserver() {
+            if (_statsObserverInit) return;
+            const stats = document.getElementById('stats');
+            if (!stats) return;
+            _statsObserverInit = true;
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.15) {
+                        flushStatsCounters();
+                        obs.unobserve(stats);
+                    }
+                });
+            }, { threshold: [0, 0.15, 0.3] });
+            obs.observe(stats);
+        }
+
         function animateCounter(element, target, duration = 1500) {
             const startTime = performance.now();
             function update(currentTime) {
@@ -3404,9 +3525,10 @@ function applyFilters() {
                     const vids = parseInt(s.videoCount);
                     window._channelSubs = subs;
                     window._channelViews = views;
-                    animateCounter(document.getElementById('subCount'), subs);
-                    animateCounter(document.getElementById('viewCount'), views);
-                    animateCounter(document.getElementById('videoCount'), vids, 800);
+                    // Defer counter animations until the stats section is actually visible
+                    queueStatsCounter('subCount', subs, 1500);
+                    queueStatsCounter('viewCount', views, 1500);
+                    queueStatsCounter('videoCount', vids, 800);
 const trend = document.getElementById('subTrend');
                     if (trend) { trend.style.display = 'inline-flex'; document.getElementById('subTrendText').innerText = 'Voksende'; }
                     if (vids > 0) {
@@ -3988,6 +4110,9 @@ const trend = document.getElementById('subTrend');
                 document.body.classList.toggle('scrolled-deep', scrolled > 25 && scrolled <= 60);
                 document.body.classList.toggle('scrolled-deeper', scrolled > 60);
             }, { passive: true });
+            // Trigger reveals slightly before elements enter view so they don't
+            // "pop" — mobile uses larger margin since cards are bigger.
+            const revealRootMargin = isMobile ? '0px 0px -12% 0px' : '0px 0px -8% 0px';
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry, i) => {
                     if (entry.isIntersecting) {
@@ -4001,7 +4126,7 @@ const trend = document.getElementById('subTrend');
                         observer.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
+            }, { threshold: 0.05, rootMargin: revealRootMargin });
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
             setupScrollSpy();
             setupCustomDropdowns();
